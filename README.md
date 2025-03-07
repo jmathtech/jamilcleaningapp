@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+https://github.com/user-attachments/assets/8f3a089f-22fe-466c-a1a1-c8090310b7f3
+
 # jamilcleaningapp
 Majestik Magik Cleaning Web application 
 =======

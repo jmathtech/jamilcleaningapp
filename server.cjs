@@ -1,7 +1,7 @@
-const express = require('express');
-const fs = require('fs');
-const https = require('https');
-const next = require('next');
+import express from 'express';
+import fs from 'fs';
+import https from 'https';
+import next from 'next';
 
 // Set environment for Next.js
 const dev = process.env.NODE_ENV !== 'production';

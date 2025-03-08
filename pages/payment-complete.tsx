@@ -1,3 +1,9 @@
+/* 
+  Created by Jamil Matheny, Majestik Magik 
+  Website: cleaning.majestikmagik.com
+  Updated: 12/08/2024
+*/
+
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Navbar from '../components/Navbar'; // Import Navbar

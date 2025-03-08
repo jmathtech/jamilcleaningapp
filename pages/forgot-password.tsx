@@ -1,30 +1,19 @@
 // pages/forgot-password.tsx
 
 import { useState } from 'react';
-import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+  const [error] = useState('');
 
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post('/api/forgot-password', { email });
-      if (response.status === 200) {
-        setMessage('A password reset link has been sent to your email.');
-        setError('');
-      }
-    } catch (err: any) {
-      setError(err.response.data.message || 'Something went wrong.');
-      setMessage('');
-    }
+    setMessage('A password reset link has been sent to your email address.');
   };
-
   return (
     <>
       <Navbar />

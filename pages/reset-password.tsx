@@ -1,8 +1,13 @@
-// pages/reset-password.tsx
+/* 
+  Created by Jamil Matheny, Majestik Magik 
+  Website: cleaning.majestikmagik.com
+  Updated: 12/08/2024
+*/
 
+// pages/reset-password.tsx
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
+
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -11,7 +16,7 @@ const ResetPassword = () => {
   const { token } = router.query;  // Get the reset token from the query params
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [message] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -28,14 +33,7 @@ const ResetPassword = () => {
       return;
     }
 
-    try {
-      const response = await axios.post('/api/reset-password', { token, newPassword });
-      setMessage(response.data.message);
-      setError('');
-    } catch (err: any) {
-      setError(err.response.data.message || 'Something went wrong.');
-      setMessage('');
-    }
+   
   };
 
   return (

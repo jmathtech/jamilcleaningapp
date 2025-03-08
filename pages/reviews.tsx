@@ -10,7 +10,8 @@ import ReviewsForm from '../components/ReviewsForm';
 export default function ReviewsPage() {
   return (
 
-        <ReviewsForm />
+        <ReviewsForm bookingData={{ booking_id: ''}} />
+      
 
    
   );

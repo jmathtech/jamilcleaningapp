@@ -1,3 +1,9 @@
+/* 
+  Created by Jamil Matheny, Majestik Magik 
+  Website: cleaning.majestikmagik.com
+  Updated: 12/08/2024
+*/
+
 import Navbar from "../components/Navbar"; // Import Navbar component
 import Footer from "../components/Footer";
 const Unauthorized = () => {

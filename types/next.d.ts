@@ -1,7 +1,5 @@
 // types/next.d.ts
-import { NextApiRequest } from 'next';
-
-  interface UserPayload {
+ export interface UserPayload {
           
       customerId: string;
       bookingId: string;

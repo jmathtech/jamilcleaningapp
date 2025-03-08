@@ -26,7 +26,7 @@ export default async function handler(
         try {
             body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
         } catch (parseError) {
-            return res.status(400).json({ message: 'Invalid JSON in request body' });
+            return res.status(400).json({ message: 'Invalid JSON in request body', parseError });
         }
 
         const { authorization } = req.headers;
@@ -49,7 +49,7 @@ export default async function handler(
         }
 
         const customerId = decodedToken.customerId;
-        const { bookingId, date, time } = req.body;
+        const { bookingId, date, time } = body;
 
         // Validate request body
         if (!bookingId || !date || !time) {

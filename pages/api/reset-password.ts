@@ -31,8 +31,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     res.status(200).json({ message: 'Password has been successfully reset.' });
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Invalid or expired token.' });
+    res.status(500).json({ message: 'Invalid or expired token.', error });
   }
 }

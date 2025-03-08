@@ -2,6 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { query } from "../../../lib/db";
+import { RowDataPacket } from "mysql2";
 
 interface DecodedToken extends JwtPayload {
     customerId: string;
@@ -48,11 +49,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             [bookingId, customerId]
         );
 
-        if (result.length === 0) {
+        if (Array.isArray(result) && result.length === 0) {
             return res.status(404).json({ success: false, message: "Booking not found." });
         }
 
-        return res.status(200).json(result[0]); 
+        return res.status(200).json ((result as RowDataPacket[] )[0]); 
     } catch (error) {
         console.error("Get Booking by ID API error:", error);
         return res.status(500).json({ success: false, message: "Failed to retrieve booking." });

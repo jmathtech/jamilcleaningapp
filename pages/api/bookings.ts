@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { query } from "../../lib/db";
+import { RowDataPacket } from "mysql2";
 
 interface DecodedToken extends JwtPayload {
   customerId: string;
@@ -55,11 +56,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.log("Latest booking from database:", result);
 
-    if (result.length === 0) {
+    if (Array.isArray(result) && result.length === 0) {
       return res.status(404).json({ success: false, message: "Booking not found." });
+    } else {
+      return res.status(500).json({ success: false, message: "Unexpect response from database." });
     }
 
-    return res.status(200).json({ success: true, bookingData: result[0] });
+    return res.status(200).json({ success: true, bookingData: ( result as RowDataPacket[] )[0] });
   } catch (error) {
     console.error("Get Latest Booking API error:", error);
     return res.status(500).json({ success: false, message: "Failed to retrieve latest booking." });

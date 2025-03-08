@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-import { OkPacket } from 'mysql2'; // Import OkPacket type from mysql2
+import { OkPacket, RowDataPacket } from 'mysql2'; // Import OkPacket type from mysql2
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -8,7 +8,7 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
-export const query = async (sql: string, values: any[] = []): Promise<any> => {
+export const query = async (sql: string, values: unknown[] = []): Promise<OkPacket | RowDataPacket[]> => {
   const [results] = await pool.execute(sql, values);
 
   // If it's an "INSERT" query, return OkPacket (which includes affectedRows, insertId, etc.)
@@ -17,5 +17,5 @@ export const query = async (sql: string, values: any[] = []): Promise<any> => {
   }
   
   // If it's a SELECT query, return RowDataPacket[] (array of rows)
-  return results;
+  return results as OkPacket | RowDataPacket[];
 };

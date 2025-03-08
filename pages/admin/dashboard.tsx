@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import AdminNavbar from '../../components/AdminNavbar';
 import Footer from '../../components/Footer';
 // import authGuard from "utils/admin/authGuard";
 
 
-ChartJS.register(ArcElement, Tooltip, Legend);
-
 const AdminDashboard = () => {
   const [totalCustomers, setTotalCustomers] = useState(0);
   const [totalBookings, setTotalBookings] = useState(0);
-  const [feedbackReviews, setFeedbackReviews] = useState([]);
+  const [feedbackReviews, setFeedbackReviews] = useState<
+  { customerName: string; feedback: string; rating: number }[]
+  >([]);
 
   useEffect(() => {
     const mockTotalCustomers = 150;
@@ -26,16 +25,7 @@ const AdminDashboard = () => {
     setFeedbackReviews(mockFeedbackReviews);
   }, []);
 
-  const chartData = {
-    labels: ['Completed', 'Scheduled', 'Canceled'],
-    datasets: [
-      {
-        data: [120, 80, 50],
-        backgroundColor: ['#3cb1b1', '#8ab13c', '#d1ac8b'],
-      },
-    ],
-  };
-
+ 
   return (
     <div className="min-h-screen flex flex-col bg-gray">
       <AdminNavbar />
@@ -53,8 +43,6 @@ const AdminDashboard = () => {
             <p className="text-xl font-bold">{totalBookings}</p>
           </div>
         </div>
-
-      
 
         <div className="bg-white p-6 rounded shadow mt-6">
           <h3 className="text-lg text-gray-600 font-semibold mb-2">Bookings</h3>

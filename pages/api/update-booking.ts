@@ -26,7 +26,8 @@ export default async function handler(
         try {
             body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
         } catch (parseError) {
-            return res.status(400).json({ message: 'Invalid JSON in request body', parseError });
+            console.error('Error parsing JSON:', parseError);
+            return res.status(400).json({ message: 'Invalid JSON in request body', body});
         }
 
         const { authorization } = req.headers;
@@ -49,7 +50,7 @@ export default async function handler(
         }
 
         const customerId = decodedToken.customerId;
-        const { bookingId, date, time } = body;
+        const { bookingId, date, time } = req.body;
 
         // Validate request body
         if (!bookingId || !date || !time) {
@@ -62,11 +63,11 @@ export default async function handler(
             [bookingId]
         );
 
-        if (!bookingCheckResult?.length) {
+        if (Array.isArray(bookingCheckResult) && !bookingCheckResult.length) {
             return res.status(404).json({ message: 'Booking not found.' });
         }
-
-        if (bookingCheckResult[0].customer_id !== customerId) {
+        
+        if (Array.isArray(bookingCheckResult) && bookingCheckResult[0].customer_id !== customerId) {
             return res.status(403).json({ message: 'Forbidden: Booking does not belong to the customer.' });
         }
 
@@ -76,7 +77,7 @@ export default async function handler(
             [date, time, bookingId]
         );
 
-        if (!result?.affectedRows) {
+        if (!result) {
             return res.status(500).json({
                 message: "Failed to update booking to the database.",
             });

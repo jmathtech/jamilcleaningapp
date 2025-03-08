@@ -11,7 +11,7 @@ const pool = mysql.createPool({
 export const query = async (sql: string, values: unknown[] = []): Promise<OkPacket | RowDataPacket[]> => {
   const [results] = await pool.execute(sql, values);
 
-  // If it's an "INSERT" query, return OkPacket (which includes affectedRows, insertId, etc.)
+  // If it's an "INSERT" query, return OkPacket (which includes affectedRows, insertId, results, etc.)
   if (sql.startsWith('INSERT') || sql.startsWith('UPDATE') || sql.startsWith('DELETE')) {
     return results as OkPacket;
   }

@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Image from "next/image";
 import authGuard from "../utils/authGuard";
 
 
@@ -112,7 +113,7 @@ const BookingForm = () => {
       <div className="flex justify-center items-center min-h-screen px-8 py-12 booking-container">
         <div className="bg-white p-6 rounded-lg shadow w-full max-w-3xl">
           <div className="flex justify-center items-center p-12">
-            <img
+            <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
               style={{ width: "auto", height: "auto" }}

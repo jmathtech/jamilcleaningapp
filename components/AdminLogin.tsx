@@ -12,6 +12,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Navbar from "./AdminNavbar"; // Import Navbar component
 import Footer from "./Footer"; // Import Footer component
+import Image from "next/image";
+import Link from "next/link";
 import { useAuth } from "../pages/context/AuthContext"; // Adjust path if needed
 
 
@@ -19,8 +21,7 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const { setFirstName, setLastName, setPhone, setAddress, setToken } =
+    const { setFirstName, setLastName, setToken } =
       useAuth();
   const router = useRouter();
 
@@ -71,7 +72,7 @@ const AdminLogin = () => {
           className="bg-white p-10 rounded-lg shadow-xl w-full max-w-lg"
         >
           <div className="flex justify-center items-center p-10">
-            <img
+            <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
               style={{ width: "80%", height: "auto" }}
@@ -112,12 +113,12 @@ const AdminLogin = () => {
             </button>
           </div>
           <div className="mt-4 text-center">
-            <a
+            <Link
               href="/forgot-password"
               className="text-sm text-yellow-600 hover:underline"
             >
               Forgot Password?
-            </a>
+            </Link>
           </div>
         </form>
       </div>

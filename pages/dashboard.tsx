@@ -642,10 +642,10 @@ const Dashboard = () => {
             )}
 
             <div className="text-xs text-gray-200 flex justify-end">
-              <a href="https://www.majestikmagik.com">
+              <Link href="https://www.majestikmagik.com">
                 &copy; Powered by MajestikMagik.com <br /> Design by Jamil
                 Matheny
-              </a>
+              </Link>
             </div>
           </div>
 

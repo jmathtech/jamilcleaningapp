@@ -8,6 +8,8 @@
 
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -24,14 +26,14 @@ const AdminSignUpConfirmation = () => {
     }, 5000); // Redirect after 5 seconds
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [router]);
 
   return (
     <>
       <Navbar /> {/* Navbar component */}
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-10">
         <div className="bg-white shadow-lg rounded-lg p-8 max-w-lg text-center">
-          <img
+          <Image
             src="/img/majestik_magik_cleaning_01.png"
             alt="Majestik Magik Cleaning"
             style={{ width: "80%", height: "auto" }}
@@ -49,9 +51,9 @@ const AdminSignUpConfirmation = () => {
             Go to Login
           </button>
         </div>
-        <a href="/" className="text-[#8ab13c] underline hover:text-[#C5D89D]">
+        <Link href="/" className="text-[#8ab13c] underline hover:text-[#C5D89D]">
           Continue Exploring
-        </a>
+        </Link>
       </div>
       <Footer /> {/* Footer component */}
     </>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Image from "next/image";
 import authGuard from "utils/authGuard";
 
 interface BookingData {
@@ -120,7 +121,7 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
       <main className="min-h-screen flex items-center justify-center reviews-container">
         <div className="w-full max-w-2xl px-8 py-12 bg-white rounded-lg shadow">
           <div className="text-center">
-            <img
+            <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
               className="mx-auto mb-6"

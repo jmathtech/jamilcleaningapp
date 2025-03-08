@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Image from "next/image";
 import authGuard from "../utils/authGuard";
 import convertToSubcurrency from "../lib/convertToSubcurrency";
 
@@ -93,7 +94,7 @@ const PaymentForm = () => {
     };
 
     fetchBookingData();
-  }, [token]);
+  }, [token, formData]);
 
   useEffect(() => {
     const createPaymentIntent = async () => {
@@ -131,7 +132,7 @@ const PaymentForm = () => {
     } else {
       setClientSecret(null);
     }
-  }, [formData.total_price]);
+  }, [token, formData.total_price]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -167,7 +168,7 @@ const PaymentForm = () => {
         </video>
         <div className="bg-white p-12 rounded-lg shadow-xl max-w-full max-w-3xl">
           <div className="flex justify-center items-center">
-            <img
+            <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
               style={{ width: "45%", height: "auto" }}

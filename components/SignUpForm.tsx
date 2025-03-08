@@ -10,6 +10,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image"; // Import Image component
 import Navbar from "./Navbar"; // Import Navbar component
 import Footer from "./Footer"; // Import Footer component
 
@@ -77,7 +78,7 @@ const SignUp = () => {
           className="bg-white p-10 rounded-lg shadow w-full max-w-lg"
         >
           <div className="flex justify-center items-center p-10">
-            <img
+            <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
               style={{ width: "auto", height: "auto" }}

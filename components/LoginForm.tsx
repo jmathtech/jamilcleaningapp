@@ -2,6 +2,8 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Image from "next/image";
+import Link from "next/link";
 import { useAuth } from "../pages/context/AuthContext"; // Adjust path if needed
 
 const Login = () => {
@@ -87,7 +89,7 @@ const Login = () => {
           className="bg-white p-10 rounded-lg shadow w-full max-w-lg"
         >
           <div className="flex justify-center items-center p-10">
-            <img
+            <Image // Image component from next/image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
               style={{ width: "auto", height: "auto" }}
@@ -142,12 +144,12 @@ const Login = () => {
             </button>
           </div>
           <div className="mt-4 text-center">
-            <a
+            <Link
               href="/forgot-password"
               className="text-sm text-yellow-600 hover:underline"
             >
               Forgot Password?
-            </a>
+            </Link>
           </div>
         </form>
       </div>

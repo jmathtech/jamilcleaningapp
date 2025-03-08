@@ -26,6 +26,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(201).json({ message: 'User registered successfully.', result });
   } catch (error) {
     console.error('Database error:', error);
-    res.status(500).json({ message: 'Database error occurred.', error: error.message });
+    res.status(500).json({ message: 'Database error occurred.', error});
   }
 }

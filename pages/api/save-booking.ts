@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { query } from "../../lib/db";
+import { OkPacket } from "mysql2";
 
 interface DecodedToken extends JwtPayload {
   customerId: string;
@@ -84,14 +85,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       ]
     );
 
-    if (!result || !result.insertId) {
+    if (!result || (result as OkPacket).affectedRows === 0) {
       return res.status(500).json({
         success: false,
         message: "Failed to save booking to the database.",
       });
     }
 
-    const bookingId = result.insertId;
+    const bookingId = (result as OkPacket).insertId;
     const token = jwt.sign({ customerId, bookingId }, process.env.JWT_SECRET as string, {
       expiresIn: "30d",
     });

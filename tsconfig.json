@@ -31,19 +31,26 @@
       "@/*": ["./src/*"],
       "@/pages/*": ["src/pages/*"],
       "@/components/*": ["src/components/*"],
-      "@/lib/*": ["src/lib/*"]
+      "@/lib/*": ["src/lib/*"],
+      "@/api/*": ["src/api/*"]
     },
     "noEmit": true 
   },
   "include": [
-    "pages/**/*",
+    "pages/api/*.ts",
+    "pages/**/*/*.ts",
+    "pages/**/*/*.tsx",
+    "components/**/*/*.ts",
+    "components/**/*/*.tsx",
+    "lib/**/*/*.ts",
+    "lib/**/*/*.tsx",
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "src/types/**/*.d.ts",
     "next.config.ts",
-    "next.config.cjs" 
+    "next.config.cjs"
   ],
   "exclude": [
     "node_modules",

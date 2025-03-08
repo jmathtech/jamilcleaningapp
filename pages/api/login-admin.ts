@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcryptjs';
 import { query } from '../../lib/db'; // Adjust path if necessary
 import jwt from 'jsonwebtoken'; // Add this to handle JWT authentication
+import { RowDataPacket } from 'mysql2';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -20,11 +21,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Log the result to check its structure
     console.log('Database query result:', result); // Debugging log
 
-    if (result.length === 0) {
+    if (Array.isArray(result) && result.length === 0) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    const admin = result[0];
+    const admin = (result as RowDataPacket[])[0];
 
     if (!admin) {
       return res.status(401).json({ error: 'Invalid email or password' });

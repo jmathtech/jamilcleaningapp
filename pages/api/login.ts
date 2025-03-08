@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { query } from "../../lib/db";
 import jwt from "jsonwebtoken";
 import validator from "validator";
+import { RowDataPacket } from "mysql2";
 
 export default async function handler(
   req: NextApiRequest,
@@ -37,11 +38,11 @@ export default async function handler(
       [email]
     );
 
-    if (result.length === 0) {
+    if (Array.isArray(result) && result.length === 0) {
       return res.status(401).json({ message: "Invalid email or password. Please try again." });
     }
 
-    const user = result[0];
+    const user = (result as RowDataPacket[])[0];
 
     // If password matches, then the user can log in
     const isMatch = await bcrypt.compare(password, user.password);

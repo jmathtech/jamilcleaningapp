@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { hash } from 'bcryptjs';
 import { query } from '../../lib/db'; // Adjust path if necessary
+import { OkPacket } from 'mysql2';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -19,7 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       'INSERT INTO admin (first_name, last_name, email, phone, password, role) VALUES (?, ?, ?, ?, ?, ?)',
       [first_name, last_name, email, phone, hashedPassword, role || 'manager']
     );
-    res.status(201).json({ message: 'Admin registered successfully', id: result.insertId });
+    
+    const okPacket = result as OkPacket;
+    res.status(201).json({ message: 'Admin registered successfully', id: okPacket.insertId });
   } catch (error) {
     console.error('Error registering admin:', error);
     res.status(500).json({ error: 'Internal server error' });

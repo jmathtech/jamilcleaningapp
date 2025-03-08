@@ -8,7 +8,7 @@ const AdminDashboard = () => {
   const [totalCustomers, setTotalCustomers] = useState(0);
   const [totalBookings, setTotalBookings] = useState(0);
   const [feedbackReviews, setFeedbackReviews] = useState<
-  { customerName: string; feedback: string; rating: number }[]
+    { customerName: string; feedback: string; rating: number }[]
   >([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const AdminDashboard = () => {
     setFeedbackReviews(mockFeedbackReviews);
   }, []);
 
- 
+
   return (
     <div className="min-h-screen flex flex-col bg-gray">
       <AdminNavbar />
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
 
         <div className="bg-white p-6 rounded shadow mt-6">
           <h3 className="text-lg text-gray-600 font-semibold mb-2">Bookings</h3>
-        
+
         </div>
 
         {/* Feedback Reviews Section */}

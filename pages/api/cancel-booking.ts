@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { query } from "../../lib/db";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { OkPacket, RowDataPacket } from "mysql2";
 
 interface DecodedToken extends JwtPayload {
   customerId: string;
@@ -41,10 +42,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const result = await query(
       `DELETE FROM bookings WHERE booking_id = ? AND customer_id = ?`,
       [bookingId, customerId]
-    );
+    ) as OkPacket | RowDataPacket[];
 
     // Ensure result is properly validated
-    if (!result || result.affectedRows === 0) {
+    if (!result) {
+      return res.status(404).json({ success: false, message: "Booking not found." });
+    }
+
+    if ('affectedRows' in result && result.affectedRows === 0) {
       return res.status(404).json({ success: false, message: "Booking not found." });
     }
 

@@ -80,7 +80,7 @@ const removeCookie = (name: string) => {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 };
 
-export const BookingProvider = ({ children }: { children: React.ReactNode }) => {
+const BookingProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string>("");
   const [firstName, setFirstName] = useState<string | null>(null);
   const [lastName, setLastName] = useState<string | null>(null);
@@ -272,3 +272,5 @@ export const BookingProvider = ({ children }: { children: React.ReactNode }) => 
     </BookingContext.Provider>
   );
 };
+
+export default BookingProvider;

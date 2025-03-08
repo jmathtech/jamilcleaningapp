@@ -1,7 +1,6 @@
 // pages/api/forgot-password.ts
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import bcrypt from 'bcryptjs'; 
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import { query } from '../../lib/db';
@@ -56,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await transporter.sendMail(mailOptions);
 
     res.status(200).json({ message: 'Password reset link sent to your email.' });
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }

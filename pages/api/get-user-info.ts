@@ -16,12 +16,6 @@ interface JwtPayload {
   id: string;
   // Add other fields that you include in the token, if any
 }
-
-// Define types for the result of db.query()
-type QueryResult = {
-  rows: User[]; // Assuming you expect an array of users
-};
-
 type OkPacket = {
   affectedRows: number;
   insertId?: number;
@@ -47,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       decoded = jwt.verify(token, secretKey) as JwtPayload; // Decode the token
     } catch (error) {
-      return res.status(401).json({ message: 'Invalid or expired token' });
+      return res.status(401).json({ message: 'Invalid or expired token', error });
     }
 
     // Query the database to fetch user info by ID

@@ -7,6 +7,7 @@ orbs:
 
 jobs:
   build:
+    executor: node/default
     docker:
       - image: cimg/node:lts
     steps:
@@ -24,7 +25,6 @@ jobs:
       - run: npm run deploy
 
 workflows:
-  version: 2
   build_and_deploy:
     jobs:
       - build

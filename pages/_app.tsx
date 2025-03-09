@@ -1,7 +1,7 @@
 import '../styles/globals.css';
-import { AuthProvider } from './context/AuthContext';
+import AuthProvider from './context/AuthContext';
+import BookingProvider from './context/BookingContext';
 import type { AppProps } from 'next/app';
-import { BookingProvider } from './context/BookingContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

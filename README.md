@@ -1,7 +1,5 @@
 https://github.com/user-attachments/assets/8f3a089f-22fe-466c-a1a1-c8090310b7f3
 
-[![Run Datadog Synthetic tests](https://github.com/jmathtech/jamilcleaningapp/actions/workflows/datadog-synthetics.yml/badge.svg)](https://github.com/jmathtech/jamilcleaningapp/actions/workflows/datadog-synthetics.yml)
-
 # jamilcleaningapp
 Majestik Magik Cleaning Web application 
 =======

@@ -242,7 +242,7 @@ const Dashboard = () => {
   // Get the booking information 
   const handlePrint = () => {
     router.push('/print');
-};
+  };
 
   // Function to open the reschedule modal
   const openRescheduleModal = (bookingId: string) => {
@@ -280,7 +280,7 @@ const Dashboard = () => {
           setRescheduleDate("");
           setRescheduleTime("");
           setsuccessReschedule(true);
-          
+
         } else {
           console.error("Failed to reschedule booking:", response.status);
           const responseBody = await response.json();
@@ -372,7 +372,7 @@ const Dashboard = () => {
               <td className="border px-4 py-2">{booking.status}</td>
               <td className="border px-4 py-2">${booking.total_price}</td>
               <td className="border px-4 py-2">
-              <button
+                <button
                   className="bg-[#3498db] transition-opacity duration-500 text-sm hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
                   onClick={() => handleReviewClick(booking.booking_id)}
                 >
@@ -410,57 +410,57 @@ const Dashboard = () => {
                     variants={bounceVariants}
                     className="modal-content"
                   >
-                  <h2 className="font-semibold text-center text-md">
-                    Reschedule Booking
-                  </h2>
+                    <h2 className="font-semibold text-center text-md">
+                      Reschedule Booking
+                    </h2>
 
-                  {/* Date */}
-                  <div className="mb-4">
-                    <label htmlFor="date" className="block font-medium">
-                      Select Date:
-                    </label>
-                    <input
-                      type="date"
-                      id="date"
-                      value={rescheduleDate}
-                      onChange={(e) => setRescheduleDate(e.target.value)}
-                      min={new Date().toISOString().split("T")[0]}
-                      className="block w-full border p-2 rounded"
-                      required
-                    />
-                  </div>
+                    {/* Date */}
+                    <div className="mb-4">
+                      <label htmlFor="date" className="block font-medium">
+                        Select Date:
+                      </label>
+                      <input
+                        type="date"
+                        id="date"
+                        value={rescheduleDate}
+                        onChange={(e) => setRescheduleDate(e.target.value)}
+                        min={new Date().toISOString().split("T")[0]}
+                        className="block w-full border p-2 rounded"
+                        required
+                      />
+                    </div>
 
-                  {/* Time */}
-                  <div className="mb-4">
-                    <label htmlFor="time" className="block font-medium">
-                      Select Time:
-                    </label>
-                    <input
-                      type="time"
-                      id="time"
-                      value={rescheduleTime}
-                      onChange={(e) => setRescheduleTime(e.target.value)}
-                      className="block w-full border p-2 rounded"
-                      required
-                    />
-                  </div>
+                    {/* Time */}
+                    <div className="mb-4">
+                      <label htmlFor="time" className="block font-medium">
+                        Select Time:
+                      </label>
+                      <input
+                        type="time"
+                        id="time"
+                        value={rescheduleTime}
+                        onChange={(e) => setRescheduleTime(e.target.value)}
+                        className="block w-full border p-2 rounded"
+                        required
+                      />
+                    </div>
 
-                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <button
-                      className="px-5 py-2 mx-4 bg-[#3cb1b1] text-white text-md rounded hover:bg-[#85c1e9] transition-colors duration-500 ease-in-out"
-                      onClick={submitReschedule}
-                    >
-                     Reschedule
-                    </button>
+                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                      <button
+                        className="px-5 py-2 mx-4 bg-[#3cb1b1] text-white text-md rounded hover:bg-[#85c1e9] transition-colors duration-500 ease-in-out"
+                        onClick={submitReschedule}
+                      >
+                        Reschedule
+                      </button>
 
-                    <button
-                      className="px-5 py-2 bg-gray-300 text-md rounded hover:bg-gray-200 transition-colors duration-500 ease-in-out"
-                      onClick={() => setModalRescheduleIsOpen(false)}
-                    >
-                      Close
-                    </button>
-                  </div>
-                  {successReschedule && <p className="mt-4 text-[#8ab13c]">{handlesuccessReschedule}</p>}
+                      <button
+                        className="px-5 py-2 bg-gray-300 text-md rounded hover:bg-gray-200 transition-colors duration-500 ease-in-out"
+                        onClick={() => setModalRescheduleIsOpen(false)}
+                      >
+                        Close
+                      </button>
+                    </div>
+                    {successReschedule && <p className="mt-4 text-[#8ab13c]">{handlesuccessReschedule}</p>}
                   </motion.div>
                 </Modal>
 
@@ -468,7 +468,7 @@ const Dashboard = () => {
                   onClick={() => onCancel(booking.booking_id)}
                   className="bg-[#b1463c] transition-opacity duration-500 text-sm hover:opacity-80 hover:bg-[#d59187] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
                 >
-                 <i className="fa fa-ban" aria-hidden="true"></i> Cancel
+                  <i className="fa fa-ban" aria-hidden="true"></i> Cancel
                 </button>
 
                 <Modal
@@ -495,35 +495,35 @@ const Dashboard = () => {
                     variants={bounceVariants}
                     className="modal-content"
                   >
-                  <h2 className="font-semibold text-center text-md">
-                    Cancel Booking
-                  </h2>
-                  <div className="text-center mt-4">
-                    Are you sure you want to cancel this booking?
-                  </div>
-                  <div className="flex justify-center mt-8 space-x-4">
-                    <button
-                      className="px-6 py-2 bg-[#b1463c] text-white rounded hover:bg-[#d59187] transition-colors duration-500 ease-in-out"
-                      onClick={confirmCancel}
-                    >
-                      Yes, Cancel
-                    </button>
-                    <button
-                      className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-200 transition-colors duration-500 ease-in-out"
-                      onClick={cancelCancel}
-                    >
-                      No, Keep Booking
-                    </button>
-                  </div>
+                    <h2 className="font-semibold text-center text-md">
+                      Cancel Booking
+                    </h2>
+                    <div className="text-center mt-4">
+                      Are you sure you want to cancel this booking?
+                    </div>
+                    <div className="flex justify-center mt-8 space-x-4">
+                      <button
+                        className="px-6 py-2 bg-[#b1463c] text-white rounded hover:bg-[#d59187] transition-colors duration-500 ease-in-out"
+                        onClick={confirmCancel}
+                      >
+                        Yes, Cancel
+                      </button>
+                      <button
+                        className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-200 transition-colors duration-500 ease-in-out"
+                        onClick={cancelCancel}
+                      >
+                        No, Keep Booking
+                      </button>
+                    </div>
                   </motion.div>
                 </Modal>
 
                 <button
-                onClick={handlePrint}
-                className="bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-opacity duration-500 text-sm hover:opacity-80 font-bold py-1 px-3 mx-1 mb-2"
-            >
-             <i className="fa fa-print" aria-hidden="true"></i> Print Invoice
-            </button>
+                  onClick={handlePrint}
+                  className="bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-opacity duration-500 text-sm hover:opacity-80 font-bold py-1 px-3 mx-1 mb-2"
+                >
+                  <i className="fa fa-print" aria-hidden="true"></i> Print Invoice
+                </button>
               </td>
             </tr>
           ))}
@@ -539,24 +539,23 @@ const Dashboard = () => {
       {/* Dashboard Section */}
       <div className="bg-gray min-h-screen">
         <main className="container mx-auto py-12">
-        <h1 className="text-4xl text-gray-600 font-bold mb-6 mt-10">Dashboard</h1>
+          <h1 className="text-4xl text-gray-600 font-bold mb-6 mt-10">Dashboard</h1>
           <div
-            className={`bg-white p-12 rounded shadow mb-6 fade-in-page ${
-              pageLoaded ? "loaded" : ""
-            }`}
+            className={`bg-white p-12 rounded shadow mb-6 fade-in-page ${pageLoaded ? "loaded" : ""
+              }`}
           >
             <div className="flex flex-col md:flex-row md:space-x-6 md:items-center mt-4 mb-4 space-y-3 md:space-y-0">
               <button
                 className="bg-[#8ab13c] rounded transition-opacity duration-2000 hover:opacity-80 hover:bg-[#96be46] text-white px-4 py-2"
                 onClick={fetchBookings}
               >
-              <i className="fa fa-refresh" aria-hidden="true"></i>  Refresh
+                <i className="fa fa-refresh" aria-hidden="true"></i>  Refresh
               </button>
               <button
                 onClick={handleSortByBookingID}
                 className="bg-[#3c8ab1] rounded transition-opacity duration-2000 hover:opacity-80 hover:bg-[#50a7d3] text-white px-4 py-2 mb-2"
               >
-               <i className="fa fa-sort-numeric-desc" aria-hidden="true"></i>  Sort By Booking ID
+                <i className="fa fa-sort-numeric-desc" aria-hidden="true"></i>  Sort By Booking ID
               </button>
               <button
                 className="bg-[#3cb1b1] rounded transition-opacity duration-2000 hover:opacity-80 hover:bg-[#4dc7c7] text-white px-4 py-2 mb-2"
@@ -575,7 +574,7 @@ const Dashboard = () => {
                 onClick={handleSortByServiceStatus}
                 className="bg-[#b13c8a] rounded transition-opacity duration-2000 hover:opacity-80 hover:bg-[#d64ea9] text-white px-4 py-2 mb-2"
               >
-               <i className="fa fa-tasks" aria-hidden="true"></i>  Sort By Service Status
+                <i className="fa fa-tasks" aria-hidden="true"></i>  Sort By Service Status
               </button>
             </div>
 
@@ -599,11 +598,10 @@ const Dashboard = () => {
                   <div className="flex justify-between mt-8 mb-8 space-x-2">
                     <button
                       onClick={() => paginate(Math.max(currentPage - 1, 1))}
-                      className={`px-4 py-2 rounded-full ${
-                        currentPage === 1
+                      className={`px-4 py-2 rounded-full ${currentPage === 1
                           ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                           : "bg-gray-300 hover:bg-gray-200 transition-opacity duration-2000 hover:opacity-80 text-black"
-                      }`}
+                        }`}
                       disabled={currentPage === 1}
                     >
                       <i className="fa fa-angle-double-left" aria-hidden="true"></i> {"Prev"}
@@ -612,11 +610,10 @@ const Dashboard = () => {
                       <button
                         key={index + 1}
                         onClick={() => paginate(index + 1)}
-                        className={`px-4 py-2 rounded-full ${
-                          currentPage === index + 1
+                        className={`px-4 py-2 rounded-full ${currentPage === index + 1
                             ? "bg-gray-400 text-white"
                             : "bg-gray-200 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-100"
-                        }`}
+                          }`}
                       >
                         {index + 1}
                       </button>
@@ -625,11 +622,10 @@ const Dashboard = () => {
                       onClick={() =>
                         paginate(Math.min(currentPage + 1, totalPages))
                       }
-                      className={`px-4 py-2 rounded-full ${
-                        currentPage === totalPages
+                      className={`px-4 py-2 rounded-full ${currentPage === totalPages
                           ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                           : "bg-gray-300 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-200 text-black"
-                      }`}
+                        }`}
                       disabled={currentPage === totalPages}
                     >
                       {"Next"} <i className="fa fa-angle-double-right" aria-hidden="true"></i>

@@ -1,7 +1,7 @@
 https://github.com/user-attachments/assets/8f3a089f-22fe-466c-a1a1-c8090310b7f3
 
 # jamilcleaningapp
-Majestik Magik Cleaning Web application 
+Majestik Magik Cleaning | Booking App
 =======
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 

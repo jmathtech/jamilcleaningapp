@@ -21,7 +21,7 @@ const Home = () => {
       <Navbar />
 
       <div className="flex justify-center items-center min-h-screen">
-        <div className="bg-white p-6 rounded-lg shadow w-full max-w-3xl text-center">
+        <div className="bg-white p-6 rounded-lg shadow w-full border max-w-3xl text-center">
           <h1 className="flex justify-center items-center p-6">
             <Image
               src="/img/majestik_magik_cleaning_01.png"
@@ -41,8 +41,7 @@ const Home = () => {
               <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
                 Sign Up
               </button>
-            </Link>{" "}
-            or {" "}
+            </Link>
             <Link
               href="/login"
               className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"

@@ -1,7 +1,7 @@
 /* 
   Created by Jamil Matheny, Majestik Magik 
   Website: cleaning.majestikmagik.com
-  Updated: 12/08/2024
+  Updated: 03/12/2024
 */
 
 import { useEffect } from 'react';
@@ -16,7 +16,7 @@ const PaymentComplete = () => {
   useEffect(() => {
     setTimeout(() => {
       router.push('/dashboard'); // Redirect to the homepage
-    }, 10000); // Wait for 10 seconds before redirect
+    }, 5000); // Wait for 5 seconds before redirect
   }, [router]);
 
   return (

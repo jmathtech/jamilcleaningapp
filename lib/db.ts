@@ -2,10 +2,14 @@ import mysql from 'mysql2/promise';
 import { OkPacket, RowDataPacket } from 'mysql2'; // Import OkPacket type from mysql2
 
 const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+
 });
 
 export const query = async (sql: string, values: unknown[] = []): Promise<OkPacket | RowDataPacket[]> => {

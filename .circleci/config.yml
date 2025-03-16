@@ -3,34 +3,25 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
-
 jobs:
-  build-and-deploy:
+  build:
     docker:
       - image: cimg/node:22.14.0
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
       - run:
-          name: Install dependencies
-          command: npm ci
-      - save_cache: 
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          name: Install Dependencies
+          command: npm install
       - run:
-          name: Build Next.js App
+          name: Run Tests (Optional)
+          command: npm test
+      - run:
+          name: Lint Code (Optional)
+          command: npm run lint
+      - run:
+          name: Build Application
           command: npm run build
-      - run:  
-          name: Deploy to Server
-          command: 
-            ssh-keyscan my-majestikmagikcleaning-db.ckziaa2q8xam.us-east-1.rds.amazonaws.com >> ~/.ssh/known_hosts
-            scp -r ./.next/* Millie@my-majestikmagikcleaning-db.ckziaa2q8xam.us-east-1.rds.amazonaws.com:/var/www/html/jamilcleaningapp
-  
 workflows:
   build_and_deploy:
     jobs:
-     - build-and-deploy
+      - build

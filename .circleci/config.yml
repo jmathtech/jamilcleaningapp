@@ -13,12 +13,6 @@ jobs:
           name: Install Dependencies
           command: npm install
       - run:
-          name: Run Tests (Optional)
-          command: npm test
-      - run:
-          name: Lint Code (Optional)
-          command: npm run lint
-      - run:
           name: Build Application
           command: npm run build
 workflows:

@@ -168,10 +168,12 @@ const PaymentForm = () => {
         </video>
         <div className="bg-white p-12 rounded-lg shadow-xl max-w-full max-w-3xl">
           <div className="flex justify-center items-center">
-            <Image
+            <Image // Image component from next/image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              style={{ width: "45%", height: "auto" }}
+              width={400}
+              height={300}
+              style={{ width: "auto", height: "auto", maxWidth: "400px" }}
             />
           </div>
 
@@ -181,7 +183,7 @@ const PaymentForm = () => {
             </h3>
             <div className="text-md text-center mb-8">
               Your information is secured in your account dashboard.{" "}
-              <br /> No credit card data will be stored on our servers. 
+              <br /> No credit card data will be stored on our servers.
               <br /> Please verify your booking information below.
             </div>
             <table>
@@ -227,7 +229,7 @@ const PaymentForm = () => {
                   <td className="bg-white px-4">
                     $
                     {formData.total_price !== undefined &&
-                    formData.total_price !== null
+                      formData.total_price !== null
                       ? Number(formData.total_price).toFixed(2)
                       : "0.00"}
                   </td>

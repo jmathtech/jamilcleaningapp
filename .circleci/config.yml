@@ -15,9 +15,6 @@ jobs:
       - run:
           name: Build Application
           command: npm run build
-      - run:
-          name: Deploy Application
-          command: npm run deploy
 workflows:
   build_and_deploy:
     jobs:

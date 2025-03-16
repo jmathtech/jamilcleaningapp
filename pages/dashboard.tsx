@@ -538,10 +538,10 @@ const Dashboard = () => {
 
       {/* Dashboard Section */}
       <div className="bg-gray min-h-screen">
-        <main className="container mx-auto py-12 border-[#8ab13c] border-2">
+        <main className="container mx-auto py-12">
           <h1 className="text-4xl text-gray-600 font-bold mb-6 mt-10">Dashboard</h1>
           <div
-            className={`bg-white p-12 rounded shadow mb-6 fade-in-page ${pageLoaded ? "loaded" : ""
+            className={`bg-white p-12 rounded shadow border-[#8ab13c] border-2 mb-6 fade-in-page ${pageLoaded ? "loaded" : ""
               }`}
           >
             <div className="flex flex-col md:flex-row md:space-x-6 md:items-center mt-4 mb-4 space-y-3 md:space-y-0">
@@ -646,7 +646,7 @@ const Dashboard = () => {
           </div>
 
           {/* Quick Links Section */}
-          <div className="bg-white p-12 rounded shadow">
+          <div className="bg-white p-12 rounded shadow border-[#8ab13c] border-2">
             <h3 className="text-lg text-gray-600 font-bold mb-2">
               Quick Links
             </h3>

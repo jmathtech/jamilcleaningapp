@@ -32,7 +32,7 @@ export default async function handler(
         c.password,
         b.booking_id
       FROM customers c
-      LEFT JOIN bookings b ON c.customer_id = c.customer_id
+      LEFT JOIN bookings b ON c.customer_id = b.booking_id
       WHERE c.email = ?;
       `,
       [email]

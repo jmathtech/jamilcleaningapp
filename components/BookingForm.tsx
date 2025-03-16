@@ -95,7 +95,7 @@ const BookingForm = () => {
 
       if (response.ok) {
         const data = await response.json();
-        sessionStorage.setItem("token", data.token); 
+        sessionStorage.setItem("token", data.token);
         router.replace("/payment");
       } else {
         alert('Failed to create booking.');
@@ -116,7 +116,9 @@ const BookingForm = () => {
             <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              style={{ width: "auto", height: "auto" }}
+              width={400}
+              height={300}
+              style={{ height: "auto", minWidth: "300px", maxWidth: "400px" }}
             />
           </div>
           <h2 className="flex justify-center text-3xl text-[#545454] font-bold p-6">
@@ -124,20 +126,20 @@ const BookingForm = () => {
           </h2>
           <form onSubmit={handleBookingSubmit} className="space-y-4 p-8">
 
-             {/* Email */}
-             <div className="mb-4">
+            {/* Email */}
+            <div className="mb-4">
               <label htmlFor="email" className="block font-medium">
                 Login Email
               </label>
               <input
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}                
+                onChange={(e) => setEmail(e.target.value)}
                 className="block w-full border p-2 rounded"
               />
             </div>
 
-            
+
             {/* Service Type */}
             <div className="mb-4">
               <label htmlFor="service_type" className="block font-medium">

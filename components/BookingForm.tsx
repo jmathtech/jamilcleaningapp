@@ -10,9 +10,9 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 import Image from "next/image";
+import Navbar from "./Navbar";
+import Footer from "./Footer";  // Import Footer component
 import authGuard from "../utils/authGuard";
 
 

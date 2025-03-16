@@ -39,12 +39,12 @@ const SignUp = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (password !== confirmPassword) {
       setErrorMessage("Passwords do not match");
       return;
     }
-  
+
     const response = await fetch("/api/signup", {
       method: "POST",
       body: JSON.stringify({
@@ -59,7 +59,7 @@ const SignUp = () => {
         "Content-Type": "application/json",
       },
     });
-  
+
     if (response.ok) {
       router.push("/signup-confirmation"); // Redirect after successful sign-up
     } else {
@@ -70,18 +70,20 @@ const SignUp = () => {
 
   return (
     <>
-      
+
       <Navbar /> {/* Navbar component */}
       <div className="flex justify-center items-center min-h-screen mt signup-container">
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-10 rounded-lg shadow w-full max-w-lg"
+          className="bg-white p-10 rounded-lg shadow border-[#8ab13c] border-2 w-full max-w-lg"
         >
           <div className="flex justify-center items-center p-10">
             <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              style={{ width: "auto", height: "auto" }}
+              width={400}
+              height={300}
+              style={{ height: "auto", minWidth: "300px", maxWidth: "400px" }}
             />
           </div>
 

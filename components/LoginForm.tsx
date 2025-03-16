@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "../pages/context/AuthContext"; // Adjust path if needed
 
-const Login = () => {
+const Login: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +14,6 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { setFirstName, setLastName, setPhone, setAddress, setToken } =
     useAuth();
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     if (id === "email") setEmail(value);
@@ -86,13 +85,15 @@ const Login = () => {
       <div className="flex justify-center items-center min-h-screen mt login-container">
         <form
           onSubmit={handleLogin}
-          className="bg-white p-10 rounded-lg shadow w-full max-w-lg"
+          className="bg-white p-10 rounded-lg shadow border-[#8ab13c] border-2 w-full max-w-lg"
         >
           <div className="flex justify-center items-center p-10">
             <Image // Image component from next/image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              style={{ width: "auto", height: "auto" }}
+              width={400}
+              height={300}
+              style={{ width: "auto", height: "auto", maxWidth: "400px" }}
             />
           </div>
           <h2 className="text-2xl text-[#545454] font-semibold mb-4">Login</h2>

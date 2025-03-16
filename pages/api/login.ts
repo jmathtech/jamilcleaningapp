@@ -32,7 +32,7 @@ export default async function handler(
         c.password,
         b.booking_id
       FROM customers c
-      LEFT JOIN bookings b ON c.customer_id = b.booking_id
+      LEFT JOIN bookings b ON c.customer_id = c.customer_id
       WHERE c.email = ?;
       `,
       [email]
@@ -72,7 +72,7 @@ export default async function handler(
 
     res.setHeader(
       "Set-Cookie",
-      `token=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; ${
+      `token=${token}; HttpOnly=true; Secure; SameSite=Strict; Path=/; ${
         process.env.NODE_ENV === "production" ? "Secure" : ""
       }`
     );

@@ -538,7 +538,7 @@ const Dashboard = () => {
 
       {/* Dashboard Section */}
       <div className="bg-gray min-h-screen">
-        <main className="container mx-auto py-12">
+        <main className="container mx-auto py-12 border-[#8ab13c] border-2">
           <h1 className="text-4xl text-gray-600 font-bold mb-6 mt-10">Dashboard</h1>
           <div
             className={`bg-white p-12 rounded shadow mb-6 fade-in-page ${pageLoaded ? "loaded" : ""

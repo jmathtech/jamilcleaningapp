@@ -21,15 +21,15 @@ const Home = () => {
       <Navbar />
 
       <div className="flex justify-center items-center min-h-screen">
-        <div className="bg-white p-6 rounded-lg shadow w-full border max-w-3xl text-center">
+        <div className="bg-white p-6 rounded-lg shadow w-full border-[#8ab13c] border-2 max-w-3xl text-center" >
           <h1 className="flex justify-center items-center p-6">
             <Image
-  src="/img/majestik_magik_cleaning_01.png"
-  alt="Majestik Magik Cleaning"
-  layout="responsive"
-  width={400}
-  height={300} // Adjust based on your image's aspect ratio
-/>
+              src="/img/majestik_magik_cleaning_01.png"
+              alt="Majestik Magik Cleaning"
+              width={400}
+              height={300}
+              style={{ height: "auto", minWidth: "300px", maxWidth: "400px"}}
+            />
           </h1>
           <p className="font-sans text-xl text-gray-600 mt-2">
            Let us bring cleanliness & comfort to your space.</p>

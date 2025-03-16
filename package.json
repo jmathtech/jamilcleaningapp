@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "node server.mjs",
-    "lint": "next lint",
-    "deploy": "scp -r .next/* user@your-server:/var/www/html/jamilcleaningapp"
+    "lint": "next lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",

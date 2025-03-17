@@ -1,11 +1,15 @@
 "use client";
 
+import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 
 const Home = () => {
+  <Head> <title>Majestik Magik | Cleaning Service</title>
+   <meta name="description" content="Get quality cleaning service with us. Let us bring cleanliness and comfort to your space!" /> </Head>
+  
   return (
     <div className="bg-gray index-container">
       <video

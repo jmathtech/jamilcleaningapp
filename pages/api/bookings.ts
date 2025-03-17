@@ -59,10 +59,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (Array.isArray(result) && result.length === 0) {
       return res.status(404).json({ success: false, message: "Booking not found." });
     } else {
-      return res.status(500).json({ success: false, message: "Unexpect response from database." });
+      return res.status(200).json({ success: true, bookingData: ( result as RowDataPacket[] )[0] });
     }
-
-    return res.status(200).json({ success: true, bookingData: ( result as RowDataPacket[] )[0] });
   } catch (error) {
     console.error("Get Latest Booking API error:", error);
     return res.status(500).json({ success: false, message: "Failed to retrieve latest booking." });

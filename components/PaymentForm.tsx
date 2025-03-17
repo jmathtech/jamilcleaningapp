@@ -94,7 +94,7 @@ const PaymentForm = () => {
     };
 
     fetchBookingData();
-  }, [token, formData]);
+  }, [token]);
 
   useEffect(() => {
     const createPaymentIntent = async () => {
@@ -166,7 +166,7 @@ const PaymentForm = () => {
           <source src="/img/mmcleaning_crew_video_001.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="bg-white p-12 rounded-lg shadow-xl max-w-full max-w-3xl">
+        <div className="bg-white p-6 rounded-lg shadow w-full max-w-5xl">
           <div className="flex justify-center items-center">
             <Image // Image component from next/image
               src="/img/majestik_magik_cleaning_01.png"
@@ -182,9 +182,7 @@ const PaymentForm = () => {
               Booking Details
             </h3>
             <div className="text-md text-center mb-8">
-              Your information is secured in your account dashboard.{" "}
-              <br /> No credit card data will be stored on our servers.
-              <br /> Please verify your booking information below.
+              Your information is secured in your account dashboard. No credit card data will be stored on our servers. Please verify your booking information below.
             </div>
             <table>
               <tbody>

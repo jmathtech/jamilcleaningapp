@@ -5,10 +5,11 @@ import jwt from "jsonwebtoken";
 import validator from "validator";
 import { RowDataPacket } from "mysql2";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export const config = {
+  maxDuration: 10,
+};
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST requests are allowed." });
   }
@@ -44,7 +45,7 @@ export default async function handler(
 
     const user = (result as RowDataPacket[])[0];
 
-    // If password matches, then the user can log in
+    // If password does not match, then the user cannot log in
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
@@ -72,7 +73,7 @@ export default async function handler(
 
     res.setHeader(
       "Set-Cookie",
-      `token=${token}; HttpOnly=true; Secure; SameSite=Strict; Path=/; ${
+      `token=${token}; httpOnly=true; Secure; SameSite=Strict; Path=/; ${
         process.env.NODE_ENV === "production" ? "Secure" : ""
       }`
     );

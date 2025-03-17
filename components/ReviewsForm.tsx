@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "components/Navbar";
+import Footer from "components/Footer";
 import Image from "next/image";
 import authGuard from "utils/authGuard";
 
@@ -106,7 +106,7 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
 
       console.log("Review submitted successfully", data);
       setReviewSubmitted(true);
-  
+
     } catch (error) {
       console.error("Error submitting review:", error);
     }
@@ -121,11 +121,12 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
       <main className="min-h-screen flex items-center justify-center reviews-container">
         <div className="w-full max-w-2xl px-8 py-12 bg-white rounded-lg shadow">
           <div className="text-center">
-            <Image
+            <Image // Image component from next/image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              className="mx-auto mb-6"
-              style={{ width: "auto", height: "auto" }}
+              width={400}
+              height={300}
+              style={{ width: "auto", height: "auto", maxWidth: "400px" }}
             />
             <h1 className="text-3xl font-bold text-[#545454] mb-4">
               Client Review
@@ -143,12 +144,12 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
               {bookingData ? (
                 <p className="px-4 py-2 text-gray-700">
                   {typeof bookingData.booking_id === "number" ||
-                  typeof bookingData.booking_id === "string"
+                    typeof bookingData.booking_id === "string"
                     ? bookingData.booking_id
                     : (console.error(
-                        "booking_id is not a number or string:",
-                        bookingData.booking_id
-                      ),
+                      "booking_id is not a number or string:",
+                      bookingData.booking_id
+                    ),
                       "Invalid Booking ID")}
                 </p>
               ) : (
@@ -164,11 +165,10 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
                 {[1, 2, 3, 4, 5].map((star) => (
                   <span
                     key={star}
-                    className={`cursor-pointer text-2xl ${
-                      formData.rating >= star
+                    className={`cursor-pointer text-2xl ${formData.rating >= star
                         ? "text-[#ecca2f]"
                         : "text-gray-300"
-                    }`}
+                      }`}
                     onClick={() => handleRatingChange(star)}
                   >
                     ★

@@ -75,7 +75,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="bg-[#8ab13c] shadow text-white text-sm p-6 relative"
+      className="bg-gray-700 shadow border-white border text-white text-sm p-6 relative"
       ref={navbarRef}
     >
         {/* Desktop Menu size */}

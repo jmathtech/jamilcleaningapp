@@ -85,7 +85,7 @@ const Login: React.FC = () => {
       <div className="flex justify-center items-center min-h-screen mt login-container">
         <form
           onSubmit={handleLogin}
-          className="bg-white p-10 rounded-lg shadow border-[#8ab13c] border-2 w-full max-w-lg"
+          className="bg-white p-10 rounded-lg shadow border-[#8ab13c] border w-full max-w-lg"
         >
           <div className="flex justify-center items-center p-10">
             <Image // Image component from next/image

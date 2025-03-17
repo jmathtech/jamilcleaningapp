@@ -1,5 +1,5 @@
 // Last Updated: 03/17/2025
-// Modified by: Jamil Matheny, Majestik Magik LLC
+// Modified by: Jamil Matheny, Majestik Magik LLCgit 
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";

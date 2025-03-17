@@ -7,7 +7,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-
           <title>Majestik Magik | Cleaning Services</title>
           {/* You can add custom links to external stylesheets or fonts here */}
           <meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -11,7 +11,7 @@ const Home = () => {
    <meta name="description" content="Get quality cleaning service with us. Let us bring cleanliness and comfort to your space!" /> </Head>
   
   return (
-    <div className="bg-gray index-container">
+    <div className="bg-gray-100 index-container">
       <video
         autoPlay
         loop

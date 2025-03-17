@@ -173,7 +173,7 @@ const PaymentForm = () => {
               alt="Majestik Magik Cleaning"
               width={400}
               height={300}
-              style={{ width: "auto", height: "auto", maxWidth: "400px" }}
+              style={{ width: "auto", height: "auto", minWidth: "300px", maxWidth: "400px" }}
             />
           </div>
 

@@ -81,7 +81,7 @@ const AdminSignUp = () => {
             <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik"
-              style={{ width: "80%", height: "auto" }}
+              style={{ width: "auto", height: "auto" }}
             />
           </div>
 

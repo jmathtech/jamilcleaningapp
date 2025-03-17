@@ -126,6 +126,7 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
               alt="Majestik Magik Cleaning"
               width={400}
               height={300}
+              priority={true} // Load image immediately
               style={{ width: "auto", height: "auto", maxWidth: "400px" }}
             />
             <h1 className="text-3xl font-bold text-[#545454] mb-4">

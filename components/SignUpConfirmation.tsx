@@ -36,7 +36,8 @@ const SignUpConfirmation = () => {
         <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              style={{ width: "80%", height: "auto" }}
+              priority={true} // Load image immediately
+              style={{ width: "auto", height: "auto" }}
             />
           <h1 className="text-2xl font-bold text-[#545454] mb-4">
             Welcome to Majestik Magik Cleaning!

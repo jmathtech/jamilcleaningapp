@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "../pages/context/AuthContext"; // Adjust path if needed
 
+
 const Login: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -14,6 +15,8 @@ const Login: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { setFirstName, setLastName, setPhone, setAddress, setToken } =
     useAuth();
+
+    // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     if (id === "email") setEmail(value);
@@ -93,7 +96,8 @@ const Login: React.FC = () => {
               alt="Majestik Magik Cleaning"
               width={400}
               height={300}
-              style={{ width: "auto", height: "auto", maxWidth: "400px" }}
+              priority={true} // Load image immediately
+              style={{ width: "auto", height: "auto",  minWidth: "300px", maxWidth: "400px" }}
             />
           </div>
           <h2 className="text-2xl text-[#545454] font-semibold mb-4">Login</h2>

@@ -83,7 +83,8 @@ const SignUp = () => {
               alt="Majestik Magik Cleaning"
               width={400}
               height={300}
-              style={{ height: "auto", minWidth: "300px", maxWidth: "400px" }}
+              priority={true} // Load image immediately
+              style={{ width: "auto", height: "auto", minWidth: "300px", maxWidth: "400px" }}
             />
           </div>
 

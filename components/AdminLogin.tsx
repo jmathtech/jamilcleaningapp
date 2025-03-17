@@ -75,7 +75,7 @@ const AdminLogin = () => {
             <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              style={{ width: "80%", height: "auto" }}
+              style={{ width: "auto", height: "auto" }}
             />
           </div>
           <h2 className="text-2xl text-[#545454] font-semibold mb-4">

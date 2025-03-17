@@ -19,9 +19,3 @@ backend:
       commands:
         - npm install
         - npm run build
-  env:
-    DATABASE_HOST: 'my-majestikmagikcleaning-db.ckziaa2q8xam.us-east-1.rds.amazonaws.com'
-    DATABASE_PORT: 3306
-    DATABASE_USER: 'Millie'
-    DATABASE_PASSWORD: 'FlyEaglesFly25!'
-    DATABASE_NAME: 'jamilcleaningapp'

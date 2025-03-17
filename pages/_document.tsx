@@ -7,7 +7,11 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+
+          <title>Majestik Magik | Cleaning Services</title>
           {/* You can add custom links to external stylesheets or fonts here */}
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta charSet="utf-8" />
           <link rel="icon" href="/favicon.ico" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" />
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -18,6 +22,7 @@ class MyDocument extends Document {
           <meta property="og:description" content="Get quality cleaning service with us. Let us bring cleanliness and comfort to your space!" />
           <meta property="og:image" content="/img/majestik_magik_cleaning_01.png" />
           <meta property="og:url" content="https://cleaning.majestikmagik.com" />
+       
         </Head>
         <body>
           <Main />

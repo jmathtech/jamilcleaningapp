@@ -82,19 +82,19 @@ const Navbar = () => {
 
       <div className="flex justify-between items-center">
         <div className="space-x-10 hidden md:flex">
-          <Link href="/" className="hover:duration-600 hover:text-[#C5D89D] block">
+          <Link href="/" className="hover:duration-600 font-bold hover:text-[#C5D89D] block">
             Home
           </Link>
-          <Link href="/signup" className="hover:duration-600 hover:text-[#C5D89D] block">
+          <Link href="/signup" className="hover:duration-600 font-bold hover:text-[#C5D89D] block">
             Sign Up
           </Link>
-          <Link href="/login" className="hover:duration-600 hover:text-[#C5D89D] block">
+          <Link href="/login" className="hover:duration-600 font-bold hover:text-[#C5D89D] block">
             Login
           </Link>
-          <Link href="/booking" className="hover:duration-600 hover:text-[#C5D89D] block">
+          <Link href="/booking" className="hover:duration-600 font-bold hover:text-[#C5D89D] block">
             Book A Cleaning
           </Link>
-          <Link href="/dashboard" className="hover:duration-600 hover:text-[#C5D89D] block">
+          <Link href="/dashboard" className="hover:duration-600 font-bold hover:text-[#C5D89D] block">
             Dashboard
           </Link>
         </div>
@@ -186,20 +186,20 @@ const Navbar = () => {
           menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         } transition-all ease-in-out duration-900`}
       >
-        <Link href="/" className="hover:duration-600 hover:text-[#C5D89D] block">
+        <Link href="/" className="hover:duration-600 font-bold hover:text-[#C5D89D] block">
           Home
         </Link>
-        <Link href="/signup" className="hover:duration-600 hover:text-[#C5D89D] block">
+        <Link href="/signup" className="hover:duration-600 font-bold hover:text-[#C5D89D] block">
           Sign Up
         </Link>
-        <Link href="/login" className="hover:duration-600 hover:text-[#C5D89D] block">
+        <Link href="/login" className="hover:duration-600 font-bold hover:text-[#C5D89D] block">
           Login
         </Link>
         <hr />
-        <Link href="/booking" className="hover:duration-600 hover:text-[#C5D89D] block">
+        <Link href="/booking" className="hover:duration-600 font-bold  hover:text-[#C5D89D] block">
           Book A Cleaning
         </Link>
-        <Link href="/dashboard" className="hover:duration-600 hover:text-[#C5D89D] block">
+        <Link href="/dashboard" className="hover:duration-600 font-bold  hover:text-[#C5D89D] block">
           Dashboard
         </Link>
       </div>

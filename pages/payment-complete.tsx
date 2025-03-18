@@ -26,7 +26,7 @@ const PaymentComplete = () => {
       <div className="flex justify-center items-center min-h-screen bg-gray">
         <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md w-full">
           <h2 className="text-3xl font-semibold text-[#8ab13c] mb-4">Thank you for your payment!</h2>
-          <p className="text-lg text-gray-700 mb-4">
+          <p className="text-lg text-gray-700 font-semibold mb-4">
             Your payment has been successfully processed. We appreciate your business! You will now be directed to your account&apos;s dashboard.
           </p>
 

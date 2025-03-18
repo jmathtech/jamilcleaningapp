@@ -57,8 +57,8 @@
     "@types/next-auth": "^3.13.0",
     "@types/node": "20.17.9",
     "@types/nodemailer": "^6.4.17",
-    "@types/react": "18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "@types/react-modal": "^3.16.3",
     "@types/validator": "^13.12.2",
     "autoprefixer": "^10.4.20",
@@ -67,7 +67,7 @@
     "nodemon": "^3.1.7",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
-    "typescript": "^5.6.3"
+    "typescript": "^5.8.2"
   },
   "type": "module",
   "tsconfig": "./tsconfig.json"

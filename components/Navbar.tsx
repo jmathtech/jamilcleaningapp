@@ -97,7 +97,7 @@ const Navbar = () => {
     >
       {/* Desktop Menu size */}
       <div className="flex justify-between items-center">
-        <div className="space-x-10 hidden md:flex">
+        <div className="space-x-14 hidden md:flex">
           <Link href="/" className="hover:duration-1000 font-semibold hover:text-[#C5D89D] block">
             Home
           </Link>

@@ -32,7 +32,7 @@ app.prepare().then(() => {
   });
 
   // Start the HTTPS server
-  https.createServer(options, expressApp).listen(3000, () => {
-    console.log('HTTPS server running on https://localhost:3000');
+  https.createServer(options, expressApp).listen(3001, () => {
+    console.log('HTTPS server running on https://localhost:3001');
   });
 });

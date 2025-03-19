@@ -94,8 +94,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
   } catch (error) {
-    const typedError = error as Error;
-    console.error("Error during login:", typedError.message);
-    return res.status(500).json({ message: "Internal server error." });
+    console.error("Error during login", error);
+    return res.status(500).json({ message: "Internal server error. Please try again." });  
   }
 }

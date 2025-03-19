@@ -13,11 +13,17 @@ const pool = mysql.createPool({
 });
 
 export async function query(sql: string, values: string[] = []): Promise<RowDataPacket[]> {
-  const connection = await pool.getConnection();
+  let connection;
   try {
+    connection = await pool.getConnection();
     const [rows] = await connection.query(sql, values);
     return rows as RowDataPacket[];
+  }
+  catch (error) {
+    console.error("Database query error:", error); // Debugging log
+    throw error;
   } finally {
-    connection.release();
+    if (connection)
+      connection.release();
   }
 }

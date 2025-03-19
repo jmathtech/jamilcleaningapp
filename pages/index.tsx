@@ -19,7 +19,7 @@ const Home = () => {
         playsInline
         className="video-background"
       >
-        <source src="/img/mmcleaning_crew_video_002.mp4" type="video/mp4" />
+        <source src="/img/mmcleaning_crew_video_002.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>
       <Navbar />

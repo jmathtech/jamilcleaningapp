@@ -157,6 +157,13 @@ select:hover {
   z-index: -1;
 }
 
+  /* For mobile responsiveness */
+  @media (max-width: 768px) {
+    .video-background {
+      object-position: center;
+    }
+  }
+
 /* Image background */
 .login-container {
   position: relative;

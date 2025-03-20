@@ -5,10 +5,6 @@ import jwt from "jsonwebtoken";
 import validator from "validator";
 import { RowDataPacket } from "mysql2";
 
-export const config = {
-  maxDuration: 60,
-};
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST requests are allowed." });
@@ -59,12 +55,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const token = jwt.sign(
       {
         customerId: user.customer_id,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        phone: user.phone,
-        address: user.address,
-        bookingId: user.booking_id || null,      
   
       },
       secretKey,
@@ -87,11 +77,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       first_name: user.first_name,
       last_name: user.last_name,
       email: user.email,
-      phone: user.phone,
-      address: user.address,
-      bookings: {
-        bookingId: user.booking_id, // Use user.bookingId here as well
-      },
     });
   } catch (error) {
     console.error("Error during login", error);

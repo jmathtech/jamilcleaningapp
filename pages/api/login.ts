@@ -6,7 +6,7 @@ import validator from "validator";
 import { RowDataPacket } from "mysql2";
 
 export const config = {
-  maxDuration: 900,
+  maxDuration: 60,
 
 };
 

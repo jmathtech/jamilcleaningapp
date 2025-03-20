@@ -6,7 +6,7 @@ import validator from "validator";
 import { RowDataPacket } from "mysql2";
 
 export const config = {
-  maxDuration: 10,
+  maxDuration: 60,
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

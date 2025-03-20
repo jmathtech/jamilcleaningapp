@@ -6,9 +6,13 @@ import Footer from "../components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 
+
 const Home = () => {
   <Head> <title>Majestik Magik | Cleaning Services</title>
-   <meta name="description" content="Get quality cleaning service with us. Let us bring cleanliness and comfort to your space!" /> </Head>
+   <meta name="description" content="Get quality cleaning service with us. Let us bring cleanliness and comfort to your space!" /> 
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <link rel="icon" href="/favicon.ico" />
+   </Head>
   
   return (
     <div className="bg-gray index-container">

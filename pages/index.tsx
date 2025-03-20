@@ -29,7 +29,7 @@ const Home = () => {
       <Navbar />
 
       <div className="flex justify-center items-center min-h-screen">
-        <div className="bg-white p-6 rounded-lg shadow w-full border-[#8ab13c] border max-w-3xl text-center" >
+        <div className="bg-white p-6 rounded-lg w-full border-[#8ab13c] border max-w-3xl text-center" >
           <h1 className="flex justify-center items-center p-6">
             <Image
               src="/img/majestik_magik_cleaning_01.png"

@@ -17,7 +17,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    // Optimize query by limiting bookings if necessary (to prevent fetching too many)
     const result = await query(
       `
       SELECT 
@@ -31,8 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         b.booking_id
       FROM customers c
       LEFT JOIN bookings b ON c.customer_id = b.customer_id
-      WHERE c.email = ?
-      LIMIT 5;  -- Adjust limit as needed
+      WHERE c.email = ?;
       `,
       [email]
     );
@@ -53,34 +51,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const secretKey = process.env.JWT_SECRET;
     if (!secretKey) throw new Error("JWT_SECRET not defined");
 
+
     const token = jwt.sign(
       {
         customerId: user.customer_id,
+
       },
       secretKey,
-      { expiresIn: "7d" }
+      { expiresIn: '7d' }
     );
 
     res.setHeader(
       "Set-Cookie",
-      `token=${token}; httpOnly=true; Secure; SameSite=Strict; Path=/; ${
-        process.env.NODE_ENV === "production" ? "Secure" : ""
+      `token=${token}; httpOnly=true; Secure; SameSite=Strict; Path=/; ${process.env.NODE_ENV === "production" ? "Secure" : ""
       }`
     );
 
-    // If needed, reduce data sent back to the client
-    const customerData = {
-      customer_id: user.customer_id,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      bookings: result.map((row) => row.booking_id),  // Add booking info to the response
-    };
+    console.log(token);
+
 
     return res.status(200).json({
       message: "Login successful.",
       token,
-      customerData,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
     });
   } catch (error) {
     console.error("Error during login", error);

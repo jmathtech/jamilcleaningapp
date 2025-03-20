@@ -26,11 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       `
       SELECT 
         c.customer_id, 
-        c.first_name,
-        c.last_name,
         c.email,
-        c.phone,
-        c.address,
         c.password,
         b.booking_id
       FROM customers c
@@ -78,8 +74,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json({
       message: "Login successful.",
       token,
-      first_name: user.first_name,
-      last_name: user.last_name,
       email: user.email,
     });
   } catch (error) {

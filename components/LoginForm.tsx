@@ -16,7 +16,7 @@ const Login: React.FC = () => {
   const { setFirstName, setLastName, setPhone, setAddress, setToken } =
     useAuth();
 
-    // Handle input changes
+  // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     if (id === "email") setEmail(value);
@@ -88,7 +88,7 @@ const Login: React.FC = () => {
       <div className="flex justify-center items-center min-h-screen mt login-container">
         <form
           onSubmit={handleLogin}
-          className="bg-white p-10 pt-10 rounded-lg shadow border-[#8ab13c] border w-full max-w-lg" 
+          className="bg-white p-10 pt-10 rounded-lg shadow border-[#8ab13c] border w-full max-w-lg"
           style={{ transform: "translateY(-60px)" }}
         >
           <div className="flex justify-center items-center p-10">
@@ -98,7 +98,7 @@ const Login: React.FC = () => {
               width={400}
               height={300}
               priority={true} // Load image immediately
-              style={{ width: "auto", height: "auto",  minWidth: "300px", maxWidth: "400px" }}
+              style={{ width: "auto", height: "auto", minWidth: "300px", maxWidth: "400px" }}
             />
           </div>
           <h2 className="text-2xl text-[#545454] font-semibold mb-4">Login</h2>
@@ -131,11 +131,10 @@ const Login: React.FC = () => {
             <button
               type="submit"
               aria-label="Submit"
-              className={`px-10 py-2 ${
-                isLoading
+              className={`px-10 py-2 ${isLoading
                   ? "bg-gray-400 cursor-not-allowed flex items-center justify-center gap-2" // Added flex classes
                   : "bg-[#8ab13c] hover:bg-[#C5D89D]"
-              } text-white text-lg font-bold rounded-lg transition-colors duration-1000 ease-in-out`}
+                } text-white text-lg font-bold rounded-lg transition-colors duration-1000 ease-in-out`}
               disabled={isLoading}
             >
               {isLoading ? (

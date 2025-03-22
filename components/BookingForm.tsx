@@ -125,7 +125,7 @@ const BookingForm = () => {
           <h2 className="flex justify-center text-3xl text-[#545454] font-bold p-6">
             Book a Cleaning
           </h2>
-          <form onSubmit={handleBookingSubmit} className="space-y-4 p-8">
+          <form onSubmit={handleBookingSubmit} className="space-y-4 p-4">
 
             {/* Email */}
             <div className="mb-4">

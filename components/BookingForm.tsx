@@ -110,7 +110,7 @@ const BookingForm = () => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center min-h-screen px-4 py-12 booking-container">
+      <div className="flex justify-center items-center min-h-screen px-2 py-12 booking-container">
         <div className="bg-white p-4 rounded-lg shadow border-[#8ab13c] border w-full max-w-3xl">
           <div className="flex justify-center items-center p-12">
             <Image

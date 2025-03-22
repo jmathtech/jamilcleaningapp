@@ -30,7 +30,7 @@ const Home = () => {
       <div className="flex justify-center items-center min-h-screen">
         <div className="bg-white p-4 pt-10 rounded-lg shadow w-full border-[#8ab13c] border max-w-3xl text-center"
           style={{ transform: "translateY(-60px)" }}>
-          <h1 className="flex justify-center items-center p-10">
+          <h1 className="flex justify-center items-center p-4">
             <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"

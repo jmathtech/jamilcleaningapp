@@ -311,3 +311,80 @@ td:first-child {
   width: 120px; /* Adjust width as needed */
 }
 
+@media (max-width: 600px) {
+  /* Adjust the styles for mobile screens (under 600px) */
+  
+  body {
+    font-size: 14px; /* Decrease font size for mobile */
+  }
+
+  .video-background {
+    object-position: center; /* Ensure video background is centered */
+    opacity: 0.5; /* Adjust opacity for better visibility on mobile */
+  }
+
+  .index-container {
+    padding: 10px; /* Add padding to the container for better spacing */
+  }
+
+  .login-container::before,
+  .signup-container::before,
+  .booking-container::before,
+  .reviews-container::before {
+    background-position: center; /* Center background images on mobile */
+    opacity: 0.5; /* Adjust opacity for mobile visibility */
+  }
+
+  .flex {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center elements horizontally */
+  }
+
+  .button-container {
+    flex-direction: column; /* Stack buttons vertically on mobile */
+    margin-top: 10px; /* Add space between buttons */
+  }
+
+  .typewriter {
+    font-size: 20px; /* Adjust font size for mobile */
+    letter-spacing: .1em; /* Decrease letter spacing for mobile */
+  }
+
+  /* Style the logo to be more mobile-friendly */
+  .logo-container {
+    width: 80%; /* Adjust logo size for smaller screens */
+    margin: 0 auto; /* Center logo */
+  }
+
+  /* Adjust form inputs */
+  input, select, textarea {
+    width: 100%; /* Ensure form inputs take full width */
+    padding: 12px; /* Increase padding for better touch targets */
+  }
+
+  .fade-in-page {
+    padding: 0 15px; /* Add padding to ensure content is not too close to edges */
+  }
+
+  /* Make buttons larger and easier to click on mobile */
+  .button-container button {
+    font-size: 18px;
+    padding: 12px 20px;
+    width: 100%; /* Make buttons full width */
+    margin: 10px 0; /* Add space between buttons */
+  }
+
+  /* Adjust table layout for mobile */
+  table {
+    font-size: 14px; /* Smaller font size for tables on mobile */
+    padding: 8px;
+  }
+  
+  td {
+    padding: 10px; /* Increase padding inside table cells */
+  }
+  
+  td:first-child {
+    width: 150px; /* Ensure labels in tables are wide enough */
+  }
+}

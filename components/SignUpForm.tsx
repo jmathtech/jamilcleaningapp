@@ -75,16 +75,16 @@ const SignUp = () => {
       <div className="flex justify-center items-center min-h-screen mt signup-container">
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-10 rounded-lg shadow border-[#8ab13c] border w-full max-w-lg"
+          className="bg-white p-4 rounded-lg shadow border-[#8ab13c] border w-full max-w-lg"
         >
           <div className="flex justify-center items-center p-10">
             <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              width={400}
-              height={300}
+              width={200}
+              height={100}
               priority={true} // Load image immediately
-              style={{ width: "auto", height: "auto", minWidth: "300px", maxWidth: "400px" }}
+              style={{ width: "auto", height: "auto", minWidth: "100px", maxWidth: "200px" }}
             />
           </div>
 

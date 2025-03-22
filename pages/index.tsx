@@ -10,7 +10,6 @@ import Link from "next/link";
 const Home = () => {
   <Head> <title>Majestik Magik | Cleaning Services</title>
     <meta name="description" content="Get quality cleaning service with us. Let us bring cleanliness and comfort to your space!" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.ico" />
   </Head>
 
@@ -29,22 +28,21 @@ const Home = () => {
       <Navbar />
 
       <div className="flex justify-center items-center min-h-screen">
-        <div className="bg-white p-6 pt-10 rounded-lg shadow w-full border-[#8ab13c] border max-w-3xl text-center"
+        <div className="bg-white p-4 pt-10 rounded-lg shadow w-full border-[#8ab13c] border max-w-3xl text-center"
           style={{ transform: "translateY(-60px)" }}>
-          <h1 className="flex justify-center items-center p-6">
+          <h1 className="flex justify-center items-center p-10">
             <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              width={400}
-              height={300}
+              width={200}
+              height={100}
               priority={true} // Load image immediately
-              style={{ width: "auto", height: "auto", minWidth: "300px", maxWidth: "400px" }}
+              style={{ width: "auto", height: "auto", minWidth: "100px", maxWidth: "200px" }}
             />
           </h1>
           <p className="font-sans text-xl text-gray-600 mt-2">
             Let us bring cleanliness & comfort to your space.</p>
           <p className="text-lg p-8">
-
             <Link
               href="/signup"
               className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"

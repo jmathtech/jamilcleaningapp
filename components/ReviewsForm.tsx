@@ -119,15 +119,15 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
     <>
       <Navbar />
       <main className="min-h-screen flex items-center justify-center reviews-container">
-        <div className="w-full max-w-2xl px-8 py-12 bg-white rounded-lg shadow">
+        <div className="w-full max-w-2xl px-4 py-12 bg-white rounded-lg shadow">
           <div className="text-center">
             <Image // Image component from next/image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              width={400}
-              height={300}
+              width={200}
+              height={100}
               priority={true} // Load image immediately
-              style={{ width: "auto", height: "auto", maxWidth: "400px" }}
+              style={{ width: "auto", height: "auto", minWidth: "100px", maxWidth: "200px" }}
             />
             <h1 className="text-3xl font-bold text-[#545454] mb-4">
               Client Review

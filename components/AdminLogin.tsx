@@ -69,7 +69,7 @@ const AdminLogin = () => {
       <div className="flex justify-center items-center min-h-screen mt">
         <form
           onSubmit={handleLogin}
-          className="bg-white p-10 rounded-lg shadow-xl w-full max-w-lg"
+          className="bg-white p-4 rounded-lg shadow-xl w-full max-w-lg"
         >
           <div className="flex justify-center items-center p-10">
             <Image

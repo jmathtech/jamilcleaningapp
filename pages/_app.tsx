@@ -10,6 +10,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Majestik Magik | Cleaning Services</title>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="Get quality cleaning service with us. Let us bring cleanliness and comfort to your space!" />
+        <meta property="og:title" content="Majestik Magik | Cleaning Services" />
+        <meta property="og:description" content="Get quality cleaning service with us. Let us bring cleanliness and comfort to your space!" />
+        <meta property="og:image" content="/img/majestik_magik_cleaning_01.png" />
+        <meta property="og:url" content="https://majestikmagik.com" />
+        
       </Head>
       <AuthProvider>
         <BookingProvider>

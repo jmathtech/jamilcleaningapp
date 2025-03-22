@@ -92,7 +92,7 @@ const Navbar = () => {
 
     // Navigation Bar
     <nav
-      className="bg-gray-600 shadow border-gray-300 border text-white text-sm p-6 relative"
+      className="bg-gray-600 shadow border-gray-300 border text-white text-md p-6 relative"
       ref={navbarRef}
     >
       {/* Desktop Menu size */}
@@ -198,20 +198,20 @@ const Navbar = () => {
         className={`md:hidden absolute left-0 top-20 w-full z-10 bg-gray-600 shadow border-gray-300 border p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           } transition-all ease-in-out duration-1000`}
       >
-        <Link href="/" className="hover:duration-1000 font-semibold hover:text-[#C5D89D] block">
+        <Link href="/" className="hover:duration-1000 font-semibold text-md hover:text-[#C5D89D] block">
           Home
         </Link>
-        <Link href="/signup" className="hover:duration-1000 font-semibold hover:text-[#C5D89D] block">
+        <Link href="/signup" className="hover:duration-1000 font-semibold text-md hover:text-[#C5D89D] block">
           Sign Up
         </Link>
-        <Link href="/login" className="hover:duration-1000 font-semibold hover:text-[#C5D89D] block">
+        <Link href="/login" className="hover:duration-1000 font-semibold text-md hover:text-[#C5D89D] block">
           Login
         </Link>
         <hr />
-        <Link href="/booking" className="hover:duration-1000 font-semibold  hover:text-[#C5D89D] block">
+        <Link href="/booking" className="hover:duration-1000 font-semibold text-md hover:text-[#C5D89D] block">
           Book A Cleaning
         </Link>
-        <Link href="/dashboard" className="hover:duration-1000 font-semibold  hover:text-[#C5D89D] block">
+        <Link href="/dashboard" className="hover:duration-1000 font-semibold text-md hover:text-[#C5D89D] block">
           Dashboard
         </Link>
       </div>

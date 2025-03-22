@@ -541,7 +541,7 @@ const Dashboard = () => {
         <main className="container mx-auto py-12">
           <h1 className="text-4xl text-gray-600 font-bold mb-6 mt-10">Dashboard</h1>
           <div
-            className={`bg-white p-12 rounded shadow border-[#8ab13c] border mb-6 fade-in-page ${pageLoaded ? "loaded" : ""
+            className={`bg-white p-6 rounded shadow border-[#8ab13c] border mb-6 fade-in-page ${pageLoaded ? "loaded" : ""
               }`}
           >
             <div className="flex flex-col md:flex-row md:space-x-6 md:items-center mt-4 mb-4 space-y-3 md:space-y-0">

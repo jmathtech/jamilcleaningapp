@@ -574,7 +574,7 @@ const Dashboard = () => {
               My Bookings
             </h3>
             {isLoading ? (
-              <p>Loading...</p>
+              <p><div className="spinner text-gray-400 font-semibold text-2xl"> Loading...</div></p>
             ) : error ? (
               <p>Error: {error}</p>
             ) : bookings.length > 0 ? (

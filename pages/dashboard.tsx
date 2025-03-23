@@ -328,11 +328,11 @@ const Dashboard = () => {
             <tr key={booking.booking_id}>
               <td className="border px-4 py-4 text-lg">{booking.booking_id}</td>
               <td className="border px-4 py-4">
-                <i className="fa fa-calendar" aria-hidden="true"></i> {new Date(booking.date).toLocaleDateString()} <br></br>
-                <i className="fa fa-clock-o" aria-hidden="true"></i> {formatTime(booking.time)} <br></br>
-                <i className="fa fa-hourglass-half" aria-hidden="true"></i> {booking.hours} hours <br></br>
+                <i className="fa fa-calendar" aria-hidden="true" style={{ marginRight: '8px' }}></i> {new Date(booking.date).toLocaleDateString()} <br></br>
+                <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {formatTime(booking.time)} <br></br>
+                <i className="fa fa-hourglass-half" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.hours} hours <br></br>
                 <p><div className="notes-container">
-                  <i className="fa fa-sticky-note-o" aria-hidden="true"></i> {booking.notes ? (
+                  <i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.notes ? (
                     expandedNotes[booking.booking_id] ? (
                       <div> {booking.notes}
                         <span
@@ -356,10 +356,10 @@ const Dashboard = () => {
                   ) : (
                     "No notes"
                   )} </div></p>
-                <i className="fa fa-book" aria-hidden="true"></i> {booking.service_type} <br></br>
-                <i className="fa fa-paw" aria-hidden="true"></i> {booking.has_pets ? "Has Pets" : "No Pets"} <br></br>
-                <i className="fa fa-tasks" aria-hidden="true"></i> Status: {booking.status} <br></br>
-                <i className="fa fa-money" aria-hidden="true"></i> Total:  ${booking.total_price} <br></br>
+                <i className="fa fa-book" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.service_type} <br></br>
+                <i className="fa fa-paw" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.has_pets ? "Has Pets" : "No Pets"} <br></br>
+                <i className="fa fa-tasks" aria-hidden="true" style={{ marginRight: '8px' }}></i> Status: {booking.status} <br></br>
+                <i className="fa fa-money" aria-hidden="true" style={{ marginRight: '8px' }}></i> Total:  ${booking.total_price} <br></br>
               </td>
               <td className="border p-2">
                 <button

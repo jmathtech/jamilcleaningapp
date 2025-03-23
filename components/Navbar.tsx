@@ -196,7 +196,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         className={`md:hidden absolute left-0 top-20 w-full z-10 bg-gray-600 shadow border-gray-300 border p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          } transition-all ease-in-out duration-1000`}
+          } transition-all ease-in-out duration-500`}
       >
         <Link href="/" className="hover:duration-1000 font-semibold text-md hover:text-[#C5D89D] block">
           Home

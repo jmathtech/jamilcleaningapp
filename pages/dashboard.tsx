@@ -332,9 +332,9 @@ const Dashboard = () => {
                 <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {formatTime(booking.time)} <br></br>
                 <i className="fa fa-hourglass-half" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.hours} hours <br></br>
                 <p><div className="notes-container">
-                  <i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px' }}></i>{booking.notes ? (
+                  <i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.notes ? (
                     expandedNotes[booking.booking_id] ? (
-                      <div> {booking.notes}
+                      <div>{booking.notes}
                         <span
                           className="text-[#b1463c] font-semibold cursor-pointer"
                           onClick={() => onReadMoreToggle(booking.booking_id)}

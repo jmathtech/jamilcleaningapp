@@ -44,7 +44,7 @@ const Dashboard = () => {
   const router = useRouter();
   const token = sessionStorage.getItem("token") as string;
 
-  // Animation settings
+  // Animation settings for modal
   const bounceVariants = {
     hidden: { scale: 0.9, opacity: 0 },
     visible: {
@@ -123,11 +123,8 @@ const Dashboard = () => {
         );
 
         if (!response.ok) {
-          throw new Error(
-            `Failed to cancel booking. Status: ${response.status}`
-          );
+          throw new Error(`Failed to cancel booking. Status: ${response.status}`);
         }
-
         setBookings((prev) =>
           prev.filter((b) => b.booking_id !== cancelBookingId)
         );
@@ -313,14 +310,8 @@ const Dashboard = () => {
         <thead>
           <tr className="text-sm">
             {[
-              "Booking ID#",
-              "Date",
-              "Time",
-              "Hours",
-              "Notes",
-              "Service Type",
-              "Service Status",
-              "Total Cost",
+              "ID #",
+              "Booking Details",
               "Actions",
             ].map((header) => (
               <th
@@ -335,56 +326,55 @@ const Dashboard = () => {
         <tbody>
           {bookings.map((booking) => (
             <tr key={booking.booking_id}>
-              <td className="border px-4 py-4">{booking.booking_id}</td>
+              <td className="border px-4 py-4 text-lg">{booking.booking_id}</td>
               <td className="border px-4 py-4">
-                {new Date(booking.date).toLocaleDateString()}
-              </td>
-              <td className="border px-4 py-4">{formatTime(booking.time)}</td>
-              <td className="border px-4 py-4">{booking.hours}</td>
-              <td className="border px-4 py-4">
-                {booking.notes ? (
-                  expandedNotes[booking.booking_id] ? (
-                    <div>
-                      {booking.notes}
-                      <span
-                        className="text-[#b1463c] font-semibold cursor-pointer"
-                        onClick={() => onReadMoreToggle(booking.booking_id)}
-                      >
-                        Show Less
-                      </span>
-                    </div>
+                <i className="fa fa-calendar" aria-hidden="true"></i> {new Date(booking.date).toLocaleDateString()} <br></br>
+                <i className="fa fa-clock-o" aria-hidden="true"></i> {formatTime(booking.time)} <br></br>
+                <i className="fa fa-hourglass-half" aria-hidden="true"></i> {booking.hours} hours <br></br>
+                <p><div className="notes-container">
+                  <i className="fa fa-sticky-note-o" aria-hidden="true"></i> {booking.notes ? (
+                    expandedNotes[booking.booking_id] ? (
+                      <div> {booking.notes}
+                        <span
+                          className="text-[#b1463c] font-semibold cursor-pointer"
+                          onClick={() => onReadMoreToggle(booking.booking_id)}
+                        >
+                          Show Less
+                        </span>
+                      </div>
+                    ) : (
+                      <div>
+                        {booking.notes.substring(0, 50)}...
+                        <span
+                          className="text-[#b1463c] font-semibold cursor-pointer"
+                          onClick={() => onReadMoreToggle(booking.booking_id)}
+                        >
+                          Read More
+                        </span>
+                      </div>
+                    )
                   ) : (
-                    <div>
-                      {booking.notes.substring(0, 50)}...
-                      <span
-                        className="text-[#b1463c] font-semibold cursor-pointer"
-                        onClick={() => onReadMoreToggle(booking.booking_id)}
-                      >
-                        Read More
-                      </span>
-                    </div>
-                  )
-                ) : (
-                  "No notes"
-                )}
+                    "No notes"
+                  )} </div></p>
+                <i className="fa fa-book" aria-hidden="true"></i> {booking.service_type} <br></br>
+                <i className="fa fa-paw" aria-hidden="true"></i> {booking.has_pets ? "Has Pets" : "No Pets"} <br></br>
+                <i className="fa fa-tasks" aria-hidden="true"></i> Status: {booking.status} <br></br>
+                <i className="fa fa-money" aria-hidden="true"></i> Total:  ${booking.total_price} <br></br>
               </td>
-              <td className="border px-4 py-2">{booking.service_type}</td>
-              <td className="border px-4 py-2">{booking.status}</td>
-              <td className="border px-4 py-2">${booking.total_price}</td>
-              <td className="border px-4 py-2">
+              <td className="border p-2">
                 <button
-                  className="bg-[#3498db] transition-opacity duration-500 text-sm hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
+                  className="bg-[#3498db] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
                   onClick={() => handleReviewClick(booking.booking_id)}
                 >
                   <i className="fa fa-commenting" aria-hidden="true"></i> Review
-                </button>
+                </button> <br />
 
                 <button
-                  className="bg-[#3cb1b1] transition-opacity duration-500 text-sm hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
+                  className="bg-[#3cb1b1] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
                   onClick={() => openRescheduleModal(booking.booking_id)}
                 >
                   <i className="fa fa-calendar" aria-hidden="true"></i> Reschedule
-                </button>
+                </button> <br />
 
                 <Modal
                   isOpen={modalRescheduleIsOpen}
@@ -395,10 +385,11 @@ const Dashboard = () => {
                       backgroundColor: "rgba(0, 0, 0, 0.1)", // Optional: Background overlay style
                     },
                     content: {
-                      width: "550px", // Set the width
-                      height: "405px", // Set the height
+                      maxWidth: "400px", // Set the maximum width
+                      width: "auto", // Set the width
+                      height: "350px", // Set the height
                       margin: "auto", // Center the modal
-                      padding: "30px", // Add some padding
+                      padding: "10px", // Add some padding
                       borderRadius: "8px", // Optional: Rounded corners
                       boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)", // Optional: Add a shadow
                     },
@@ -466,10 +457,10 @@ const Dashboard = () => {
 
                 <button
                   onClick={() => onCancel(booking.booking_id)}
-                  className="bg-[#b1463c] transition-opacity duration-500 text-sm hover:opacity-80 hover:bg-[#d59187] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
+                  className="bg-[#b1463c] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#d59187] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
                 >
                   <i className="fa fa-ban" aria-hidden="true"></i> Cancel
-                </button>
+                </button> <br />
 
                 <Modal
                   isOpen={modalCancelIsOpen}
@@ -480,10 +471,11 @@ const Dashboard = () => {
                       backgroundColor: "rgba(0, 0, 0, 0.1)",
                     },
                     content: {
-                      width: "400px",
-                      height: "200px",
-                      margin: "auto",
-                      padding: "20px",
+                      maxWidth: "400px", // Set the maximum width
+                      width: "auto", // Set the width
+                      height: "250px", // Set the height
+                      margin: "auto", // Center the modal
+                      padding: "10px",
                       borderRadius: "8px",
                       boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)",
                     },
@@ -520,9 +512,9 @@ const Dashboard = () => {
 
                 <button
                   onClick={handlePrint}
-                  className="bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-opacity duration-500 text-sm hover:opacity-80 font-bold py-1 px-3 mx-1 mb-2"
+                  className="bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-opacity duration-500 text-xs hover:opacity-80 font-bold py-1 px-3 mx-1 mb-2"
                 >
-                  <i className="fa fa-print" aria-hidden="true"></i> Print Invoice
+                  <i className="fa fa-print" aria-hidden="true"></i> Print
                 </button>
               </td>
             </tr>
@@ -539,7 +531,7 @@ const Dashboard = () => {
       {/* Dashboard Section */}
       <div className="bg-gray min-h-screen">
         <main className="container mx-auto py-12">
-          <h1 className="text-4xl text-gray-400 font-bold mb-6 mt-10 px-2">Dashboard</h1>
+          <h1 className="text-4xl text-gray-600 font-bold mb-6 mt-10 px-2">Dashboard</h1>
           <div
             className={`bg-white p-6 rounded shadow border-[#8ab13c] border mb-6 fade-in-page ${pageLoaded ? "loaded" : ""
               }`}
@@ -599,8 +591,8 @@ const Dashboard = () => {
                     <button
                       onClick={() => paginate(Math.max(currentPage - 1, 1))}
                       className={`px-4 py-2 rounded-full ${currentPage === 1
-                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                          : "bg-gray-300 hover:bg-gray-200 transition-opacity duration-2000 hover:opacity-80 text-black"
+                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                        : "bg-gray-300 hover:bg-gray-200 transition-opacity duration-2000 hover:opacity-80 text-black"
                         }`}
                       disabled={currentPage === 1}
                     >
@@ -611,8 +603,8 @@ const Dashboard = () => {
                         key={index + 1}
                         onClick={() => paginate(index + 1)}
                         className={`px-4 py-2 rounded-full ${currentPage === index + 1
-                            ? "bg-gray-400 text-white"
-                            : "bg-gray-200 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-100"
+                          ? "bg-gray-400 text-white"
+                          : "bg-gray-200 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-100"
                           }`}
                       >
                         {index + 1}
@@ -623,8 +615,8 @@ const Dashboard = () => {
                         paginate(Math.min(currentPage + 1, totalPages))
                       }
                       className={`px-4 py-2 rounded-full ${currentPage === totalPages
-                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                          : "bg-gray-300 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-200 text-black"
+                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                        : "bg-gray-300 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-200 text-black"
                         }`}
                       disabled={currentPage === totalPages}
                     >
@@ -646,7 +638,7 @@ const Dashboard = () => {
           </div>
 
           {/* Quick Links Section */}
-          <div className="bg-white p-12 rounded shadow border-[#8ab13c] border">
+          <div className="bg-white p-4 rounded shadow border-[#8ab13c] border">
             <h3 className="text-lg text-gray-600 font-bold mb-2">
               Quick Links
             </h3>

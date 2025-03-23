@@ -161,19 +161,19 @@ const PaymentForm = () => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center min-h-screen p-14 mt index-container">
+      <div className="flex justify-center items-center min-h-screen p-4 mt index-container">
         <video autoPlay loop muted playsInline className="video-background">
           <source src="/img/mmcleaning_crew_video_001.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="bg-white p-6 rounded-lg shadow w-full max-w-5xl">
+        <div className="bg-white p-4 rounded-lg shadow w-full max-w-3xl">
           <div className="flex justify-center items-center">
             <Image // Image component from next/image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              width={400}
-              height={300}
-              style={{ width: "auto", height: "auto", minWidth: "300px", maxWidth: "400px" }}
+              width={200}
+              height={100}
+              style={{ width: "auto", height: "auto", minWidth: "100px", maxWidth: "200px" }}
             />
           </div>
 

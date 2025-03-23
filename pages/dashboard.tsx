@@ -306,7 +306,7 @@ const Dashboard = () => {
     expandedNotes: { [key: string]: boolean };
   }) => (
     <div className="overflow-x-auto rounded">
-      <table className="w-full border">
+      <table className="w-full max-w-3xl border">
         <thead>
           <tr className="text-sm">
             {[

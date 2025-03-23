@@ -529,7 +529,7 @@ const Dashboard = () => {
       <Navbar />
 
       {/* Dashboard Section */}
-      <div className="bg-gray min-h-screen">
+      <div className="bg-gray max-w-3xl items-center min-h-screen">
         <main className="container mx-auto py-12">
           <h1 className="text-4xl text-gray-600 font-bold mb-6 mt-10 px-2">Dashboard</h1>
           <div

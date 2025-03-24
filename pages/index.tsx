@@ -41,7 +41,7 @@ const Home = () => {
             />
           </h1>
           <p className="font-sans text-xl text-gray-600 mt-2">
-           Services prices start at $30/hr, get a quality cleaning service with us. Let us bring cleanliness & comfort to your space.</p>
+           Services pricing start at $30/hr, get a quality cleaning service with us. Let us bring cleanliness & comfort to your space.</p>
           <p className="text-lg p-8">
             <Link
               href="/signup"
@@ -49,7 +49,7 @@ const Home = () => {
 
             >
               <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
-                Sign Up
+                Sign Up Today!
               </button>
             </Link>
             <Link

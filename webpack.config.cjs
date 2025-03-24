@@ -1,7 +1,7 @@
 import path from 'path';
 
 module.exports = {
-  mode: 'development', // Or 'production' or 'none'
+  mode: 'production', // Or 'production' or 'none'
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',

@@ -75,7 +75,8 @@ const AdminSignUp = () => {
       <div className="bg-gray-800 flex justify-center items-center min-h-screen mt">
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-10 rounded-lg shadow-xl w-full max-w-lg"
+          className="bg-white p-4 pt-10 rounded-lg shadow border-[#8ab13c] border w-full max-w-lg"
+          style={{ transform: "translateY(-60px)" }}
         >
           <div className="flex justify-center items-center p-10">
             <Image // Image component from next/image

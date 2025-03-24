@@ -82,7 +82,7 @@ const AdminLogin = () => {
               style={{ width: "auto", height: "auto", minWidth: "100px", maxWidth: "200px" }}
             />
           </div>
-          <h2 className="text-2xl text-white font-semibold mb-4">
+          <h2 className="text-2xl text-[#545454] font-semibold mb-4">
             Admin Login
           </h2>
           {error && <p className="text-red-600 mb-4">{error}</p>}

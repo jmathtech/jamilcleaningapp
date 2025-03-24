@@ -327,7 +327,7 @@ const Dashboard = () => {
           {bookings.map((booking) => (
             <tr key={booking.booking_id}>
               <td className="border px-4 py-4 text-lg">{booking.booking_id}</td>
-              <td className="border px-4 py-4">
+              <td className="border px-4 py-4 text-sm">
                 <i className="fa fa-calendar" aria-hidden="true" style={{ marginRight: '8px' }}></i> {new Date(booking.date).toLocaleDateString()} <br></br>
                 <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {formatTime(booking.time)} <br></br>
                 <i className="fa fa-hourglass-half" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.hours} hours <br></br>

@@ -90,16 +90,16 @@ const AdminNavbar = () => {
       {/* Navigation Links - Desktop */}
       <div className="flex justify-between items-center">
         <div className="space-x-14 hidden md:flex">
-          <Link href="/" className=" hover:text-[#C5D89D] block">
+          <Link href="/" className="text-sm hover:text-[#C5D89D] block">
             Home
           </Link>
-          <Link href="/admin/dashboard" className="hover:text-[#C5D89D] block">
+          <Link href="/admin/dashboard" className="text-sm hover:text-[#C5D89D] block">
             Admin Dashboard
           </Link>
-          <Link href="/admin/signup" className="hover:text-[#C5D89D] block">
+          <Link href="/admin/signup" className="text-sm hover:text-[#C5D89D] block">
             Sign Up
           </Link>
-          <Link href="/admin/login" className="hover:text-[#C5D89D] block">
+          <Link href="/admin/login" className="text-sm hover:text-[#C5D89D] block">
             Login
           </Link>
         </div>
@@ -182,16 +182,16 @@ const AdminNavbar = () => {
         className={`md:hidden absolute left-0 top-20 w-full z-10 bg-gray-600 shadow border-gray-300 border p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           } transition-all ease-in-out duration-500`}
       >
-        <Link href="/" className="font-semibold hover:text-[#C5D89D] block">
+        <Link href="/" className="text-sm hover:text-[#C5D89D] block">
           Home
         </Link>
-        <Link href="/admin/dashboard" className="hover:text-[#C5D89D] block">
+        <Link href="/admin/dashboard" className="text-sm hover:text-[#C5D89D] block">
           Admin Dashboard
         </Link>
-        <Link href="/admin/signup" className="hover:text-[#C5D89D] block">
+        <Link href="/admin/signup" className="text-sm hover:text-[#C5D89D] block">
           Sign Up
         </Link>
-        <Link href="/admin/login" className="hover:text-[#C5D89D] block">
+        <Link href="/admin/login" className="text-sm hover:text-[#C5D89D] block">
           Login
         </Link>
       </div>

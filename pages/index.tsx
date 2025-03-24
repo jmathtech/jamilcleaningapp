@@ -41,7 +41,7 @@ const Home = () => {
             />
           </h1>
           <p className="font-sans text-xl text-gray-600 mt-2">
-            Let us bring cleanliness & comfort to your space.</p>
+           Services prices start at $30/hr, get a quality cleaning service with us. Let us bring cleanliness & comfort to your space.</p>
           <p className="text-lg p-8">
             <Link
               href="/signup"

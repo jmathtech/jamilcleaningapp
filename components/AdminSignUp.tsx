@@ -72,16 +72,19 @@ const AdminSignUp = () => {
   return (
     <>
       <Navbar /> {/* Navbar component */}
-      <div className="flex justify-center items-center min-h-screen mt">
+      <div className="bg-gray-800 flex justify-center items-center min-h-screen mt">
         <form
           onSubmit={handleSubmit}
           className="bg-white p-10 rounded-lg shadow-xl w-full max-w-lg"
         >
           <div className="flex justify-center items-center p-10">
-            <Image
+            <Image // Image component from next/image
               src="/img/majestik_magik_cleaning_01.png"
-              alt="Majestik Magik"
-              style={{ width: "auto", height: "auto" }}
+              alt="Majestik Magik Cleaning"
+              width={200}
+              height={100}
+              priority={true} // Load image immediately
+              style={{ width: "auto", height: "auto", minWidth: "100px", maxWidth: "200px" }}
             />
           </div>
 
@@ -167,7 +170,7 @@ const AdminSignUp = () => {
               onChange={(e) => setRole(e.target.value)}
               required
             >
-              <option value="superadmin">Super Admin</option>  
+              <option value="superadmin">Super Admin</option>
               <option value="manager">Manager</option>
               <option value="support">Support</option>
             </select>

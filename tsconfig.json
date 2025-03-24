@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "esnext",
+    "target": "ES6",
+    "module": "ESNext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -26,15 +26,25 @@
       "node",
       "@types/next"
     ],
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@/components/*": ["src/components/*"],
-      "@/lib/*": ["src/lib/*"],
-      "@/api/*": ["src/api/*"]
+      "@/*": [
+        "./*"
+      ],
+      "@/pages/*": [
+        "src/pages/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/lib/*": [
+        "src/lib/*"
+      ],
+      "@/api/*": [
+        "src/api/*"
+      ]
     },
-    "noEmit": true 
+    "noEmit": true
   },
   "include": [
     "pages/api/*.ts",

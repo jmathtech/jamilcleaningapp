@@ -21,8 +21,8 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-    const { setFirstName, setLastName, setToken } =
-      useAuth();
+  const { setFirstName, setLastName, setToken } =
+    useAuth();
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -55,7 +55,7 @@ const AdminLogin = () => {
       console.log("Redirecting to /admin/dashboard...");
       router.push("/admin/dashboard").catch((err) => {
         console.error("Router push error:", err);
-      }); 
+      });
     } else {
       setError(data.message);
       console.error("Login failed:", data.message);
@@ -66,19 +66,23 @@ const AdminLogin = () => {
   return (
     <>
       <Navbar /> {/* Navbar component */}
-      <div className="flex justify-center items-center min-h-screen mt">
+      <div className="bg-gray-800 flex justify-center items-center min-h-screen mt">
         <form
           onSubmit={handleLogin}
-          className="bg-white p-4 rounded-lg shadow-xl w-full max-w-lg"
+          className="bg-white p-4 pt-10 rounded-lg shadow border-[#8ab13c] border w-full max-w-lg"
+          style={{ transform: "translateY(-60px)" }}
         >
           <div className="flex justify-center items-center p-10">
-            <Image
+            <Image // Image component from next/image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              style={{ width: "auto", height: "auto" }}
+              width={200}
+              height={100}
+              priority={true} // Load image immediately
+              style={{ width: "auto", height: "auto", minWidth: "100px", maxWidth: "200px" }}
             />
           </div>
-          <h2 className="text-2xl text-[#545454] font-semibold mb-4">
+          <h2 className="text-2xl text-white font-semibold mb-4">
             Admin Login
           </h2>
           {error && <p className="text-red-600 mb-4">{error}</p>}

@@ -385,11 +385,11 @@ const Dashboard = () => {
                       backgroundColor: "rgba(0, 0, 0, 0.1)", // Optional: Background overlay style
                     },
                     content: {
-                      maxWidth: "400px", // Set the maximum width
+                      maxWidth: "500px", // Set the maximum width
                       width: "auto", // Set the width
                       height: "350px", // Set the height
                       margin: "auto", // Center the modal
-                      padding: "10px", // Add some padding
+                      padding: "20px", // Add some padding
                       borderRadius: "8px", // Optional: Rounded corners
                       boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)", // Optional: Add a shadow
                     },
@@ -471,11 +471,11 @@ const Dashboard = () => {
                       backgroundColor: "rgba(0, 0, 0, 0.1)",
                     },
                     content: {
-                      maxWidth: "400px", // Set the maximum width
+                      maxWidth: "500px", // Set the maximum width
                       width: "auto", // Set the width
-                      height: "250px", // Set the height
+                      height: "200px", // Set the height
                       margin: "auto", // Center the modal
-                      padding: "10px",
+                      padding: "20px",
                       borderRadius: "8px",
                       boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)",
                     },

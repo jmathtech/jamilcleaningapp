@@ -21,10 +21,10 @@ body {
 }
 
 @font-face {
-  font-family: 'Montserrat Light';
-  src: url('/fonts/Montserrat-Light-300.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
+  font-family: 'NeueMontreal Light';
+  src: url('./fonts/NeueMontreal-Light.otf') format('truetype');
+  font-weight: 100;
+  font-style: light;
 }
 
 

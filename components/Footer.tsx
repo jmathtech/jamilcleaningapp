@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 const Footer = () => {
     return (
-      <footer className="bg-[#333] text-white font-semibold border-gray-300 border text-sm p-6 mt">
+      <footer className="bg-[#333] text-white font-semibold text-sm p-6 mt">
         <div className="container mx-auto text-center">
           <p>&copy; {new Date().getFullYear()}  Majestik Magik. All rights reserved.</p>
           <div className="mt-2">

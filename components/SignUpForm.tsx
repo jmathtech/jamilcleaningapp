@@ -20,8 +20,6 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
@@ -40,11 +38,6 @@ const SignUp = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setErrorMessage("Passwords do not match");
-      return;
-    }
-
     const response = await fetch("/api/signup", {
       method: "POST",
       body: JSON.stringify({
@@ -53,7 +46,6 @@ const SignUp = () => {
         email,
         phone,
         address,
-        password,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -146,30 +138,6 @@ const SignUp = () => {
               placeholder="Address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="mb-4">
-            <input
-              id="password"
-              type="password"
-              className="w-full p-3 border border-gray-300 rounded-lg"
-              placeholder="New password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="mb-4">
-            <input
-              id="confirmPassword"
-              type="password"
-              className="w-full p-3 border border-gray-300 rounded-lg"
-              placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>

@@ -1,6 +1,5 @@
 // Import required libraries
 import { NextApiRequest, NextApiResponse } from "next";
-import bcrypt from "bcryptjs";
 import { query } from "../../lib/db";
 import jwt from "jsonwebtoken";
 import validator from "validator";
@@ -18,11 +17,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: "Only POST requests are allowed." });
   }
 
-  // Get email and password from the request body
-  const { email, password } = req.body;
+  // Get email from the request body
+  const { email } = req.body;
 
   // Validate email and password
-  if (!email || !password || !validator.isEmail(validator.trim(email))) {
+  if (!email || !validator.isEmail(validator.trim(email))) {
     return res.status(400).json({ message: "Invalid email or password. Please try again." });
   }
 
@@ -37,7 +36,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         c.email,
         c.phone,
         c.address,
-        c.password,
         b.booking_id
       FROM customers c
       LEFT JOIN bookings b ON c.customer_id = b.customer_id
@@ -48,17 +46,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // If no user found, then the user cannot log in
     if (Array.isArray(result) && result.length === 0) {
-      return res.status(401).json({ message: "Invalid email or password. Please try again." });
+      return res.status(401).json({ message: "Invalid email. Please try again." });
     } 
 
     const user = (result as RowDataPacket[])[0];
 
-    // If password does not match, then the user cannot log in
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid email or password. Please try again." });
-    }
 
     // Generate JWT token
     const secretKey = process.env.JWT_SECRET;
@@ -85,7 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Return the user data
     return res.status(200).json({
-      message: "Login successful.",
+      message: "Log In successful.",
       token,
       first_name: user.first_name,
       last_name: user.last_name,

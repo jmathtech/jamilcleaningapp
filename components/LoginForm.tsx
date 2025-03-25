@@ -3,15 +3,12 @@ import { useRouter } from "next/router";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Image from "next/image";
-import Link from "next/link";
 import { useAuth } from "../pages/context/AuthContext"; // Adjust path if needed
-import { signIn } from "next-auth/react";
 
 
 const Login: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { setFirstName, setLastName, setPhone, setAddress, setToken } =
@@ -21,7 +18,6 @@ const Login: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     if (id === "email") setEmail(value);
-    else if (id === "password") setPassword(value);
   };
 
   // Handle login function
@@ -35,7 +31,7 @@ const Login: React.FC = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // Includes cookies in the request
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email }),
       });
 
       if (res.ok) {
@@ -116,18 +112,6 @@ const Login: React.FC = () => {
               required
             />
           </div>
-          <div className="mb-4">
-            <input
-              type="password"
-              id="password"
-              aria-label="Password"
-              className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Password"
-              value={password}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
           <div className="flex justify-center">
             <button
               type="submit"
@@ -135,7 +119,7 @@ const Login: React.FC = () => {
               className={`px-10 py-2 ${isLoading
                   ? "bg-gray-400 cursor-not-allowed flex items-center justify-center gap-2" // Added flex classes
                   : "bg-[#8ab13c] hover:bg-[#C5D89D]"
-                } text-white text-lg font-bold rounded-lg transition-colors duration-500 ease-in-out`}
+                } text-white text-lg font-bold rounded-lg transition-colors duration-1000 ease-in-out`}
               disabled={isLoading}
             >
               {isLoading ? (
@@ -148,25 +132,6 @@ const Login: React.FC = () => {
                 "Login"
               )}
             </button>
-          </div>
-          <div className="flex justify-center gap-4 mt-6">
-            <button onClick={() => signIn("google")} className="bg-[#DB4437] hover:bg-[#E37466] text-white px-4 py-2 rounded-lg transition-colors duration-500 ease-in-out"><i className="fa fa-google mr-2" aria-hidden="true"></i>
-              Google
-            </button>
-            <button onClick={() => signIn("facebook")} className="bg-[#4267B2] hover:bg-[#5A8DEE] text-white px-4 py-2 rounded-lg transition-colors duration-500 ease-in-out"><i className="fa fa-facebook mr-2" aria-hidden="true"></i>
-              Facebook    
-            </button>
-            <button onClick={() => signIn("apple")} className="bg-[#333] hover:bg-[#666] text-white px-4 py-2 rounded-lg transition-colors duration-500 ease-in-out"><i className="fa fa-apple mr-2" aria-hidden="true"></i>
-              Apple
-            </button>
-          </div>
-          <div className="mt-4 text-center">
-            <Link
-              href="/forgot-password"
-              className="text-sm text-yellow-600 hover:underline"
-            >
-              Forgot Password?
-            </Link>
           </div>
         </form>
       </div>

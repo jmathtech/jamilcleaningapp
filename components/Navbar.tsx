@@ -146,7 +146,7 @@ const Navbar = () => {
             </>
           ) : (
             <>
-            Have An Account? <Link href="/login" className="ml-4 hover:underline">Log In</Link>
+            Welcome, Guest
             </>
           )}
         </div>

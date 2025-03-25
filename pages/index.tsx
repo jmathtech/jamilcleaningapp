@@ -34,10 +34,10 @@ const Home = () => {
             <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              width={200}
-              height={100}
+              width={250}
+              height={150}
               priority={true} // Load image immediately
-              style={{ width: "auto", height: "auto", minWidth: "100px", maxWidth: "200px" }}
+              style={{ width: "auto", height: "auto", minWidth: "150px", maxWidth: "250px" }}
             />
           </h1>
           <p className="font-semibold text-xl text-gray-600 mt-2">

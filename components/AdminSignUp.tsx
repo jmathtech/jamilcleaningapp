@@ -82,10 +82,10 @@ const AdminSignUp = () => {
             <Image // Image component from next/image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              width={200}
-              height={100}
+              width={250}
+              height={150}
               priority={true} // Load image immediately
-              style={{ width: "auto", height: "auto", minWidth: "100px", maxWidth: "200px" }}
+              style={{ width: "auto", height: "auto", minWidth: "150px", maxWidth: "250px" }}
             />
           </div>
 

@@ -129,10 +129,10 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
               priority={true} // Load image immediately
               style={{ width: "auto", height: "auto", minWidth: "100px", maxWidth: "200px" }}
             />
-            <h1 className="text-3xl font-bold text-[#545454] mb-4">
-              Client Review
-            </h1>
           </div>
+          <h1 className="text-3xl font-bold text-[#545454] px-4 mb-4">
+            Client Review
+          </h1>
 
           <form
             onSubmit={handleSubmit}
@@ -167,8 +167,8 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
                   <span
                     key={star}
                     className={`cursor-pointer text-2xl ${formData.rating >= star
-                        ? "text-[#ecca2f]"
-                        : "text-gray-300"
+                      ? "text-[#ecca2f]"
+                      : "text-gray-300"
                       }`}
                     onClick={() => handleRatingChange(star)}
                   >

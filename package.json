@@ -73,7 +73,8 @@
     "postcss": "^8.4.49",
     "react-refresh": "^0.16.0",
     "tailwindcss": "^3.4.15",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "webpack-dev-server": "^5.2.0"
   },
   "type": "module",
   "tsconfig": "./tsconfig.json"

@@ -98,19 +98,19 @@ const Navbar = () => {
       {/* Desktop Menu size */}
       <div className="flex justify-between items-center">
         <div className="space-x-14 hidden md:flex">
-          <Link href="/" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-100 hover:px-3 hover:py-1 hover:rounded-md block">
+          <Link href="/" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             Home
           </Link>
-          <Link href="/signup" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-100 hover:px-3 hover:py-1 hover:rounded-md block">
+          <Link href="/signup" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             Sign Up
           </Link>
-          <Link href="/login" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-100 hover:px-3 hover:py-1 hover:rounded-md block">
+          <Link href="/login" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             Login
           </Link>
-          <Link href="/booking" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-100 hover:px-3 hover:py-1 hover:rounded-md block">
+          <Link href="/booking" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             Book A Cleaning
           </Link>
-          <Link href="/dashboard" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-100 hover:px-3 hover:py-1 hover:rounded-md block">
+          <Link href="/dashboard" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             Dashboard
           </Link>
         </div>
@@ -198,20 +198,20 @@ const Navbar = () => {
         className={`md:hidden absolute left-0 top-20 w-full z-10 bg-gray-600 shadow border-gray-300 border p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           } transition-all ease-in-out duration-500`}
       >
-        <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] hover:bg-gray-100 hover:px-3 hover:py-1 hover:rounded-md block">
+        <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           Home
         </Link>
-        <Link href="/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] hover:bg-gray-100 hover:px-3 hover:py-1 hover:rounded-md block">
+        <Link href="/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           Sign Up
         </Link>
-        <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] hover:bg-gray-100 hover:px-3 hover:py-1 hover:rounded-md block">
+        <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           Login
         </Link>
         <hr />
-        <Link href="/booking" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] hover:bg-gray-100 hover:px-3 hover:py-1 hover:rounded-md block">
+        <Link href="/booking" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           Book A Cleaning
         </Link>
-        <Link href="/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] hover:bg-gray-100 hover:px-3 hover:py-1 hover:rounded-md block">
+        <Link href="/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           Dashboard
         </Link>
       </div>

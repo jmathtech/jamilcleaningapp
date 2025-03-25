@@ -1,10 +1,16 @@
 import '../styles/globals.css';
 import Head from 'next/head'
+import { SessionProvider } from 'next-auth/react';
 import AuthProvider from './context/AuthContext';
 import BookingProvider from './context/BookingContext';
 import type { AppProps } from 'next/app';
+import  { Session } from 'next-auth';
 
-function MyApp({ Component, pageProps }: AppProps) {
+interface MyAppProps extends AppProps {
+  session?: Session | null;
+}
+
+function MyApp({ Component, pageProps : { session,... pageProps } }: MyAppProps) {
   return (
     <>
       <Head>
@@ -26,11 +32,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         
       </Head>
       <AuthProvider>
+        <SessionProvider session={session}>
         <BookingProvider>
           <Component {...pageProps} />
         </BookingProvider>
+        </SessionProvider>
       </AuthProvider>
     </>
+
   );
 }
 

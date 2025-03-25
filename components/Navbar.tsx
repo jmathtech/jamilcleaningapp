@@ -92,7 +92,7 @@ const Navbar = () => {
 
     // Navigation Bar
     <nav
-      className="bg-gray-600 shadow border-gray-300 border text-white text-md p-6 relative"
+      className="bg-[#333] shadow border-gray-300 border text-white text-md p-6 relative"
       ref={navbarRef}
     >
       {/* Desktop Menu size */}
@@ -197,7 +197,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden absolute left-0 top-20 w-full z-10 bg-gray-600 shadow border-gray-300 border p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`md:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow border-gray-300 border p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           } transition-all ease-in-out duration-500`}
       >
         <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">

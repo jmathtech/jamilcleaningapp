@@ -101,7 +101,7 @@ const Login: React.FC = () => {
               style={{ width: "auto", height: "auto", minWidth: "150px", maxWidth: "250px" }}
             />
           </div>
-          <h2 className="text-2xl text-[#545454] font-semibold mb-4">Login</h2>
+          <h2 className="text-2xl text-[#545454] font-semibold mb-4">Log In</h2>
           {error && <p className="text-red-600 mb-4">{error}</p>}
           <div className="mb-4">
             <input
@@ -139,7 +139,7 @@ const Login: React.FC = () => {
             >
               {isLoading ? (
                 <div className="flex items-center gap-2">
-                  Logging in...
+                  Logging In...
                   <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>{" "}
                   {/* Spinner */}
                 </div>

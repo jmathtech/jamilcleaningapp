@@ -105,7 +105,7 @@ const Navbar = () => {
             Sign Up
           </Link>
           <Link href="/login" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
-            Login
+            Log In
           </Link>
           <Link href="/booking" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             Book A Cleaning
@@ -187,7 +187,7 @@ const Navbar = () => {
               onClick={handleConfirmLogout}
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             >
-              Logout
+              Log Out
             </button>
           </div>
         </motion.div>
@@ -205,7 +205,7 @@ const Navbar = () => {
           Sign Up
         </Link>
         <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
-          Login
+          Log In
         </Link>
         <hr />
         <Link href="/booking" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">

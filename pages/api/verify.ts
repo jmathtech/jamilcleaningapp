@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const customerResult = await query(
       "SELECT customer_id FROM customers WHERE email = ?",
       [decoded.email]
-    ) as RowDataPacket[]; 
+    ) as RowDataPacket[];
 
     if (!customerResult || customerResult.length === 0) {
       return res.status(404).json({ success: false, message: "Customer not found." });
@@ -42,11 +42,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Verify that the customerId from the token matches the one from the database.
     if (customerIdFromDb !== decoded.customerId) {
-        return res.status(401).json({success: false, message: "CustomerId mismatch."});
+      return res.status(401).json({ success: false, message: "CustomerId mismatch." });
     }
 
     // Generate a new token with an extended expiration (30 minutes)
-    const newToken = jwt.sign({ customerId: decoded.customerId, email: decoded.email }, secretKey, { expiresIn: "30m" });
+    const newToken = jwt.sign(
+      { customerId: decoded.customerId, email: decoded.email },
+      secretKey,
+      { expiresIn: "30m" } // Ensure '30m' is formatted correctly
+    );
 
     // Send the new token back in the response
     return res.status(200).json({ success: true, token: newToken });

@@ -1,3 +1,14 @@
+/*  
+  /pages/api/verify.ts
+  This file handles the verification of a token sent to the user's email.
+  It verifies the token, generates a new token with an extended expiration,
+  and sends the new token back in the response.
+  If the token is invalid or expired, it returns an error message.
+  If the token is valid, it returns a success message with the new token.
+  
+*/
+
+
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt, { JwtPayload } from "jsonwebtoken";
 

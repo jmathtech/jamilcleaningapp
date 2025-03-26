@@ -1,5 +1,5 @@
-// Last Updated: 03/17/2025
-// Modified by: Jamil Matheny, Majestik Magik LLCgit 
+
+// Modified by: Jamil Matheny, Majestik Magik LLC
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
@@ -121,6 +121,7 @@ const Navbar = () => {
           onClick={handleMenuToggle}
           className="md:hidden flex flex-col items-center justify-center space-y-1 w-8 h-8"
         >
+          {/* Hamburger Menu Bars */}
           <div
             className={`w-6 h-0.5 bg-white transition-all duration-500 transform ${menuOpen ? "rotate-45 translate-y-2" : ""
               }`}

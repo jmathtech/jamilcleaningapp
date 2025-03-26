@@ -58,7 +58,7 @@ const Home = () => {
               className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
             >
               <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-10 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
-                Login
+                Log In
               </button>
             </Link>
           </p>

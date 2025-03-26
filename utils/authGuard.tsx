@@ -1,6 +1,3 @@
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
-
 /**
  * A higher-order component (HOC) that wraps a given component and provides authentication
  * guard functionality. It checks for the presence of a token in the session storage and
@@ -14,6 +11,9 @@ import { useState, useEffect } from "react";
  * @returns A new component that checks for authentication and renders the wrapped component
  * if the user is authenticated, otherwise redirects to the login page.
  */
+
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 const authGuard = <P extends object>(
   WrappedComponent: React.ComponentType<P>

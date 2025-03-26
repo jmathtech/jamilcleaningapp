@@ -1,3 +1,16 @@
+/* 
+  /pages/api/login.ts
+  This file handles the login of a user.
+  It checks if the user exists in the database with the provided email
+  and if the password is correct.
+  If the user exists and the password is correct, it generates a JWT token
+  and sends it to the user's email for verification.
+  If the user does not exist or the password is incorrect, it returns an error.
+  If the email is not valid, it returns an error.
+  If the email is valid, it returns a success message.
+  If the method is not POST, it returns an error.
+*/
+
 // Import required libraries
 import { NextApiRequest, NextApiResponse } from "next";
 import { query } from "../../lib/db";

@@ -3,7 +3,7 @@ https://github.com/user-attachments/assets/8f3a089f-22fe-466c-a1a1-c8090310b7f3
 # jamilcleaningapp
 Majestik Magik Cleaning | Booking App
 
-<a href="https://master.d30g982j4qgc52.amplifyapp.com">*CLICK HERE FOR LIVE WEBSITE DEMO*</a>
+<a href="https://cleaning.majestikmagik.com.com">*CLICK HERE FOR LIVE WEBSITE DEMO*</a>
 =======
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 

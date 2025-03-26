@@ -61,7 +61,61 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       to: email,
       subject: "Email Verification",
       text: `Please click the following link to verify your email: ${verificationLink}`,
-      html: `<p> Please click the following link to verify your email: <a href="${verificationLink}">Log in to your account</a>`,
+      html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            display: inline-block;
+            background-color: #8ab13c; /* Replace with your brand color */
+            color: white;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #C5D89D; /* Replace with your brand hover color */
+        }
+        .p-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Verify Your Email Address</h2>
+        <p>Hello,</p>
+        <p>Please click the button below to log in to your account. This link will expire in 15 minutes.</p>
+        <p class="p-center">
+            <a href="${verificationLink}" class="button">Log in to your account</a>
+        </p>
+        <p>If you did not request this verification, please ignore this email.</p>
+        <p>Thank you,</p>
+        <p>The Majestik Magik Cleaning Team</p>
+    </div>
+</body>
+</html>`,
     });
 
     res.status(200).json({ message: "Email sent successfully." });

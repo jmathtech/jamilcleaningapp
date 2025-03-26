@@ -1,3 +1,12 @@
+/* Created by Jamil Matheny, Majestik Magik
+
+This page is used to display the user's dashboard.
+It is called when the user is authenticated.
+It is called from the server side.
+It is called with the token in the session storage.
+
+*/
+
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";

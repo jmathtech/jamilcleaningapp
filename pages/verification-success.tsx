@@ -1,3 +1,13 @@
+// pages/verification-success.tsx
+/* Created by Jamil Matheny, Majestik Magik
+
+This page is used to verify the user's email address.
+It is called when the user clicks the link in the email.
+It is called from the server side.
+It is called with the token in the query string.
+
+*/
+
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 

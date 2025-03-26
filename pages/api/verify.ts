@@ -1,29 +1,21 @@
-/*  
-  /pages/api/verify.ts
-  This file handles the verification of a token sent to the user's email.
-  It verifies the token, generates a new token with an extended expiration,
-  and sends the new token back in the response.
-  If the token is invalid or expired, it returns an error message.
-  If the token is valid, it returns a success message with the new token.
-  
-*/
-
-
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { query } from "../../lib/db"; // Import your database query function
+import { RowDataPacket } from "mysql2";
 
 interface DecodedToken extends JwtPayload {
-  customerId: string;
+  customerId: number; // Assuming customerId is a number
+  email: string; // Add email to decoded token type.
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-     // Extract token from query parameters
-     const { token } = req.query;
+    // Extract token from query parameters
+    const { token } = req.query;
 
-     if (!token || typeof token !== 'string') {
-       return res.status(401).json({ success: false, message: "Token is missing or invalid." });
-     }
+    if (!token || typeof token !== 'string') {
+      return res.status(401).json({ success: false, message: "Token is missing or invalid." });
+    }
 
     // Verify the token
     const secretKey = process.env.JWT_SECRET;
@@ -31,13 +23,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const decoded = jwt.verify(token, secretKey) as DecodedToken;
 
-    // Generate a new token with an extended expiration
-    const newToken = jwt.sign({ customerId: decoded.customerId }, secretKey, { expiresIn: "30m" });
+    // Check for token expiration.
+    if (decoded.exp && decoded.exp * 1000 < Date.now()) {
+      return res.status(401).json({ success: false, message: "Token has expired." });
+    }
 
-     // Send the new token back in the response
-     return res.status(200).json({ success: true, token: newToken });
-    } catch (error) {
-      console.error("Token verification failed:", error);
+    // Verify customer existence using email from decoded token.
+    const customerResult = await query(
+      "SELECT customer_id FROM customers WHERE email = ?",
+      [decoded.email]
+    ) as RowDataPacket[]; 
+
+    if (!customerResult || customerResult.length === 0) {
+      return res.status(404).json({ success: false, message: "Customer not found." });
+    }
+
+    const customerIdFromDb = customerResult[0].customer_id;
+
+    // Verify that the customerId from the token matches the one from the database.
+    if (customerIdFromDb !== decoded.customerId) {
+        return res.status(401).json({success: false, message: "CustomerId mismatch."});
+    }
+
+    // Generate a new token with an extended expiration (30 minutes)
+    const newToken = jwt.sign({ customerId: decoded.customerId, email: decoded.email }, secretKey, { expiresIn: "30m" });
+
+    // Send the new token back in the response
+    return res.status(200).json({ success: true, token: newToken });
+
+  } catch (error) {
+    console.error("Token verification failed:", error);
 
     // Handle specific JWT errors
     if (error instanceof jwt.TokenExpiredError) {

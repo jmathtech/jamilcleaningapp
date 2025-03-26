@@ -70,7 +70,7 @@ const LoginForm: React.FC = () => {
           <h2 className="text-2xl text-[#545454] font-semibold mb-4">Log In</h2>
           {error && <p className="text-red-600 mb-4">{error}</p>}
           {loginSuccess && (
-            <p className="mt-4 text-[#8ab13c]">
+            <p className="m-4 text-[#8ab13c]">
               Login link sent successfully. Please check your email.
             </p>
           )}

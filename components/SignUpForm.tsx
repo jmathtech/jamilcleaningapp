@@ -78,7 +78,7 @@ const SignUp = () => {
             />
           </div>
 
-          <h2 className="text-2xl text-[#545454] font-bold mb-4">Sign Up</h2>
+          <h2 className="text-2xl text-[#545454] font-semibold mb-4">Sign Up</h2>
 
           <div className="mb-4">
             <input

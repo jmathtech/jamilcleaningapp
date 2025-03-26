@@ -99,19 +99,19 @@ const Navbar = () => {
       <div className="flex justify-between items-center">
         <div className="space-x-14 hidden md:flex">
           <Link href="/" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
-            Home
+            HOME
           </Link>
           <Link href="/signup" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
-            Sign Up
+            SIGN UP
           </Link>
           <Link href="/login" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
-            Log In
+            LOG IN
           </Link>
           <Link href="/booking" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
-            Book A Cleaning
+            BOOK A CLEANING
           </Link>
           <Link href="/dashboard" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
-            Dashboard
+            DASHBOARD
           </Link>
         </div>
 
@@ -201,20 +201,20 @@ const Navbar = () => {
           } transition-all ease-in-out duration-500`}
       >
         <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
-          Home
+          HOME
         </Link>
         <Link href="/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
-          Sign Up
+          SIGN UP
         </Link>
         <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
-          Log In
+          LOG IN
         </Link>
         <hr />
         <Link href="/booking" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
-          Book A Cleaning
+          BOOK A CLEANING
         </Link>
         <Link href="/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
-          Dashboard
+          DASHBOARD
         </Link>
       </div>
     </nav>

@@ -2,14 +2,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { query } from "../../lib/db";
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
 import validator from "validator";
 import { RowDataPacket } from "mysql2";
-
-// Configuration
-export const config = {
-  maxDuration: 60,  // Maximum duration for the API route to be cached in seconds
-
-};
 
 // Login API route
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -25,74 +20,53 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ message: "Invalid email or password. Please try again." });
   }
 
-  // Check if the user exists in the database
+  // Check if the user exists in the database with email
   try {
     const result = await query(
       `
       SELECT 
-        c.customer_id, 
-        c.first_name,
-        c.last_name,
-        c.email,
-        c.phone,
-        c.address,
-        b.booking_id
-      FROM customers c
-      LEFT JOIN bookings b ON c.customer_id = b.customer_id
-      WHERE c.email = ?;
+        customer_id FROM customers WHERE email = ?
       `,
       [email]
     );
 
     // If no user found, then the user cannot log in
     if (Array.isArray(result) && result.length === 0) {
-      return res.status(401).json({ message: "Invalid email. Please try again." });
-    } 
+      return res.status(401).json({ message: "User not found." });
+    }
 
     const user = (result as RowDataPacket[])[0];
-
 
     // Generate JWT token
     const secretKey = process.env.JWT_SECRET;
     if (!secretKey) throw new Error("JWT_SECRET not defined");
 
     // Create a token that expires in 7 days
-    const token = jwt.sign(
-      {
-        customerId: user.customer_id,
+    const token = jwt.sign({ customerId: user.customer_id }, secretKey, { expiresIn: "30m" });
+    const verificationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/api/verify?token=${token}`;
 
+    // Send the email
+    const transporter = nodemailer.createTransport({
+      host: "smtp.hostinger.com", // Replace with your Hostinger SMTP server
+      port: 465, // Or 587, depending on your Hostinger configuration
+      secure: true, // Use SSL/TLS
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
-      secretKey,
-      { expiresIn: '7d' }
-    );
-
-    // Set the token as a cookie in the response header
-    res.setHeader(
-      "Set-Cookie",
-      `token=${token}; httpOnly=true; Secure; SameSite=Strict; Path=/; ${process.env.NODE_ENV === "production" ? "Secure" : ""
-      }`
-    );
-
-    console.log(token);
-
-    // Return the user data
-    return res.status(200).json({
-      message: "Log In successful.",
-      token,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      phone: user.phone,
-      address: user.address,
-      booking_id: user.booking_id,
     });
-  } catch (error) { // Catch any errors
-    console.error("Error during login", error);
-    if (error === 'ER_ACCESS_DENIED') {
-      return res.status(500).json({ message: "Database access denied." });
-    } else if (error=== 'ETIMEDOUT') {
-      return res.status(500).json({ message: "Database connection timed out." });
-    }
-    return res.status(500).json({ message: "Internal server error. Please try again." });
+
+    await transporter.sendMail({
+      from: `"Majestik Magik Cleaning" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: "Email Verification",
+      text: `Please click the following link to verify your email: ${verificationLink}`,
+      html: `<p> Please click the following link to verify your email: <a href="${verificationLink}">Log in to your account</a>`,
+    });
+
+    res.status(200).json({ message: "Email sent successfully." });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ message: "Internal server error." });
   }
 }

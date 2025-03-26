@@ -1,8 +1,6 @@
 /* 
   Created by Jamil Matheny, Majestik Magik 
-  Website: cleaning.majestikmagik.com
-  Updated: 12/02/2024
-  
+  Website: cleaning.majestikmagik.com  
   /components/SignUpForm.tsx
 */
 

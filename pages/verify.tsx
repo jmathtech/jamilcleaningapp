@@ -20,17 +20,25 @@ export default function Verify() {
         const data = await response.json();
 
         if (data.success) {
-          // Store the new token (e.g., in sessionStorage or cookies)
-          sessionStorage.setItem("authToken", data.token);
+          // Store the new token in sessionStorage
+          sessionStorage.setItem("token", data.token);
 
-          // Redirect to dashboard or another page
+          // Redirect to dashboard
           router.replace("/dashboard");
         } else {
           setError(data.message || "Verification failed.");
+          // Check if the user is already on the login page
+          if (router.pathname !== "/login") {
+            router.replace('/login');
+          }
         }
       } catch (err) {
         console.error("Verification error:", err);
         setError("An error occurred during verification.");
+        // Check if the user is already on the login page
+        if (router.pathname !== "/login") {
+          router.replace('/login');
+        }
       } finally {
         setLoading(false);
       }

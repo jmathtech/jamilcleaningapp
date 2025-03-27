@@ -2,10 +2,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { query } from "../../lib/db";
 import { RowDataPacket } from "mysql2";
-import { serialize } from 'cookie'; // Import the 'serialize' function
+import { serialize } from 'cookie';
 
 interface DecodedToken extends JwtPayload {
-    customerId: number;
+    customerId: string;
     email: string;
 }
 
@@ -14,15 +14,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { token } = req.query;
 
         if (!token || typeof token !== 'string') {
+            console.error("Verification Error: No token provided");
             return res.status(401).json({ success: false, message: "Token is missing or invalid." });
         }
 
         const secretKey = process.env.JWT_SECRET;
-        if (!secretKey) throw new Error("JWT_SECRET is not defined in environment variables.");
+        if (!secretKey) {
+            console.error("Verification Error: JWT_SECRET is not defined");
+            throw new Error("JWT_SECRET is not defined in environment variables.");
+        }
 
-        const decoded = jwt.verify(token, secretKey) as DecodedToken;
+        let decoded: DecodedToken;
+        try {
+            decoded = jwt.verify(token, secretKey) as DecodedToken;
+            console.log("Decoded Token:", decoded);
+        } catch (verifyError) {
+            console.error("Token Verification Error:", verifyError);
+            return res.status(401).json({
+                success: false,
+                message: "Invalid or expired token",
+                error: verifyError instanceof Error ? verifyError.message : "Unknown verification error"
+            });
+        }
 
         if (decoded.exp && decoded.exp * 1000 < Date.now()) {
+            console.error("Verification Error: Token expired");
             return res.status(401).json({ success: false, message: "Token has expired." });
         }
 
@@ -32,12 +48,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         ) as RowDataPacket[];
 
         if (!customerResult || customerResult.length === 0) {
+            console.error(`Verification Error: No customer found for email ${decoded.email}`);
             return res.status(404).json({ success: false, message: "Customer not found." });
         }
 
-        const customerIdFromDb = customerResult[0].customer_id;
+        const customerIdFromDb = customerResult[0].customer_id.toString();
 
         if (customerIdFromDb !== decoded.customerId) {
+            console.error("Verification Error: CustomerId mismatch");
             return res.status(401).json({ success: false, message: "CustomerId mismatch." });
         }
 
@@ -52,26 +70,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             "Set-Cookie",
             serialize('token', newToken, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV !== 'production',
+                secure: process.env.NODE_ENV === 'production',
                 sameSite: 'strict',
                 path: '/',
-                maxAge: 30 * 60, // 30 minutes in seconds
+                maxAge: 30 * 60,
             })
         );
 
-        // Redirect to the dashboard
-        return res.redirect("/dashboard");
+        // Send the new token in the response
+        return res.status(200).json({ success: true, token: newToken });
 
     } catch (error) {
-        console.error("Token verification failed:", error);
-
-        if (error instanceof jwt.TokenExpiredError) {
-            return res.status(401).json({ success: false, message: "Token has expired." });
-        }
-        if (error instanceof jwt.JsonWebTokenError) {
-            return res.status(401).json({ success: false, message: "Invalid token." });
-        }
-
-        return res.status(500).json({ success: false, message: "Internal server error." });
+        console.error("Unexpected Verification Error:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error.",
+            error: error instanceof Error ? error.message : "Unknown error"
+        });
     }
 }

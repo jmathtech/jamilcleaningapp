@@ -1,13 +1,3 @@
-// pages/verification-success.tsx
-/* Created by Jamil Matheny, Majestik Magik
-
-This page is used to verify the user's email address.
-It is called when the user clicks the link in the email.
-It is called from the server side.
-It is called with the token in the query string.
-
-*/
-
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
@@ -20,7 +10,10 @@ const VerificationSuccess = () => {
 
       if (typeof token !== 'string') {
         console.error('Invalid token received:', token);
-        router.replace('/login');
+        // Check if the user is already on the login page
+        if (router.pathname !== "/login") {
+          router.replace('/login');
+        }
         return;
       }
 
@@ -34,11 +27,17 @@ const VerificationSuccess = () => {
           router.replace('/dashboard');
         } else {
           console.error('Token verification failed:', data.message || 'Unknown error');
-          router.replace('/login');
+          // Check if the user is already on the login page
+          if (router.pathname !== "/login") {
+            router.replace('/login');
+          }
         }
       } catch (error) {
         console.error('Error during token verification:', error);
-        router.replace('/login');
+        // Check if the user is already on the login page
+        if (router.pathname !== "/login") {
+          router.replace('/login');
+        }
       }
     };
 

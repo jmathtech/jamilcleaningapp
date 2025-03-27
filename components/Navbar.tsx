@@ -3,74 +3,71 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { useAuth } from "../pages/context/AuthContext"; // Adjust path as needed
+import { useAuth } from "../pages/context/AuthContext";
 import Modal from "react-modal";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
-
-// Navigation Bar Component
 const Navbar = () => {
-  const { firstName, lastName, setFirstName, setLastName } = useAuth(); // Access context
-  const [menuOpen, setMenuOpen] = useState(false); // Track the menu open state
-  const navbarRef = useRef<HTMLElement | null>(null); // Navigation element reference
-  const [isModalOpen, setIsModalOpen] = useState(false); // the modal opening state
+  const { firstName, lastName, setFirstName, setLastName } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navbarRef = useRef<HTMLElement | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add isLoggedIn state
+  const router = useRouter();
 
-
-  // Check for first name in cookies
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const storedFirstName = sessionStorage.getItem("first_name"); // Get first name from cookies
+      const storedFirstName = sessionStorage.getItem("first_name");
       if (storedFirstName) {
-        setFirstName(storedFirstName); // Set first name in context from cookie if available
+        setFirstName(storedFirstName);
       }
     }
 
-    // Check for last name in cookies
     if (typeof window !== "undefined") {
-      const storedLastName = sessionStorage.getItem("last_name"); // Get first name from cookies
+      const storedLastName = sessionStorage.getItem("last_name");
       if (storedLastName) {
-        setLastName(storedLastName); // Set first name in context from cookie if available
+        setLastName(storedLastName);
       }
     }
-  }, [setFirstName, setLastName]); // Update when first & last name changes
+  }, [setFirstName, setLastName]);
 
+  // Check for token in sessionStorage after component mounts
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsLoggedIn(sessionStorage.getItem("token") !== null);
+    }
+  }, []);
 
-  // Logout function
   const handleLogout = () => {
-    sessionStorage.removeItem("token"); // Remove token cookie
-    sessionStorage.removeItem("first_name"); // Remove first name cookie
-    sessionStorage.removeItem("last_name"); // Remove last name cookie
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("first_name");
+    sessionStorage.removeItem("last_name");
     sessionStorage.removeItem("email");
     sessionStorage.removeItem("phone");
     sessionStorage.removeItem("address");
-    setFirstName(null); // Clear context
+    setFirstName(null);
     setLastName(null);
-    window.location.href = "/login"; // Redirect to login page after logout
+    router.replace("/login");
   };
 
-  // Open the modal
   const handleOpenModal = () => {
     setIsModalOpen(true);
-
   };
 
-  // Close the modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
-  }
+  };
 
-  // Confirm logout and close modal
   const handleConfirmLogout = () => {
     handleLogout();
     handleCloseModal();
-  }
-
-  // Toggle the menu open state
-  const handleMenuToggle = () => {
-    setMenuOpen((prevState) => !prevState); // Toggle menu state
   };
 
-  // Close the menu when clicking outside
+  const handleMenuToggle = () => {
+    setMenuOpen((prevState) => !prevState);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -89,13 +86,10 @@ const Navbar = () => {
   }, []);
 
   return (
-
-    // Navigation Bar
     <nav
       className="bg-[#333] shadow text-white text-md p-6 relative"
       ref={navbarRef}
     >
-      {/* Desktop Menu size */}
       <div className="flex justify-between items-center">
         <div className="space-x-14 hidden md:flex">
           <Link href="/" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
@@ -107,36 +101,37 @@ const Navbar = () => {
           <Link href="/login" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             LOG IN
           </Link>
-          <Link href="/booking" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
-            BOOK A CLEANING
-          </Link>
-          <Link href="/dashboard" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
-            DASHBOARD
-          </Link>
+          {isLoggedIn && (
+            <>
+              <Link href="/booking" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+                BOOK A CLEANING
+              </Link>
+              <Link href="/dashboard" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+                DASHBOARD
+              </Link>
+            </>
+          )}
         </div>
 
-        {/* Hamburger Menu */}
         <button
           aria-label="Open Menu"
           onClick={handleMenuToggle}
           className="md:hidden flex flex-col items-center justify-center space-y-1 w-8 h-8"
         >
-          {/* Hamburger Menu Bars */}
           <div
             className={`w-6 h-0.5 bg-white transition-all duration-500 transform ${menuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
+            }`}
           ></div>
           <div
             className={`w-6 h-0.5 bg-white transition-all duration-500 ${menuOpen ? "opacity-0" : ""
-              }`}
+            }`}
           ></div>
           <div
             className={`w-6 h-0.5 bg-white transition-all duration-500 transform ${menuOpen ? "-rotate-45 -translate-y-1" : ""
-              }`}
+            }`}
           ></div>
         </button>
 
-        {/* Logged in greeting & logout button */}
         <div className="text-sm font-semibold">
           {firstName && lastName ? (
             <>
@@ -147,13 +142,12 @@ const Navbar = () => {
             </>
           ) : (
             <>
-            Welcome, Guest
+              Welcome, Guest
             </>
           )}
         </div>
       </div>
 
-      {/* Logout Modal */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
@@ -171,7 +165,6 @@ const Navbar = () => {
           },
         }}
       >
-      {/* Logout Modal Content */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -196,10 +189,9 @@ const Navbar = () => {
         </motion.div>
       </Modal>
 
-      {/* Mobile Menu */}
       <div
         className={`md:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          } transition-all ease-in-out duration-500`}
+        } transition-all ease-in-out duration-500`}
       >
         <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           HOME
@@ -210,16 +202,22 @@ const Navbar = () => {
         <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           LOG IN
         </Link>
-        <hr />
-        <Link href="/booking" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
-          BOOK A CLEANING
-        </Link>
-        <Link href="/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
-          DASHBOARD
-        </Link>
+        {isLoggedIn && (
+          <>
+            <hr />
+            <Link href="/booking" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+              BOOK A CLEANING
+            </Link>
+            <Link href="/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+              DASHBOARD
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );
 };
 
 export default Navbar;
+
+

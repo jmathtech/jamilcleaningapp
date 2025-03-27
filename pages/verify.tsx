@@ -17,15 +17,11 @@ export default function Verify() {
 
       try {
         const response = await fetch(`/api/verify?token=${token}`);
-        const data = await response.json();
-
-        if (data.success) {
-          // Store the new token in sessionStorage
-          sessionStorage.setItem("token", data.token);
-
-          // Redirect to dashboard
-          router.replace("/dashboard");
+        if (response.redirected) {
+          // Redirect to the new URL
+          window.location.href = response.url;
         } else {
+          const data = await response.json();
           setError(data.message || "Verification failed.");
           // Check if the user is already on the login page
           if (router.pathname !== "/login") {

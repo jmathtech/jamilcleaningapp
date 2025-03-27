@@ -38,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const result = await query(
       `
       SELECT 
-        customer_id FROM customers WHERE email = ?
+        customer_id, email, first_name, last_name FROM customers WHERE email = ?
       `,
       [email]
     );
@@ -55,7 +55,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!secretKey) throw new Error("JWT_SECRET not defined");
 
     // Create a token that expires in 7 days
-    const token = jwt.sign({ customerId: user.customer_id }, secretKey, { expiresIn: "30m" });
+    const token = jwt.sign({
+      customerId: user.customer_id.toString(), 
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+    }, secretKey, { expiresIn: "30m" });
     const verificationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/api/verify?token=${token}`;
 
     // Send the email

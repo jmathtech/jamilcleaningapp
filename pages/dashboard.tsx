@@ -7,6 +7,8 @@ It is called with the token in the session storage.
 
 */
 
+'use client';
+
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";

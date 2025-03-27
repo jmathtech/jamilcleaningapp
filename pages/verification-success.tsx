@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import jwt from 'jsonwebtoken';
 
 const VerificationSuccess = () => {
   const router = useRouter();
@@ -18,20 +19,23 @@ const VerificationSuccess = () => {
       }
 
       try {
-        const response = await fetch(`/api/verify?token=${token}`);
-        const data = await response.json();
+        sessionStorage.setItem('token', token);
+        console.log('New token stored in sessionStorage:', token);
 
-        if (response.ok && data.success && data.token) {
-          sessionStorage.setItem('token', data.token);
-          console.log('New token stored in sessionStorage:', data.token);
-          router.replace('/dashboard');
-        } else {
-          console.error('Token verification failed:', data.message || 'Unknown error');
-          // Check if the user is already on the login page
-          if (router.pathname !== "/login") {
-            router.replace('/login');
+
+        // Extract the firstName and lastName from the token and store them in sessionStorage
+        const decodedToken = jwt.decode(token);
+        if (decodedToken && typeof decodedToken === 'object') {
+          const { firstName, lastName } = decodedToken as { firstName: string; lastName: string };
+          if (firstName) {
+            sessionStorage.setItem('first_name', firstName);
           }
+          if (lastName) {
+            sessionStorage.setItem('last_name', lastName);
+          }
+
         }
+        router.replace('/dashboard');
       } catch (error) {
         console.error('Error during token verification:', error);
         // Check if the user is already on the login page

@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     // Passing the correct parameters to the query function
     const result = await query(
-      'INSERT INTO customers (first_name, last_name, email, phone, address) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO customers (first_name, last_name, email, phone, address) VALUES (?, ?, ?, ?, ?)',
       [first_name, last_name, email, phone, address]
     );
 

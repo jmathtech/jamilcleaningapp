@@ -52,7 +52,7 @@ const VerificationSuccess = () => {
     <div className="flex justify-center items-center h-screen">
       <div className="text-center">
         <p>Verifying your account...</p>
-        <div className="spinner"></div>
+        <div className="spinner items-center justify-center mt-4"></div>
       </div>
     </div>
   );

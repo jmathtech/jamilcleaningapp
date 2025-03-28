@@ -90,11 +90,10 @@ const LoginForm: React.FC = () => {
             <button
               type="submit"
               aria-label="Submit"
-              className={`px-10 py-2 ${
-                isLoading
+              className={`px-10 py-2 ${isLoading
                   ? "bg-gray-400 cursor-not-allowed flex items-center justify-center gap-2"
                   : "bg-[#8ab13c] hover:bg-[#C5D89D]"
-              } text-white text-lg font-bold rounded-lg transition-colors duration-1000 ease-in-out`}
+                } text-white text-lg font-bold rounded-lg transition-colors duration-1000 ease-in-out`}
               disabled={isLoading}
             >
               {isLoading ? (

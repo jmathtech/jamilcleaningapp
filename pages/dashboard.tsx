@@ -270,7 +270,6 @@ const Dashboard = () => {
           date: rescheduleDate,
           time: rescheduleTime,
         };
-
         console.log("Reschedule Payload:", payload);
 
         const response = await fetch("/api/update-booking", {
@@ -337,13 +336,13 @@ const Dashboard = () => {
         <tbody>
           {bookings.map((booking) => (
             <tr key={booking.booking_id}>
-              <td className="border px-4 py-4 text-lg">{booking.booking_id}</td>
+              <td className="border px-3 py-4 text-lg">{booking.booking_id}</td>
               <td className="border px-4 py-4 text-sm">
-                <i className="fa fa-calendar" aria-hidden="true" style={{ marginRight: '8px' }}></i> {new Date(booking.date).toLocaleDateString()} <br></br>
+                <i className="fa fa-calendar" aria-hidden="true" style={{ marginRight: '8px' }}></i> {new Date(booking.date).toISOString().split('T')[0]} <br></br>
                 <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {formatTime(booking.time)} <br></br>
                 <i className="fa fa-hourglass-half" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.hours} hours <br></br>
                 <p><div className="notes-container">
-                  <i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.notes ? (
+                  <i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.notes && booking.notes.length > 0 ? (
                     expandedNotes[booking.booking_id] ? (
                       <div>{booking.notes}
                         <span
@@ -400,7 +399,7 @@ const Dashboard = () => {
                       width: "auto", // Set the width
                       height: "350px", // Set the height
                       margin: "auto", // Center the modal
-                      padding: "20px", // Add some padding
+                      padding: "30px", // Add some padding
                       borderRadius: "8px", // Optional: Rounded corners
                       boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)", // Optional: Add a shadow
                     },

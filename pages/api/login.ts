@@ -56,11 +56,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Create a token that expires in 7 days
     const token = jwt.sign({
-      customerId: user.customer_id.toString(), 
+      customerId: user.customer_id.toString(),
       email: user.email,
       firstName: user.first_name,
       lastName: user.last_name,
-    }, secretKey, { expiresIn: "30m" });
+    }, secretKey, { expiresIn: "2h" });
     const verificationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/api/verify?token=${token}`;
 
     // Send the email

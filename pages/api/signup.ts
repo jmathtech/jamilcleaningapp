@@ -1,6 +1,5 @@
 // pages/api/signup.ts
 import { NextApiRequest, NextApiResponse } from 'next';
-import bcrypt from 'bcryptjs';
 import { query } from '../../lib/db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,19 +7,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ message: 'Only POST requests are allowed.' });
   }
 
-  const { first_name, last_name, email, phone, address, password } = req.body;
+  const { first_name, last_name, email, phone, address} = req.body;
   
-  if (!first_name || !last_name || !email || !password) {
+  if (!first_name || !last_name || !email || !phone || !address) {
     return res.status(400).json({ message: 'All fields are required.' });
   }
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     // Passing the correct parameters to the query function
     const result = await query(
-      'INSERT INTO customers (first_name, last_name, email, phone, address, password) VALUES (?, ?, ?, ?, ?, ?)',
-      [first_name, last_name, email, phone, address, hashedPassword]
+      'INSERT INTO customers (first_name, last_name, email, phone, address) VALUES (?, ?, ?, ?, ?, ?)',
+      [first_name, last_name, email, phone, address]
     );
 
     res.status(201).json({ message: 'User registered successfully.', result });

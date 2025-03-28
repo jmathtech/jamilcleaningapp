@@ -70,16 +70,12 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        navbarRef.current &&
-        !navbarRef.current.contains(event.target as Node)
-      ) {
+      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
         setMenuOpen(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -120,15 +116,15 @@ const Navbar = () => {
         >
           <div
             className={`w-6 h-0.5 bg-white transition-all duration-500 transform ${menuOpen ? "rotate-45 translate-y-2" : ""
-            }`}
+              }`}
           ></div>
           <div
             className={`w-6 h-0.5 bg-white transition-all duration-500 ${menuOpen ? "opacity-0" : ""
-            }`}
+              }`}
           ></div>
           <div
             className={`w-6 h-0.5 bg-white transition-all duration-500 transform ${menuOpen ? "-rotate-45 -translate-y-1" : ""
-            }`}
+              }`}
           ></div>
         </button>
 
@@ -152,7 +148,9 @@ const Navbar = () => {
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
         style={{
-          overlay: { backgroundColor: "rgba(0, 0, 0, 0.6)" },
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
           content: {
             top: "50%",
             left: "50%",
@@ -160,8 +158,8 @@ const Navbar = () => {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            padding: "30px",
-            borderRadius: "8px",
+            width: "300px",
+            padding: "20px",
           },
         }}
       >
@@ -191,7 +189,7 @@ const Navbar = () => {
 
       <div
         className={`md:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        } transition-all ease-in-out duration-500`}
+          } transition-all ease-in-out duration-500`}
       >
         <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           HOME

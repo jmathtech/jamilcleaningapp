@@ -54,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const secretKey = process.env.JWT_SECRET;
     if (!secretKey) throw new Error("JWT_SECRET not defined");
 
-    // Create a token that expires in 7 days
+    // Create a token that expires in 2 hours
     const token = jwt.sign({
       customerId: user.customer_id.toString(),
       email: user.email,

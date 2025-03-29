@@ -107,7 +107,7 @@ const Profile = () => {
       <Navbar />
 
       <main className="container min-h-screen text-md mx-auto px-4 py-6">
-        <div className="bg-white p-8 rounded shadow-xl my-6">
+        <div className="bg-white p-8 rounded shadow border-[#8ab13c] border my-6">
           <h2 className="text-lg text-gray-600 font-bold mt-8">Profile Details</h2>
           <div className="mt-4">
             {["first_name", "last_name", "email", "phone", "address"].map((field) => (

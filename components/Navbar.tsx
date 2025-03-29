@@ -105,6 +105,12 @@ const Navbar = () => {
               <Link href="/dashboard" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
                 DASHBOARD
               </Link>
+              <Link href="/profile" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+                PROFILE
+              </Link>
+              <Link href="/contact-support" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+                CONTACT SUPPORT
+              </Link>
             </>
           )}
         </div>
@@ -209,6 +215,13 @@ const Navbar = () => {
             <Link href="/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
               DASHBOARD
             </Link>
+            <Link href="/profile" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+              PROFILE
+            </Link>
+            <Link href="/contact-support" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+              CONTACT SUPPORT
+            </Link>
+
           </>
         )}
       </div>

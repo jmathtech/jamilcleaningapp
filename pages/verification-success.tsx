@@ -41,15 +41,24 @@ const VerificationSuccess = () => {
         console.log('New token stored in sessionStorage:', token);
 
 
-        // Extract the firstName and lastName from the token and store them in sessionStorage
+        // Extract the firstName, lastName, email, phone, and address from the token and store them in sessionStorage
         const decodedToken = jwt.decode(token);
         if (decodedToken && typeof decodedToken === 'object') {
-          const { firstName, lastName } = decodedToken as { firstName: string; lastName: string };
+          const { firstName, lastName, email, phone, address } = decodedToken as { firstName: string; lastName: string, email: string, phone: string, address: string };
           if (firstName) {
             sessionStorage.setItem('first_name', firstName);
           }
           if (lastName) {
             sessionStorage.setItem('last_name', lastName);
+          }
+          if (email) {
+            sessionStorage.setItem('email', email);
+          }
+          if (phone) {
+            sessionStorage.setItem('phone', phone);
+          }
+          if (address) {
+            sessionStorage.setItem('address', address);
           }
 
         }
@@ -69,8 +78,8 @@ const VerificationSuccess = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="text-center items-center justify-center">
-        <p>Verifying your account...</p>
-        <div className="spinner mt-6"></div>
+         <p><div className="spinner"></div> Verifying your account...</p>
+        
       </div>
     </div>
   );

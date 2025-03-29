@@ -22,10 +22,15 @@ export default function Verify() {
           window.location.href = response.url;
         } else {
           const data = await response.json();
-          setError(data.message || "Verification failed.");
-          // Check if the user is already on the login page
-          if (router.pathname !== "/login") {
-            router.replace('/login');
+          if (data.error === "jwt expired") {
+            // Redirect to the login page
+            router.replace('/expired-token');
+          } else {
+            setError(data.message || "Verification failed.");
+            // Check if the user is already on the login page
+            if (router.pathname !== "/login") {
+              router.replace('/login');
+            }
           }
         }
       } catch (err) {

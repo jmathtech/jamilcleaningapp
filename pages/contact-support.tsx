@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import authGuard from '../utils/authGuard';
 
 const ContactSupport = () => {
   return (
@@ -66,4 +67,4 @@ const ContactSupport = () => {
   );
 };
 
-export default ContactSupport;
+export default authGuard(ContactSupport);

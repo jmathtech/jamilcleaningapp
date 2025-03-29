@@ -91,7 +91,7 @@ const ContactSupport = () => {
                 placeholder="Your Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
+                required  
               />
             </div>
 
@@ -118,7 +118,7 @@ const ContactSupport = () => {
               {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
             {submissionStatus === 'success' && (
-              <p className="text-green-500 mt-4">Message sent successfully!</p>
+              <p className="text-green-500 mt-4">Your message is sent successfully!</p>
             )}
             {submissionStatus === 'error' && (
               <p className="text-red-500 mt-4">Error sending message. Please try again later.</p>

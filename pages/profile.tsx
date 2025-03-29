@@ -67,7 +67,7 @@ const Profile = () => {
   const handleSave = async () => {
     try {
       const token = getToken(); // Assuming you have a getToken function to retrieve the token
-  
+
       const response = await fetch("/api/user", {
         method: "POST",
         headers: {
@@ -76,13 +76,13 @@ const Profile = () => {
         },
         body: JSON.stringify(user),
       });
-  
+
       if (!response.ok) {
         // Handle specific error cases
-        if (response.status === 401) { 
+        if (response.status === 401) {
           // Handle unauthorized access
           console.error("Unauthorized access");
-        } else if (response.status === 403) { 
+        } else if (response.status === 403) {
           // Handle forbidden access
           console.error("Forbidden access");
         } else {
@@ -90,15 +90,15 @@ const Profile = () => {
         }
         return; // Exit the function if the request was not successful
       }
-  
-      console.log("User data updated successfully."); 
+
+      console.log("User data updated successfully.");
       // Optionally, refresh the user data after successful update
       // setUser(await getUserData()); // Assuming you have a getUserData function
-  
+
     } catch (error) {
       console.error("Error updating user data:", error);
     } finally {
-      setEditing(false); 
+      setEditing(false);
     }
   };
 
@@ -122,7 +122,7 @@ const Profile = () => {
                   type={field === "email" ? "email" : "text"}
                   id={field}
                   name={field}
-                  value={user[field as keyof typeof user]} // Correct binding
+                  value={editing ? user[field as keyof typeof user] : (field === "first_name" ? firstName ?? "" : field === "last_name" ? lastName ?? "" : field === "email" ? email ?? "" : field === "phone" ? phone ?? "" : address ?? "")} // Correct binding
                   placeholder={editing ? `Enter your ${field.replace("_", " ")}` : (field === "first_name" ? firstName ?? "" : field === "last_name" ? lastName ?? "" : field === "email" ? email ?? "" : field === "phone" ? phone ?? "" : address ?? "")}
                   onChange={handleChange}
                   disabled={!editing}
@@ -164,4 +164,4 @@ const Profile = () => {
   );
 };
 
-export default authGuard (Profile);
+export default authGuard(Profile);

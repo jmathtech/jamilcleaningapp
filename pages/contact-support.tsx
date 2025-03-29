@@ -8,9 +8,8 @@ const ContactSupport = () => {
     <div className="min-h-screen flex flex-col bg-gray-100">
       <Navbar />
       <div className="flex-grow container mx-auto px-8 py-12">
-        
         <div className="bg-white p-6 rounded shadow border-[#8ab13c] border max-w-xl mx-auto">
-        <h1 className="text-2xl text-gray-600 font-bold mb-6 mt-10">Contact Support</h1>
+          <h1 className="text-2xl text-gray-600 font-bold mb-6 mt-10">Contact Support</h1>
           <h3 className="text-lg text-gray-600 font-semibold mb-4">We are here to help!</h3>
           <p className="text-sm text-gray-500 mb-6">
             If you have any questions or need assistance, please fill out the form below, and we’ll get back to you as soon as possible.

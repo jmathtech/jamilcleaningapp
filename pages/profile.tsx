@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useAuth } from '../pages/context/AuthContext'; // Adjust path as needed
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import authGuard from "@/utils/authGuard";
 
 const Profile = () => {
   const [user, setUser] = useState({
@@ -163,4 +164,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default authGuard (Profile);

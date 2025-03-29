@@ -22,10 +22,9 @@ import { RowDataPacket } from "mysql2";
 // Login API route
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Only POST requests are allowed." });
+    return res.status(405).json({ message: "Method not allowed" });
   }
 
-  // Get email from the request body
   const { email } = req.body;
 
   // Validate email and password
@@ -79,12 +78,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       to: email,
       subject: "Email Verification",
       text: `Please click the following link to verify your email: ${verificationLink}`,
-      html: `<!DOCTYPE html>
+      html: `<DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Your Email</title>
+    <title>Email Verification</title>
     <style>
         body {
             font-family: sans-serif;
@@ -137,6 +136,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     res.status(200).json({ message: "Email sent successfully." });
+    console.log("Email sent successfully.");
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ message: "Internal server error." });

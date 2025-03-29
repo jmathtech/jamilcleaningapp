@@ -1,9 +1,58 @@
-import React from 'react';
+// pages/contact-support.tsx
+/* 
+  Created by Jamil Matheny, Majestik Magik
+  Website: cleaning.majestikmagik.com
+
+  It is called when the user clicks the contact support button on the navbar.
+  It is called from the client side.
+*/
+
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import authGuard from '../utils/authGuard';
 
 const ContactSupport = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState<'success' | 'error' | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmissionStatus(null); // Reset submission status
+
+    try {
+
+      // Send message to API
+      const response = await fetch('/api/contact-support', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, message }),
+      });
+      // Handle response
+      if (response.ok) {
+        setSubmissionStatus('success');
+        setName('');
+        setEmail('');
+        setMessage('');
+      } else {
+        setSubmissionStatus('error');
+      }
+    } catch (error) {
+      
+      // Handle errors
+      console.error('Error sending message:', error);
+      setSubmissionStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <Navbar />
@@ -15,7 +64,7 @@ const ContactSupport = () => {
             If you have any questions or need assistance, please fill out the form below, and we’ll get back to you as soon as possible.
           </p>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                 Name
@@ -25,6 +74,9 @@ const ContactSupport = () => {
                 id="name"
                 className="w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring focus:border-blue-300"
                 placeholder="Your Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
               />
             </div>
 
@@ -37,6 +89,9 @@ const ContactSupport = () => {
                 id="email"
                 className="w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring focus:border-blue-300"
                 placeholder="Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
@@ -49,15 +104,25 @@ const ContactSupport = () => {
                 rows={4 as number}
                 className="w-full px-3 py-2 rounded shadow"
                 placeholder="Your Message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
               ></textarea>
             </div>
 
             <button
               type="submit"
-              className="bg-[#8ab13c] text-white px-4 py-2 rounded shadow hover:bg-[#b7d190] focus:outline-none focus:ring"
+              className="bg-[#8ab13c] text-white px-4 py-2 rounded shadow hover:bg-[#b7d190] focus:outline-none focus:ring ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}"
+              disabled={isSubmitting}
             >
-              Submit
+              {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
+            {submissionStatus === 'success' && (
+              <p className="text-green-500 mt-4">Message sent successfully!</p>
+            )}
+            {submissionStatus === 'error' && (
+              <p className="text-red-500 mt-4">Error sending message. Please try again later.</p>
+            )}
           </form>
         </div>
       </div>

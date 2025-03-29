@@ -16,7 +16,7 @@ const LoginForm: React.FC = () => {
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    setError(null); // Reset error message
+    setError(null); // Reset error message 
     setLoginSuccess(false);
 
     try {
@@ -60,8 +60,6 @@ const LoginForm: React.FC = () => {
               height={150}
               priority={true}
               style={{
-                width: "auto",
-                height: "auto",
                 minWidth: "150px",
                 maxWidth: "250px",
               }}

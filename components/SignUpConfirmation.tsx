@@ -39,7 +39,7 @@ const SignUpConfirmation = () => {
               width={250}
               height={150}
               priority={true} // Load image immediately
-              style={{ width: "auto", height: "auto", minWidth: "150px", maxWidth: "250px" }}
+              style={{ minWidth: "150px", maxWidth: "250px" }}
             />
           <h1 className="text-2xl font-bold text-[#545454] mb-4">
             Welcome to Majestik Magik Cleaning!

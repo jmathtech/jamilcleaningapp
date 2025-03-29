@@ -321,8 +321,7 @@ const Dashboard = () => {
           <tr className="text-sm">
             {[
               "ID #",
-              "Booking Details",
-              "Actions",
+              "Booking Details"
             ].map((header) => (
               <th
                 key={header}
@@ -341,7 +340,7 @@ const Dashboard = () => {
                 <i className="fa fa-calendar" aria-hidden="true" style={{ marginRight: '8px' }}></i> {new Date(booking.date).toISOString().split('T')[0]} <br></br>
                 <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {formatTime(booking.time)} <br></br>
                 <i className="fa fa-hourglass-half" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.hours} hours <br></br>
-                <p><div className="notes-container">
+                <div className="notes-container">
                   <i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.notes && booking.notes.length > 0 ? (
                     expandedNotes[booking.booking_id] ? (
                       <div>{booking.notes}
@@ -364,168 +363,169 @@ const Dashboard = () => {
                       </div>
                     )
                   ) : (
-                    "No notes"
-                  )} </div></p>
+                    <p>No notes</p>
+                  )} </div>
                 <i className="fa fa-book" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.service_type} <br></br>
                 <i className="fa fa-paw" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.has_pets ? "Has Pets" : "No Pets"} <br></br>
                 <i className="fa fa-tasks" aria-hidden="true" style={{ marginRight: '8px' }}></i> Status: {booking.status} <br></br>
                 <i className="fa fa-money" aria-hidden="true" style={{ marginRight: '8px' }}></i> Total:  ${booking.total_price} <br></br>
-              </td>
-              <td className="border p-2">
-                <button
-                  className="bg-[#3498db] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
-                  onClick={() => handleReviewClick(booking.booking_id)}
-                >
-                  <i className="fa fa-commenting" aria-hidden="true"></i> Review
-                </button> <br />
 
-                <button
-                  className="bg-[#3cb1b1] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
-                  onClick={() => openRescheduleModal(booking.booking_id)}
-                >
-                  <i className="fa fa-calendar" aria-hidden="true"></i> Reschedule
-                </button> <br />
-
-                <Modal
-                  isOpen={modalRescheduleIsOpen}
-                  onRequestClose={() => setModalRescheduleIsOpen(false)}
-                  contentLabel="Reschedule Booking"
-                  style={{
-                    overlay: {
-                      backgroundColor: "rgba(0, 0, 0, 0.1)", // Optional: Background overlay style
-                    },
-                    content: {
-                      maxWidth: "500px", // Set the maximum width
-                      width: "auto", // Set the width
-                      height: "350px", // Set the height
-                      margin: "auto", // Center the modal
-                      padding: "30px", // Add some padding
-                      borderRadius: "8px", // Optional: Rounded corners
-                      boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)", // Optional: Add a shadow
-                    },
-                  }}
-                >
-                  <motion.div
-                    initial="hidden"
-                    animate="visible"
-                    variants={bounceVariants}
-                    className="modal-content"
+                <div className="flex justify-end space-x mt-4">
+                  <button
+                    className="bg-[#3498db] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
+                    onClick={() => handleReviewClick(booking.booking_id)}
                   >
-                    <h2 className="font-semibold text-center text-md">
-                      Reschedule Booking
-                    </h2>
+                    <i className="fa fa-commenting" aria-hidden="true"></i> Review
+                  </button>
 
-                    {/* Date */}
-                    <div className="mb-4">
-                      <label htmlFor="date" className="block font-medium">
-                        Select Date:
-                      </label>
-                      <input
-                        type="date"
-                        id="date"
-                        value={rescheduleDate}
-                        onChange={(e) => setRescheduleDate(e.target.value)}
-                        min={new Date().toISOString().split("T")[0]}
-                        className="block w-full border p-2 rounded"
-                        required
-                      />
-                    </div>
-
-                    {/* Time */}
-                    <div className="mb-4">
-                      <label htmlFor="time" className="block font-medium">
-                        Select Time:
-                      </label>
-                      <input
-                        type="time"
-                        id="time"
-                        value={rescheduleTime}
-                        onChange={(e) => setRescheduleTime(e.target.value)}
-                        className="block w-full border p-2 rounded"
-                        required
-                      />
-                    </div>
-
-                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                      <button
-                        className="px-5 py-2 mx-4 bg-[#3cb1b1] text-white text-md rounded hover:bg-[#85c1e9] transition-colors duration-500 ease-in-out"
-                        onClick={submitReschedule}
-                      >
-                        Reschedule
-                      </button>
-
-                      <button
-                        className="px-5 py-2 bg-gray-300 text-md rounded hover:bg-gray-200 transition-colors duration-500 ease-in-out"
-                        onClick={() => setModalRescheduleIsOpen(false)}
-                      >
-                        Close
-                      </button>
-                    </div>
-                    {successReschedule && <p className="mt-4 text-[#8ab13c]">{handlesuccessReschedule}</p>}
-                  </motion.div>
-                </Modal>
-
-                <button
-                  onClick={() => onCancel(booking.booking_id)}
-                  className="bg-[#b1463c] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#d59187] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
-                >
-                  <i className="fa fa-ban" aria-hidden="true"></i> Cancel
-                </button> <br />
-
-                <Modal
-                  isOpen={modalCancelIsOpen}
-                  onRequestClose={() => setModalCancelIsOpen(false)}
-                  contentLabel="Cancel Booking"
-                  style={{
-                    overlay: {
-                      backgroundColor: "rgba(0, 0, 0, 0.1)",
-                    },
-                    content: {
-                      maxWidth: "500px", // Set the maximum width
-                      width: "auto", // Set the width
-                      height: "200px", // Set the height
-                      margin: "auto", // Center the modal
-                      padding: "20px",
-                      borderRadius: "8px",
-                      boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)",
-                    },
-                  }}
-                >
-                  <motion.div
-                    initial="hidden"
-                    animate="visible"
-                    variants={bounceVariants}
-                    className="modal-content"
+                  <button
+                    className="bg-[#3cb1b1] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
+                    onClick={() => openRescheduleModal(booking.booking_id)}
                   >
-                    <h2 className="font-semibold text-center text-md">
-                      Cancel Booking
-                    </h2>
-                    <div className="text-center mt-4">
-                      Are you sure you want to cancel this booking?
-                    </div>
-                    <div className="flex justify-center mt-8 space-x-4">
-                      <button
-                        className="px-6 py-2 bg-[#b1463c] text-white rounded hover:bg-[#d59187] transition-colors duration-500 ease-in-out"
-                        onClick={confirmCancel}
-                      >
-                        Yes, Cancel
-                      </button>
-                      <button
-                        className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-200 transition-colors duration-500 ease-in-out"
-                        onClick={cancelCancel}
-                      >
-                        No, Keep Booking
-                      </button>
-                    </div>
-                  </motion.div>
-                </Modal>
+                    <i className="fa fa-calendar" aria-hidden="true"></i> Reschedule
+                  </button>
 
-                <button
-                  onClick={handlePrint}
-                  className="bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-opacity duration-500 text-xs hover:opacity-80 font-bold py-1 px-3 mx-1 mb-2"
-                >
-                  <i className="fa fa-print" aria-hidden="true"></i> Print
-                </button>
+                  <Modal
+                    isOpen={modalRescheduleIsOpen}
+                    onRequestClose={() => setModalRescheduleIsOpen(false)}
+                    contentLabel="Reschedule Booking"
+                    style={{
+                      overlay: {
+                        backgroundColor: "rgba(0, 0, 0, 0.1)", // Optional: Background overlay style
+                      },
+                      content: {
+                        maxWidth: "500px", // Set the maximum width
+                        width: "auto", // Set the width
+                        height: "350px", // Set the height
+                        margin: "auto", // Center the modal
+                        padding: "30px", // Add some padding
+                        borderRadius: "8px", // Optional: Rounded corners
+                        boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)", // Optional: Add a shadow
+                      },
+                    }}
+                  >
+                    <motion.div
+                      initial="hidden"
+                      animate="visible"
+                      variants={bounceVariants}
+                      className="modal-content"
+                    >
+                      <h2 className="font-semibold text-center text-md">
+                        Reschedule Booking
+                      </h2>
+
+                      {/* Date */}
+                      <div className="mb-4">
+                        <label htmlFor="date" className="block font-medium">
+                          Select Date:
+                        </label>
+                        <input
+                          type="date"
+                          id="date"
+                          value={rescheduleDate}
+                          onChange={(e) => setRescheduleDate(e.target.value)}
+                          min={new Date().toISOString().split("T")[0]}
+                          className="block w-full border p-2 rounded"
+                          required
+                        />
+                      </div>
+
+                      {/* Time */}
+                      <div className="mb-4">
+                        <label htmlFor="time" className="block font-medium">
+                          Select Time:
+                        </label>
+                        <input
+                          type="time"
+                          id="time"
+                          value={rescheduleTime}
+                          onChange={(e) => setRescheduleTime(e.target.value)}
+                          className="block w-full border p-2 rounded"
+                          required
+                        />
+                      </div>
+
+                      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <button
+                          className="px-5 py-2 mx-4 bg-[#3cb1b1] text-white text-md rounded hover:bg-[#85c1e9] transition-colors duration-500 ease-in-out"
+                          onClick={submitReschedule}
+                        >
+                          Reschedule
+                        </button>
+
+                        <button
+                          className="px-5 py-2 bg-gray-300 text-md rounded hover:bg-gray-200 transition-colors duration-500 ease-in-out"
+                          onClick={() => setModalRescheduleIsOpen(false)}
+                        >
+                          Close
+                        </button>
+                      </div>
+                      {successReschedule && <p className="mt-4 text-[#8ab13c]">{handlesuccessReschedule}</p>}
+                    </motion.div>
+                  </Modal>
+
+                  <button
+                    onClick={() => onCancel(booking.booking_id)}
+                    className="bg-[#b1463c] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#d59187] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
+                  >
+                    <i className="fa fa-ban" aria-hidden="true"></i> Cancel
+                  </button>
+
+                  <Modal
+                    isOpen={modalCancelIsOpen}
+                    onRequestClose={() => setModalCancelIsOpen(false)}
+                    contentLabel="Cancel Booking"
+                    style={{
+                      overlay: {
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                      },
+                      content: {
+                        maxWidth: "500px", // Set the maximum width
+                        width: "auto", // Set the width
+                        height: "200px", // Set the height
+                        margin: "auto", // Center the modal
+                        padding: "20px",
+                        borderRadius: "8px",
+                        boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)",
+                      },
+                    }}
+                  >
+                    <motion.div
+                      initial="hidden"
+                      animate="visible"
+                      variants={bounceVariants}
+                      className="modal-content"
+                    >
+                      <h2 className="font-semibold text-center text-md">
+                        Cancel Booking
+                      </h2>
+                      <div className="text-center mt-4">
+                        Are you sure you want to cancel this booking?
+                      </div>
+                      <div className="flex justify-center mt-8 space-x-4">
+                        <button
+                          className="px-6 py-2 bg-[#b1463c] text-white rounded hover:bg-[#d59187] transition-colors duration-500 ease-in-out"
+                          onClick={confirmCancel}
+                        >
+                          Yes, Cancel
+                        </button>
+                        <button
+                          className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-200 transition-colors duration-500 ease-in-out"
+                          onClick={cancelCancel}
+                        >
+                          No, Keep Booking
+                        </button>
+                      </div>
+                    </motion.div>
+                  </Modal>
+
+                  <button
+                    onClick={handlePrint}
+                    className="bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-opacity duration-500 text-xs hover:opacity-80 font-bold py-1 px-3 mx-1 mb-2"
+                  >
+                    <i className="fa fa-print" aria-hidden="true"></i> Print
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

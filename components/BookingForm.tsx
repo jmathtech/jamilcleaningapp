@@ -119,7 +119,7 @@ const BookingForm = () => {
               width={250}
               height={150}
               priority={true} // Load image immediately
-              style={{ width: "auto", height: "auto", minWidth: "150px", maxWidth: "250px" }}
+              style={{ minWidth: "150px", maxWidth: "250px" }}
             />
           </div>
           <h2 className="flex justify-center text-3xl text-[#545454] font-bold p-6">

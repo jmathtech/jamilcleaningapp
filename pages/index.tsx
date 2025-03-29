@@ -37,7 +37,7 @@ const Home = () => {
               width={250}
               height={150}
               priority={true} // Load image immediately
-              style={{ width: "auto", height: "auto", minWidth: "150px", maxWidth: "250px" }}
+              style={{ minWidth: "150px", maxWidth: "250px" }}
             />
           </h1>
           <p className="font-semibold text-xl text-gray-600 mt-2">

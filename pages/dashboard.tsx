@@ -315,7 +315,7 @@ const Dashboard = () => {
     onReadMoreToggle: (id: string) => void;
     expandedNotes: { [key: string]: boolean };
   }) => (
-    <div className="overflow-x-auto rounded">
+    <div className="rounded">
       <table className="w-full border">
         <thead>
           <tr className="text-sm">
@@ -325,7 +325,7 @@ const Dashboard = () => {
             ].map((header) => (
               <th
                 key={header}
-                className="bg-gray-100 border px-2 py-2 text-left"
+                className="bg-gray-100 border px-4 py-2 text-left"
               >
                 {header}
               </th>
@@ -335,7 +335,7 @@ const Dashboard = () => {
         <tbody>
           {bookings.map((booking) => (
             <tr key={booking.booking_id}>
-              <td className="border px-3 py-4 text-lg">{booking.booking_id}</td>
+              <td className="border px-4 py-4 text-lg">{booking.booking_id}</td>
               <td className="border px-4 py-4 text-sm">
                 <i className="fa fa-calendar" aria-hidden="true" style={{ marginRight: '8px' }}></i> {new Date(booking.date).toISOString().split('T')[0]} <br></br>
                 <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {formatTime(booking.time)} <br></br>

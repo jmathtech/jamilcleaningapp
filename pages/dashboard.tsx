@@ -485,7 +485,7 @@ const Dashboard = () => {
                       content: {
                         maxWidth: "550px", // Set the maximum width
                         width: "auto", // Set the width
-                        height: "200px", // Set the height
+                        height: "300px", // Set the height
                         margin: "auto", // Center the modal
                         padding: "20px",
                         borderRadius: "8px",
@@ -507,13 +507,13 @@ const Dashboard = () => {
                       </div>
                       <div className="flex justify-center mt-8 space-x-4">
                         <button
-                          className="px-6 py-2 bg-[#b1463c] text-white rounded hover:bg-[#d59187] transition-colors duration-500 ease-in-out"
+                          className="px-4 py-2 bg-[#b1463c] text-white rounded hover:bg-[#d59187] transition-colors duration-500 ease-in-out"
                           onClick={confirmCancel}
                         >
                           Yes, Cancel
                         </button>
                         <button
-                          className="px-6 py-2 bg-gray-300 rounded hover:bg-gray-200 transition-colors duration-500 ease-in-out"
+                          className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-200 transition-colors duration-500 ease-in-out"
                           onClick={cancelCancel}
                         >
                           No, Keep Booking

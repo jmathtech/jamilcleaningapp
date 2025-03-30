@@ -315,7 +315,7 @@ const Dashboard = () => {
     onReadMoreToggle: (id: string) => void;
     expandedNotes: { [key: string]: boolean };
   }) => (
-    <div className="overflow-x-auto px-4">
+    <div className="overflow-x-auto rounded">
       <table className="w-full border rounded">
         <thead>
           <tr className="text-sm">
@@ -325,7 +325,7 @@ const Dashboard = () => {
             ].map((header) => (
               <th
                 key={header}
-                className="bg-gray-100 border rounded py-2 text-left"
+                className="bg-gray-100 border px-4 py-2 text-left"
               >
                 {header}
               </th>

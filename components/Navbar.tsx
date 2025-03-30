@@ -118,7 +118,7 @@ const Navbar = () => {
         <button
           aria-label="Open Menu"
           onClick={handleMenuToggle}
-          className="md:hidden flex flex-col items-center justify-center space-y-1 w-8 h-8"
+          className="lg:hidden flex flex-col items-center justify-center space-y-1 w-8 h-8"
         >
           <div
             className={`w-6 h-0.5 bg-white transition-all duration-500 transform ${menuOpen ? "rotate-45 translate-y-2" : ""

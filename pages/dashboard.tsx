@@ -315,8 +315,8 @@ const Dashboard = () => {
     onReadMoreToggle: (id: string) => void;
     expandedNotes: { [key: string]: boolean };
   }) => (
-    <div className="overflow-x-auto rounded">
-      <table className="container border">
+    <div className="overflow-x-auto rounded px-4">
+      <table className="w-full border">
         <thead>
           <tr className="text-sm">
             {[
@@ -335,7 +335,7 @@ const Dashboard = () => {
         <tbody>
           {bookings.map((booking) => (
             <tr key={booking.booking_id}>
-              <td className="border px-4 py-4 text-lg">{booking.booking_id}</td>
+              <td className="border px-3 py-4 text-lg">{booking.booking_id}</td>
               <td className="border px-4 py-4 text-sm">
                 <i className="fa fa-calendar" aria-hidden="true" style={{ marginRight: '8px' }}></i> {new Date(booking.date).toISOString().split('T')[0]} <br></br>
                 <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {formatTime(booking.time)} <br></br>
@@ -370,7 +370,7 @@ const Dashboard = () => {
                 <i className="fa fa-tasks" aria-hidden="true" style={{ marginRight: '8px' }}></i> Status: {booking.status} <br></br>
                 <i className="fa fa-money" aria-hidden="true" style={{ marginRight: '8px' }}></i> Total:  ${booking.total_price} <br></br>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mt-4">
                   <button
                     className="bg-[#3498db] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full flex items-center justify-center md:justify-normal md:space-x-2"
                     onClick={() => handleReviewClick(booking.booking_id)}

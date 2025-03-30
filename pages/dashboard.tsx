@@ -316,12 +316,13 @@ const Dashboard = () => {
     expandedNotes: { [key: string]: boolean };
   }) => (
     <div className="overflow-x-auto rounded">
-      <table className="container border">
+      <table className="w-full border">
         <thead>
           <tr className="text-sm">
             {[
               "ID #",
-              "Booking Details"
+              "Booking Details",
+              "Actions"
             ].map((header) => (
               <th
                 key={header}
@@ -335,7 +336,7 @@ const Dashboard = () => {
         <tbody>
           {bookings.map((booking) => (
             <tr key={booking.booking_id}>
-              <td className="border px-4 py-4 text-lg">{booking.booking_id}</td>
+              <td className="border px-3 py-4 text-lg">{booking.booking_id}</td>
               <td className="border px-4 py-4 text-sm">
                 <i className="fa fa-calendar" aria-hidden="true" style={{ marginRight: '8px' }}></i> {new Date(booking.date).toISOString().split('T')[0]} <br></br>
                 <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px' }}></i> {formatTime(booking.time)} <br></br>
@@ -363,26 +364,29 @@ const Dashboard = () => {
                       </div>
                     )
                   ) : (
-                    <p>No notes</p>
+                   <p>No notes</p> 
                   )} </div>
                 <i className="fa fa-book" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.service_type} <br></br>
                 <i className="fa fa-paw" aria-hidden="true" style={{ marginRight: '8px' }}></i> {booking.has_pets ? "Has Pets" : "No Pets"} <br></br>
                 <i className="fa fa-tasks" aria-hidden="true" style={{ marginRight: '8px' }}></i> Status: {booking.status} <br></br>
                 <i className="fa fa-money" aria-hidden="true" style={{ marginRight: '8px' }}></i> Total:  ${booking.total_price} <br></br>
-
-                <div className="flex justify-end space-x mt-4">
+              </td>
+              <td className="border p-2">
+                <div className="flex flex-wrap gap-2">
                   <button
-                    className="bg-[#3498db] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
+                    className="bg-[#3498db] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full flex items-center justify-center md:justify-normal md:space-x-2"
                     onClick={() => handleReviewClick(booking.booking_id)}
                   >
-                    <i className="fa fa-commenting" aria-hidden="true"></i> Review
+                    <i className="fa fa-commenting md:mr-2" aria-hidden="true"></i>
+                    <span className="hidden md:inline">Review</span>
                   </button>
 
                   <button
-                    className="bg-[#3cb1b1] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
+                    className="bg-[#3cb1b1] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full flex items-center justify-center md:justify-normal md:space-x-2"
                     onClick={() => openRescheduleModal(booking.booking_id)}
                   >
-                    <i className="fa fa-calendar" aria-hidden="true"></i> Reschedule
+                    <i className="fa fa-calendar md:mr-2" aria-hidden="true"></i>
+                    <span className="hidden md:inline">Reschedule</span>
                   </button>
 
                   <Modal
@@ -466,9 +470,10 @@ const Dashboard = () => {
 
                   <button
                     onClick={() => onCancel(booking.booking_id)}
-                    className="bg-[#b1463c] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#d59187] text-white font-bold py-1 px-3 rounded-full mx-1 mb-2"
+                    className="bg-[#b1463c] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#d59187] text-white font-bold py-1 px-3 rounded-full flex items-center justify-center md:justify-normal md:space-x-2"
                   >
-                    <i className="fa fa-ban" aria-hidden="true"></i> Cancel
+                    <i className="fa fa-ban md:mr-2" aria-hidden="true"></i>
+                    <span className="hidden md:inline">Cancel</span>
                   </button>
 
                   <Modal
@@ -521,9 +526,10 @@ const Dashboard = () => {
 
                   <button
                     onClick={handlePrint}
-                    className="bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-opacity duration-500 text-xs hover:opacity-80 font-bold py-1 px-3 mx-1 mb-2"
+                    className="bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-opacity duration-500 text-xs hover:opacity-80 font-bold py-1 px-3 flex items-center justify-center md:justify-normal md:space-x-2"
                   >
-                    <i className="fa fa-print" aria-hidden="true"></i> Print
+                    <i className="fa fa-print md:mr-2" aria-hidden="true"></i>
+                    <span className="hidden md:inline">Print</span>
                   </button>
                 </div>
               </td>

@@ -396,7 +396,7 @@ const Dashboard = () => {
                         backgroundColor: "rgba(0, 0, 0, 0.1)", // Optional: Background overlay style
                       },
                       content: {
-                        maxWidth: "500px", // Set the maximum width
+                        maxWidth: "550px", // Set the maximum width
                         width: "auto", // Set the width
                         height: "350px", // Set the height
                         margin: "auto", // Center the modal
@@ -483,7 +483,7 @@ const Dashboard = () => {
                         backgroundColor: "rgba(0, 0, 0, 0.1)",
                       },
                       content: {
-                        maxWidth: "500px", // Set the maximum width
+                        maxWidth: "550px", // Set the maximum width
                         width: "auto", // Set the width
                         height: "200px", // Set the height
                         margin: "auto", // Center the modal

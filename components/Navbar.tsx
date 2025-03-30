@@ -87,7 +87,7 @@ const Navbar = () => {
       ref={navbarRef}
     >
       <div className="flex justify-between items-center">
-        <div className="space-x-14 hidden lg:flex">
+        <div className="space-x-14 hidden xl:flex">
           <Link href="/" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             HOME
           </Link>
@@ -118,7 +118,7 @@ const Navbar = () => {
         <button
           aria-label="Open Menu"
           onClick={handleMenuToggle}
-          className="lg:hidden flex flex-col items-center justify-center space-y-1 w-8 h-8"
+          className="xl:hidden flex flex-col items-center justify-center space-y-1 w-8 h-8"
         >
           <div
             className={`w-6 h-0.5 bg-white transition-all duration-500 transform ${menuOpen ? "rotate-45 translate-y-2" : ""
@@ -194,7 +194,7 @@ const Navbar = () => {
       </Modal>
 
       <div
-        className={`lg:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`xl:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           } transition-all ease-in-out duration-500`}
       >
         <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">

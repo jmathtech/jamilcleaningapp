@@ -87,7 +87,7 @@ const Navbar = () => {
       ref={navbarRef}
     >
       <div className="flex justify-between items-center">
-        <div className="space-x-14 hidden md:flex">
+        <div className="space-x-14 hidden lg:flex">
           <Link href="/" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             HOME
           </Link>

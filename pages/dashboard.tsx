@@ -315,8 +315,8 @@ const Dashboard = () => {
     onReadMoreToggle: (id: string) => void;
     expandedNotes: { [key: string]: boolean };
   }) => (
-    <div className="rounded">
-      <table className="w-full border">
+    <div className="overflow-x-auto rounded">
+      <table className="container border">
         <thead>
           <tr className="text-sm">
             {[

@@ -315,7 +315,7 @@ const Dashboard = () => {
     onReadMoreToggle: (id: string) => void;
     expandedNotes: { [key: string]: boolean };
   }) => (
-    <div className="overflow-x-auto rounded px-4 mx-auto max-w-4xl">
+    <div className="overflow-x-auto rounded px-4 mx-auto max-w-6xl">
       <table className="w-full border">
         <thead>
           <tr className="text-sm">
@@ -654,7 +654,7 @@ const Dashboard = () => {
           </div>
 
           {/* Quick Links Section */}
-          <div className="bg-white p-6 rounded shadow border-[#8ab13c] border mx-auto max-w-4xl">
+          <div className="bg-white p-6 rounded shadow border-[#8ab13c] border mx-auto max-w-6xl">
             <h3 className="text-lg text-gray-600 font-bold mb-2">
               Quick Links
             </h3>

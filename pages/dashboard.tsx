@@ -375,7 +375,7 @@ const Dashboard = () => {
                     className="bg-[#3498db] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full flex items-center justify-center md:justify-normal md:space-x-2"
                     onClick={() => handleReviewClick(booking.booking_id)}
                   >
-                    <i className="fa fa-commenting md:mr-2" aria-hidden="true"></i>
+                    <i className="fa fa-commenting md:mr" aria-hidden="true"></i>
                     <span className="hidden md:inline">Review</span>
                   </button>
 
@@ -383,7 +383,7 @@ const Dashboard = () => {
                     className="bg-[#3cb1b1] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#85c1e9] text-white font-bold py-1 px-3 rounded-full flex items-center justify-center md:justify-normal md:space-x-2"
                     onClick={() => openRescheduleModal(booking.booking_id)}
                   >
-                    <i className="fa fa-calendar md:mr-2" aria-hidden="true"></i>
+                    <i className="fa fa-calendar md:mr" aria-hidden="true"></i>
                     <span className="hidden md:inline">Reschedule</span>
                   </button>
 
@@ -470,7 +470,7 @@ const Dashboard = () => {
                     onClick={() => onCancel(booking.booking_id)}
                     className="bg-[#b1463c] transition-opacity duration-500 text-xs hover:opacity-80 hover:bg-[#d59187] text-white font-bold py-1 px-3 rounded-full flex items-center justify-center md:justify-normal md:space-x-2"
                   >
-                    <i className="fa fa-ban md:mr-2" aria-hidden="true"></i>
+                    <i className="fa fa-ban md:mr" aria-hidden="true"></i>
                     <span className="hidden md:inline">Cancel</span>
                   </button>
 
@@ -526,7 +526,7 @@ const Dashboard = () => {
                     onClick={handlePrint}
                     className="bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-opacity duration-500 text-xs hover:opacity-80 font-bold py-1 px-3 flex items-center justify-center md:justify-normal md:space-x-2"
                   >
-                    <i className="fa fa-print md:mr-2" aria-hidden="true"></i>
+                    <i className="fa fa-print md:mr" aria-hidden="true"></i>
                     <span className="hidden md:inline">Print</span>
                   </button>
                 </div>

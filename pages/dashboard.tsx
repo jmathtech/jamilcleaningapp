@@ -544,7 +544,7 @@ const Dashboard = () => {
 
       {/* Dashboard Section */}
       <div className="bg-gray min-h-screen">
-        <main className="container mx-auto py-12">
+        <main className="container mx-auto max-w-4xl py-12">
           <h1 className="text-4xl text-gray-600 font-bold mb-6 mt-10 px-2">Dashboard</h1>
           <div
             className={`bg-white p-6 rounded shadow border-[#8ab13c] border mb-6 fade-in-page ${pageLoaded ? "loaded" : ""
@@ -654,7 +654,7 @@ const Dashboard = () => {
           </div>
 
           {/* Quick Links Section */}
-          <div className="bg-white p-6 rounded shadow border-[#8ab13c] border">
+          <div className="bg-white p-6 rounded shadow border-[#8ab13c] border mx-auto max-w-4xl">
             <h3 className="text-lg text-gray-600 font-bold mb-2">
               Quick Links
             </h3>

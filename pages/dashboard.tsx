@@ -325,7 +325,7 @@ const Dashboard = () => {
             ].map((header) => (
               <th
                 key={header}
-                className="bg-gray-100 border px-4 py-2 text-left"
+                className="bg-gray-100 border px-2 py-2 text-left"
               >
                 {header}
               </th>

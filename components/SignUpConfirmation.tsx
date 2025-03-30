@@ -32,7 +32,7 @@ const SignUpConfirmation = () => {
     <>
       <Navbar /> {/* Navbar component */}
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-10">
-        <div className="bg-white shadow-lg rounded-lg p-8 max-w-lg text-center">
+        <div className="bg-white shadow  rounded-lg p-8 max-w-lg text-center">
         <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"

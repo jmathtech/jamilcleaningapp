@@ -194,7 +194,7 @@ const Navbar = () => {
       </Modal>
 
       <div
-        className={`md:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`lg:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           } transition-all ease-in-out duration-500`}
       >
         <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">

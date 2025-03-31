@@ -37,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const result = await query(
       `
       SELECT 
-        customer_id, email, first_name, last_name FROM customers WHERE email = ?
+        customer_id, email, first_name, last_name, phone, address FROM customers WHERE email = ?
       `,
       [email]
     );
@@ -59,6 +59,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       email: user.email,
       firstName: user.first_name,
       lastName: user.last_name,
+      phone: user.phone,
+      address: user.address,
+      
     }, secretKey, { expiresIn: "2h" });
     const verificationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/api/verify?token=${token}`;
 

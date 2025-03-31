@@ -654,7 +654,7 @@ const Dashboard = () => {
           </div>
 
           {/* Quick Links Section */}
-          <div className="bg-white p-6 rounded shadow border-[#8ab13c] border mx-auto max-w-6xl">
+          <div className="bg-white p-6 rounded shadow border-[#8ab13c] border mx-auto max-w-5xl">
             <h3 className="text-lg text-gray-600 font-bold mb-2">
               Quick Links
             </h3>

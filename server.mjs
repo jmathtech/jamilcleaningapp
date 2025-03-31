@@ -20,7 +20,7 @@ app.prepare().then(() => {
 
   // Set a timeout for all routes in Express app
   expressApp.use((req, res, next) => {
-    res.setTimeout(20000, () => { // Timeout set to 20 seconds
+    res.setTimeout(60000, () => { // Timeout set to 60 seconds
       res.status(408).send('Request Timeout');
     });
     next();

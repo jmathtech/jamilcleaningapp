@@ -5,20 +5,20 @@ import { query } from '../../../../lib/db';
 import jwt from 'jsonwebtoken';
 import { RowDataPacket } from 'mysql2';
 
-const CLIENT_ID: string = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
+const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 if (!CLIENT_ID) {
     throw new Error('GOOGLE_CLIENT_ID not defined');
 }
 
-const REDIRECT_URI: string = process.env.GOOGLE_REDIRECT_URL || '';
+const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URL; // Rely solely on the environment variable
 if (!REDIRECT_URI) {
     throw new Error('GOOGLE_REDIRECT_URL not defined');
-}   
+}
 
 // Initialize the OAuth client with all required parameters
 const client = new OAuth2Client({
     clientId: CLIENT_ID,
-    redirectUri: REDIRECT_URI
+    redirectUri: REDIRECT_URI // Pass the redirectUri here
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -80,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 { expiresIn: '2h' }
             );
 
-            // Redirect to the dashboard or a success page
+            // Redirect to /api/verify with the token
             res.redirect(`/api/verify?token=${token}`);
         } else {
             // User not found in your database

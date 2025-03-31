@@ -23,7 +23,6 @@ const LoginForm: React.FC = () => {
       const response = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ email }),
       });
 
@@ -48,7 +47,7 @@ const LoginForm: React.FC = () => {
     const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
     // Set the redirect URI based on environment
-    const REDIRECT_URI = process.env.NODE_ENV === 'production';
+    const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URL || '';
 
     // Construct the Google OAuth URL
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=email profile&access_type=offline`;

@@ -47,6 +47,17 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
     if (bookingId && typeof bookingId === "string" && isValidBookingId(bookingId)) {
       const fetchBooking = async () => {
         try {
+          if (!bookingId || typeof bookingId !== "string") {
+            console.error("Invalid bookingId:", bookingId);
+            return; // throw new Error("Invalid bookingId");
+          }
+
+          const bookingIdNumber = parseInt(bookingId);
+          if(isNaN(bookingIdNumber) || bookingIdNumber <= 0) {
+            console.error("Invalid bookingId:", bookingId);
+            return; // throw new Error("Invalid bookingId");
+          }
+
           const response = await fetch(`/api/bookings/${bookingId}`, {
             headers: {
               Authorization: `Bearer ${token}`,

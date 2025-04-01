@@ -37,28 +37,28 @@ const VerificationSuccess = () => {
       console.log('Token from query:', token); // Debugging log: Checking the token
 
       try {
-        sessionStorage.setItem('token', token);
-        console.log('New token stored in sessionStorage:', token);
+        localStorage.setItem('token', token);
+        console.log('New token stored in localStorage:', token);
 
 
-        // Extract the firstName, lastName, email, phone, and address from the token and store them in sessionStorage
+        // Extract the firstName, lastName, email, phone, and address from the token and store them in localStorage
         const decodedToken = jwt.decode(token);
         if (decodedToken && typeof decodedToken === 'object') {
           const { firstName, lastName, email, phone, address } = decodedToken as { firstName: string; lastName: string, email: string, phone: string, address: string };
           if (firstName) {
-            sessionStorage.setItem('first_name', firstName);
+            localStorage.setItem('first_name', firstName);
           }
           if (lastName) {
-            sessionStorage.setItem('last_name', lastName);
+            localStorage.setItem('last_name', lastName);
           }
           if (email) {
-            sessionStorage.setItem('email', email);
+            localStorage.setItem('email', email);
           }
           if (phone) {
-            sessionStorage.setItem('phone', phone);
+            localStorage.setItem('phone', phone);
           }
           if (address) {
-            sessionStorage.setItem('address', address);
+            localStorage.setItem('address', address);
           }
 
         }

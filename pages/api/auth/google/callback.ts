@@ -34,15 +34,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
+        console.log("Authorization Code:", code);
         // Exchange the authorization code for tokens
         const tokenResponse = await client.getToken(code);
+        console.log("Token Response:", tokenResponse);
         const { id_token } = tokenResponse.tokens;
-
+        console.log("ID Token:", id_token);
         // Check if the ID token was received
         if (!id_token) {
             return res.status(401).json({ message: 'No ID token received from Google.' });
         }
-
+        
         // Verify the ID token
         const ticket = await client.verifyIdToken({
             idToken: id_token,
@@ -50,18 +52,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         // Extract user information from the ID token
+        console.log("Ticket:", ticket);
         const payload: TokenPayload | undefined = ticket.getPayload();
         if (!payload) {
             return res.status(401).json({ message: 'Invalid ID token.' });
         }
-
+        console.log("Payload:", payload);
         const email = payload.email as string;
 
         // Look up the user in your database
+        console.log("Email:", email);
         const result = await query(
             `SELECT customer_id, email, first_name, last_name, phone, address FROM customers WHERE email = ?`,
             [email]
         );
+
+        console.log("Query Result:", result);
 
         // If the user is found in your database
         if (Array.isArray(result) && result.length > 0) {
@@ -92,6 +98,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
     } catch (error) {
         console.error('Google authentication failed:', error);
+        console.log("Error:", error);
         return res.status(500).json({ message: 'Authentication failed.', error: error instanceof Error ? error.message : "Unknown error" });
     }
 }

@@ -5,12 +5,12 @@ import { query } from '../../../../lib/db';
 import jwt from 'jsonwebtoken';
 import { RowDataPacket } from 'mysql2';
 
-// Get the Google Client ID and redirect URI from environment variables
+// Get the Google Client ID and redirect URI from environment variables 
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 if (!CLIENT_ID) {
     throw new Error('GOOGLE_CLIENT_ID not defined');
 }
-// 
+// Get the Google Client ID and redirect URI from environment variables 
 const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
 if (!REDIRECT_URI) {
     throw new Error('GOOGLE_REDIRECT_URL not defined');
@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method !== 'GET') {
         return res.status(405).json({ message: 'Method Not Allowed' });
 }
-
+// Get the authorization code from the query parameters
     if (!code || typeof code !== 'string') {
         return res.status(400).json({ message: 'Missing or invalid authorization code.' });
     }
@@ -38,6 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const tokenResponse = await client.getToken(code);
         const { id_token } = tokenResponse.tokens;
 
+        // Check if the ID token was received
         if (!id_token) {
             return res.status(401).json({ message: 'No ID token received from Google.' });
         }
@@ -48,6 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             audience: CLIENT_ID,
         });
 
+        // Extract user information from the ID token
         const payload: TokenPayload | undefined = ticket.getPayload();
         if (!payload) {
             return res.status(401).json({ message: 'Invalid ID token.' });
@@ -61,6 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             [email]
         );
 
+        // If the user is found in your database
         if (Array.isArray(result) && result.length > 0) {
             const user = (result as RowDataPacket[])[0];
 

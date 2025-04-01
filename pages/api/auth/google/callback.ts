@@ -1,7 +1,7 @@
 // /pages/api/auth/google/callback.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import { OAuth2Client, TokenPayload } from 'google-auth-library';
-import { query } from '../../../lib/db';
+import { query } from '../../../../lib/db';
 import jwt from 'jsonwebtoken';
 import { RowDataPacket } from 'mysql2';
 

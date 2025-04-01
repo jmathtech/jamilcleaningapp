@@ -41,7 +41,9 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
       return;
     }
     console.log("bookingId:", bookingId, "token:", token);
-    if (bookingId && typeof bookingId === "string") {
+    const isValidBookingId = (id: string) => /^[a-zA-Z0-9_-]+$/.test(id); // Alphanumeric with hyphens and underscores 
+
+    if (bookingId && typeof bookingId === "string" && isValidBookingId(bookingId)) {
       const fetchBooking = async () => {
         try {
           const response = await fetch(`/api/bookings/${bookingId}`, {
@@ -65,6 +67,9 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
       };
 
       fetchBooking();
+    } else {
+      console.error("Invalid bookingId:", bookingId);
+      setBookingData(null); // Set to null if bookingId is invalid
     }
   }, [bookingId, token, router]);
 

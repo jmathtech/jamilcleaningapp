@@ -48,7 +48,7 @@ const LoginForm: React.FC = () => {
     console.log("Google Client ID:", CLIENT_ID);
 
     // Set the redirect URI based on environment
-    const REDIRECT_URI = `${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL}/api/auth/google-callback`;
+    const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
     console.log("Google Redirect URI:", REDIRECT_URI);
 
     if (!CLIENT_ID || !REDIRECT_URI) {

@@ -47,7 +47,12 @@ const LoginForm: React.FC = () => {
     const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
     // Set the redirect URI based on environment
-    const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URL || 'https://cleaning.majestikmagik.com/api/auth/google/callback';
+    const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
+
+    if (!CLIENT_ID || !REDIRECT_URI) {
+      console.error("Google Client ID or Redirect URI is not set.");
+      return;
+    }
 
     // Construct the Google OAuth URL
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=email profile&access_type=offline`;

@@ -5,12 +5,13 @@ import { query } from '../../../../lib/db';
 import jwt from 'jsonwebtoken';
 import { RowDataPacket } from 'mysql2';
 
+// Get the Google Client ID and redirect URI from environment variables
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 if (!CLIENT_ID) {
     throw new Error('GOOGLE_CLIENT_ID not defined');
 }
-
-const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URL; // Rely solely on the environment variable
+// 
+const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL || '';
 if (!REDIRECT_URI) {
     throw new Error('GOOGLE_REDIRECT_URL not defined');
 }
@@ -18,9 +19,10 @@ if (!REDIRECT_URI) {
 // Initialize the OAuth client with all required parameters
 const client = new OAuth2Client({
     clientId: CLIENT_ID,
-    redirectUri: REDIRECT_URI // Pass the redirectUri here
+    redirectUri: REDIRECT_URI
 });
 
+// Define the handler function
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'GET') {
         return res.status(405).json({ message: 'Method Not Allowed' });

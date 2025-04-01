@@ -11,7 +11,7 @@ if (!CLIENT_ID) {
     throw new Error('GOOGLE_CLIENT_ID not defined');
 }
 // 
-const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL || '';
+const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
 if (!REDIRECT_URI) {
     throw new Error('GOOGLE_REDIRECT_URL not defined');
 }
@@ -54,12 +54,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return res.status(401).json({ message: 'Invalid ID token.' });
         }
 
-        const googleEmail = payload.email as string;
+        const email = payload.email as string;
 
         // Look up the user in your database
         const result = await query(
             `SELECT customer_id, email, first_name, last_name, phone, address FROM customers WHERE email = ?`,
-            [googleEmail]
+            [email]
         );
 
         if (Array.isArray(result) && result.length > 0) {

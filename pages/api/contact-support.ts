@@ -2,12 +2,25 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 
+function escapeHtml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
     const { name, email, message } = req.body;
+
+    const escapedName = escapeHtml(name);
+    const escapedEmail = escapeHtml(email);
+    const escapedMessage = escapeHtml(message);
 
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST, // Replace with your Hostinger SMTP server
@@ -23,17 +36,16 @@ export default async function handler(
       // Email configuration details
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER,
-      subject: `New message from ${name}, Majestik Magik Cleaning Services`,
+      subject: `New message from ${escapedName}, Majestik Magik Cleaning Services`,
       html: `
       <DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verification</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
             background-color: #f4f4f4;
@@ -68,10 +80,10 @@ export default async function handler(
 </head>
 <body>
     <div class="container">
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Message:</strong> ${message}</p>
-      <p class="p-center"><a href="mailto:${email}" class="button">Reply</a></p>
+      <p><strong>Name:</strong> ${escapedName}</p>
+      <p><strong>Email:</strong> ${escapedEmail}</p>
+      <p><strong>Message:</strong> ${escapedMessage}</p>
+      <p class="p-center"><a href="mailto:${escapedEmail}" class="button">Reply</a></p>
     </div>
 </body>
 </html>

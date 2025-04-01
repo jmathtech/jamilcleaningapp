@@ -45,9 +45,11 @@ const LoginForm: React.FC = () => {
   const handleGoogleLogin = () => {
     // Get the Google Client ID from environment variable
     const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+    console.log("Google Client ID:", CLIENT_ID);
 
     // Set the redirect URI based on environment
     const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
+    console.log("Google Redirect URI:", REDIRECT_URI);
 
     if (!CLIENT_ID || !REDIRECT_URI) {
       console.error("Google Client ID or Redirect URI is not set.");
@@ -56,7 +58,7 @@ const LoginForm: React.FC = () => {
 
     // Construct the Google OAuth URL WITHOUT encoding the redirect URI
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=email profile&access_type=offline`;
-
+    console.log("Google Auth URL:", authUrl);
     // Redirect to Google's authentication page
     window.location.href = authUrl;
   };

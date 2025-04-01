@@ -41,8 +41,9 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
       return;
     }
     console.log("bookingId:", bookingId, "token:", token);
-    const isValidBookingId = (id: string) => /^[a-zA-Z0-9_-]+$/.test(id); // Alphanumeric with hyphens and underscores 
+    const isValidBookingId = (id: string) => /^[a-zA-Z0-9_-]+$/.test(id); // Fixed security issue with regex to validate bookingId string inputs
 
+    // Check if the bookingId is valid
     if (bookingId && typeof bookingId === "string" && isValidBookingId(bookingId)) {
       const fetchBooking = async () => {
         try {

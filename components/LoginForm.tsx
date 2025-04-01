@@ -57,7 +57,7 @@ const LoginForm: React.FC = () => {
     }
 
     // Construct the Google OAuth URL WITHOUT encoding the redirect URI
-    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=email profile&access_type=offline`;
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=email profile&access_type=offline`;
     console.log("Google Auth URL:", authUrl);
     // Redirect to Google's authentication page
     window.location.href = authUrl;

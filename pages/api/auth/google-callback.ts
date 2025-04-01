@@ -1,7 +1,7 @@
 // /pages/api/auth/google/callback.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import { OAuth2Client, TokenPayload } from 'google-auth-library';
-import { query } from '../../../../lib/db';
+import { query } from '../../../lib/db';
 import jwt from 'jsonwebtoken';
 import { RowDataPacket } from 'mysql2';
 
@@ -24,11 +24,10 @@ const client = new OAuth2Client({
 
 // Define the handler function
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const code = req.query.code as string;
     if (req.method !== 'GET') {
         return res.status(405).json({ message: 'Method Not Allowed' });
-    }
-
-    const { code } = req.query;
+}
 
     if (!code || typeof code !== 'string') {
         return res.status(400).json({ message: 'Missing or invalid authorization code.' });

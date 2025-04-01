@@ -91,7 +91,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             );
 
             // Redirect to /api/verify with the token
-            res.redirect(`/api/verification-success?token=${encodeURIComponent(token)}`);
+            res.redirect(`/api/verification-success?token=${token}`);
         } else {
             // User not found in your database
             return res.status(404).json({ message: 'User not found. Please sign up with this email first.' });

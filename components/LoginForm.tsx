@@ -1,3 +1,5 @@
+"use client";
+
 import { FormEvent, useState } from "react";
 import Image from "next/image";
 import Navbar from "./Navbar";

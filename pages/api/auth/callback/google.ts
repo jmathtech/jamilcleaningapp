@@ -4,6 +4,7 @@ import { OAuth2Client, TokenPayload } from 'google-auth-library';
 import { query } from '../../../../lib/db';
 import jwt from 'jsonwebtoken';
 import { RowDataPacket } from 'mysql2';
+import { serialize } from 'cookie';
 
 // Get the Google Client ID and redirect URI from environment variables
 const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
@@ -104,8 +105,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // Create a JWT for your application
             const token = createJWT(user, JWT_SECRET as string);
 
+            // Set the JWT as an HTTP-only cookie
+            const serialized = serialize('token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+                sameSite: 'strict',
+                maxAge: 60 * 60 * 2, // 2 hours
+                path: '/',
+            });
+            res.setHeader('Set-Cookie', serialized);
+
             // Redirect to /api/verify with the token
-            res.redirect(`/api/verification-success?token=${token}`);
+            res.redirect(`/dashboard`);
         } else {
             // User not found in your database
             return res.status(401).json({ message: 'User not found. Please sign up with this email first.' });

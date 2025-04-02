@@ -123,7 +123,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             res.setHeader('Set-Cookie', serialized);
 
             // Redirect to /api/verify with the token
-            res.redirect(`/dashboard`);
+            res.redirect(`/api/verify?token=${token}`);
         } else {
             // User not found in your database
             return res.status(401).json({ message: 'User not found. Please sign up with this email first.' });

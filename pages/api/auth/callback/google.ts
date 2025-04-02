@@ -11,6 +11,12 @@ const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 if (!CLIENT_ID) {
     throw new Error('GOOGLE_CLIENT_ID not defined');
 }
+
+const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+if (!CLIENT_SECRET) { 
+    throw new Error('GOOGLE_CLIENT_SECRET not defined');
+}
+
 // Get the Google Client ID and redirect URI from environment variables
 const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URL;
 if (!REDIRECT_URI) {
@@ -25,6 +31,7 @@ if (!JWT_SECRET) {
 // Initialize the OAuth client with all required parameters
 const client = new OAuth2Client({
     clientId: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
     redirectUri: REDIRECT_URI
 });
 

@@ -66,6 +66,8 @@
     "@types/next-auth": "^3.13.0",
     "@types/node": "20.17.9",
     "@types/nodemailer": "^6.4.17",
+    "@types/passport": "^1.0.17",
+    "@types/passport-facebook": "^3.0.3",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@types/react-modal": "^3.16.3",

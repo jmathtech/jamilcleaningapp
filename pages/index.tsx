@@ -40,6 +40,8 @@ const Home = () => {
               style={{ minWidth: "150px", maxWidth: "250px" }}
             />
           </h1>
+          <p className="font-semibold text-2xl text-gray-600 mt-2">
+            HOUSE CLEANING SERVICES</p>
           <p className="font-semibold text-xl text-gray-600 mt-2">
             Prices start at $30 for a quality cleaning.</p>
           <p className="text-gray-600 mt-2">Let&apos;s bring cleanliness & comfort to your space.</p>

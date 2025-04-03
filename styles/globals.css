@@ -106,28 +106,6 @@ select:hover {
   margin-top: 20px;
 }
 
-/* Background Image 
-
-.index-container {
-  position: relative;
-  overflow: hidden; 
-}
-
-.index-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('/img/mmcleaning_crew_photo_001.jpg');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.2; 
-  z-index: -1; 
-}
-*/
-
 /* Video background */
 .index-container {
   position: relative;
@@ -248,15 +226,26 @@ select:hover {
 
 }
 
+.payment-icon {
+  display: block;
+  margin: 0 auto;
+}
+
 /* For mobile responsiveness */
 @media (max-width: 768px) {
   .video-background {
     object-position: center;
   }
 
+  .payment-icons-container { /* Add this container around your icons in your HTML */
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next line */
+    justify-content: space-around; /* Adjust as needed: space-between, center, etc. */
+  }
+
   .payment-icon {
-    display: block;
-    margin: 0 auto;
+    width: 50%; /* Adjust width so that approximately two icons fit per line */
+    margin-bottom: 10px; /* Add some space between the rows */
   }
 
   /* fade-in loading state */

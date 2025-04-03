@@ -35,12 +35,12 @@ const Home = () => {
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
               width={250}
-              height={150}
+              height={200}
               priority={true} // Load image immediately
               style={{ minWidth: "150px", maxWidth: "250px" }}
             />
           </h1>
-          <p className="font-semibold text-2xl text-gray-600 mt-2">
+          <p className="font-semibold text-2xl text-[#8ab13c] mt-2">
             HOUSE CLEANING SERVICES</p>
           <p className="font-semibold text-xl text-gray-600 mt-2">
             Prices start at $30 for a quality cleaning.</p>

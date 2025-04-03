@@ -135,8 +135,6 @@ const LoginForm: React.FC = () => {
             <div className="px-4 text-gray-500 text-sm">or</div>
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
-          {/* Social Login Buttons */}
-          <div className="flex justify-center text-gray-500 text-md my-4">Log in with</div>
           {/* Google Login Button */}
           <div className="flex justify-center">
             <button

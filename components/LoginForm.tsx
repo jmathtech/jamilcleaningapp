@@ -67,12 +67,6 @@ const LoginForm: React.FC = () => {
     window.location.href = authUrl;
   };
 
-  const handleFacebookLogin = () => {
-    console.log('Facebook login initiated...');
-    // Add your Facebook SDK initialization and login call here
-    // e.g., FB.login(...) or trigger your backend endpoint
-  };
-
   return (
     <>
       <Navbar />
@@ -157,30 +151,6 @@ const LoginForm: React.FC = () => {
                 <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
               </svg>
               Continue with Google
-            </button>
-          </div>
-
-          <div className="flex justify-center my-4">
-            <button
-              type="button"
-              onClick={handleFacebookLogin}
-              // --- Style Changes for Facebook ---
-              // - Background: Facebook blue (Tailwind's blue-600 is a close match, or use #1877F2 directly)
-              // - Text: White
-              // - Hover: Slightly darker blue
-              // - Removed border (common for solid color social buttons)
-              className="flex items-center justify-center gap-2 w-full px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-300"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                width="20px"
-                height="20px"
-              >
-                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H10.25v5.625c3.824-.604 6.75-3.934 6.75-7.951z" />
-              </svg>
-              Continue with Facebook
             </button>
           </div>
         </form>

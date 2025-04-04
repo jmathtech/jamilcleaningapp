@@ -1,9 +1,11 @@
 // pages/api/user.ts
 import { NextApiRequest, NextApiResponse } from 'next';
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { query } from '../../lib/db';
+import { isValidEmail } from '../../utils/validation';
 
 
-interface UserInput {
+interface DecodedToken extends JwtPayload {
   first_name: string;
   last_name: string;
   email: string;
@@ -11,22 +13,21 @@ interface UserInput {
   address: string;
 }
 
-export default async function handler(req: NextApiRequest & { body: UserInput }, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({
       status: 'error',
       message: 'Only POST requests are allowed.',
       allowedMethods: ['POST'],
     });
-
   }
 
   const { first_name, last_name, email, phone, address } = req.body;
 
   // Validate required fields
   // Check if the required fields are present in the request body
-  const ValidationErrors = req.body;
-  if (ValidationErrors.length > 0) {
+  const ValidationErrors = isValidEmail(req.body);
+  if (ValidationErrors) {
     return res.status(400).json({
       status: 'error',
       message: 'Validation failed.',
@@ -39,6 +40,31 @@ export default async function handler(req: NextApiRequest & { body: UserInput },
   }
 
   try {
+
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      return res.status(401).json({ success: false, message: "Authorization token required." });
+    }
+
+    const token = authorization.split(" ")[1]; // Extract token from "Bearer <token>"
+    if (!token) {
+      return res.status(401).json({ success: false, message: "Invalid authorization format." });
+    }
+
+    let decoded: DecodedToken;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET as string) as DecodedToken;
+    } catch (error) {
+      console.error("JWT Verification Error:", error);
+      return res.status(401).json({ success: false, message: "Invalid or expired token." });
+    }
+
+    const { customerId } = decoded;
+
+    if (!customerId) {
+      return res.status(400).json({ success: false, message: "Customer ID not found in token." });
+    }
 
     // SQL query to insert or update the user's profile
     const result = await query(

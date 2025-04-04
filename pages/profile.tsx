@@ -14,8 +14,10 @@ const Profile = () => {
     address: "",
   });
   const { firstName, lastName, email, phone, address, setFirstName, setLastName, setEmail, setPhone, setAddress } = useAuth(); // Access context
-
+  const [error, setError] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [editSuccess, setEditSuccess] = useState(false);
   const router = useRouter();
 
   // Utility function to fetch the token from sessionStorage
@@ -24,35 +26,20 @@ const Profile = () => {
   // Fetch user profile data on component mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedFirstName = sessionStorage.getItem('first_name'); // Get first name from sessionStorage
-      if (storedFirstName) {
-        setFirstName(storedFirstName); // Set first name in context from sessionStorage if available
-      }
+      const fields = ["first_name", "last_name", "email", "phone", "address"];
+      const setters = {
+        first_name: setFirstName, last_name: setLastName, email: setEmail, phone: setPhone, address: setAddress
+      };
+
+      fields.forEach(field => {
+        const storedValue = sessionStorage.getItem(field);
+        if (storedValue && setters[field as keyof typeof setters]) {
+          setters[field as keyof typeof setters](storedValue); // Set the context state
+        }
+
+      });
     }
-    if (typeof window !== 'undefined') {
-      const storedLastName = sessionStorage.getItem('last_name'); // Get last name from sessionStorage
-      if (storedLastName) {
-        setLastName(storedLastName); // Set last name in context from sessionStorage if available
-      }
-    }
-    if (typeof window !== 'undefined') {
-      const storedEmail = sessionStorage.getItem('email'); // Get email from sessionStorage
-      if (storedEmail) {
-        setEmail(storedEmail); // Set email in context from sessionStorage if available
-      }
-    }
-    if (typeof window !== 'undefined') {
-      const storedPhone = sessionStorage.getItem('phone'); // Get phone from sessionStorage
-      if (storedPhone) {
-        setPhone(storedPhone); // Set phone in context from sessionStorage if available
-      }
-    }
-    if (typeof window !== 'undefined') {
-      const storedAddress = sessionStorage.getItem('address'); // Get address from sessionStorage
-      if (storedAddress) {
-        setAddress(storedAddress); // Set address in context from sessionStorage if available
-      }
-    }
+
   }, [setFirstName, setLastName, setEmail, setPhone, setAddress]);
 
   const handleGoBack = () => {
@@ -65,6 +52,8 @@ const Profile = () => {
   };
 
   const handleSave = async () => {
+    setIsLoading(true); // Set loading state
+    setError(null); // Reset error message
     try {
       const token = getToken(); // Assuming you have a getToken function to retrieve the token
 
@@ -99,6 +88,8 @@ const Profile = () => {
       console.error("Error updating user data:", error);
     } finally {
       setEditing(false);
+      setIsLoading(false); // Reset loading state
+      setEditSuccess(true); // Set success message
     }
   };
 
@@ -144,7 +135,7 @@ const Profile = () => {
                   onClick={handleSave}
                   className="bg-[#3cb1b1] text-white px-4 py-2 rounded hover:bg-[#95d0d0]"
                 >
-                  Save Changes
+                  {isLoading ? 'Saving...' : 'Save Changes'}
                 </button>
               )}
               <button
@@ -154,6 +145,12 @@ const Profile = () => {
               >
                 Go Back
               </button>
+              {error && <p className="text-red-600 mb-4">{error}</p>}
+              {editSuccess && (
+                <p className="m-4 text-[#8ab13c]">
+                  Your profile is now updated successfully!
+                </p>
+              )}
             </div>
           </div>
         </div>

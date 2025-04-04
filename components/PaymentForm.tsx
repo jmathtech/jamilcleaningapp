@@ -1,4 +1,4 @@
-"use Client";
+'use Client';
 
 import { useState, useEffect } from "react";
 import Navbar from "./Navbar";

@@ -1,5 +1,3 @@
-'use client';
-
 import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
 import { useState, useEffect } from "react";
 import convertToSubcurrency from "../lib/convertToSubcurrency";

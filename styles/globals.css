@@ -240,7 +240,7 @@ select:hover {
   .payment-icons-container { /* Add this container around your icons in your HTML */
     display: flex;
     flex-wrap: wrap; /* Allows items to wrap to the next line */
-    justify-content: space-around; /* Adjust as needed: space-between, center, etc. */
+    justify-content: space-between; /* Adjust as needed: space-between, center, etc. */
   }
 
   .payment-icon {

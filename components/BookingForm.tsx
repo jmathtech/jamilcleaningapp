@@ -6,7 +6,7 @@
   /components/BookingForm.tsx
 */
 
-"use Client";
+'use Client';
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";

@@ -145,13 +145,13 @@ const Profile = () => {
               >
                 Go Back
               </button>
-              {error && <p className="text-red-600 mb-4">{error}</p>}
+            </div>
+            {error && <p className="text-red-600 mb-4">{error}</p>}
               {editSuccess && (
                 <p className="m-4 text-[#8ab13c]">
                   Your profile is now updated successfully!
                 </p>
               )}
-            </div>
           </div>
         </div>
       </main>

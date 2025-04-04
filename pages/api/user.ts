@@ -2,12 +2,37 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { query } from '../../lib/db';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
+interface UserInput {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
+export default async function handler(req: NextApiRequest & { body: UserInput }, res: NextApiResponse) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Only POST requests are allowed.' });
+    return res.status(405).json({
+      status: 'error',
+      message: 'Only POST requests are allowed.',
+      allowedMethods: ['POST'],
+    });
+
   }
 
   const { first_name, last_name, email, phone, address } = req.body;
+
+  // Validate required fields
+  // Check if the required fields are present in the request body
+  const ValidationErrors = req.body;
+  if (ValidationErrors.length > 0) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Validation failed.',
+      error: ValidationErrors
+    });
+  }
 
   if (!first_name || !last_name || !email) {
     return res.status(400).json({ message: 'First name, last name, and email are required.' });

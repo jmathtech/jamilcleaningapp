@@ -94,10 +94,10 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="bg-gray min-h-screen">
       <Navbar />
 
-      <main className="flex-grow container mx-auto px-8 py-12">
+      <main className="flex-grow container items-center mx-auto px-8 py-12">
         <div className="bg-white my-10 p-10 rounded shadow border-[#8ab13c] border  max-w-2xl w-full">
           <h2 className="text-2xl text-gray-600 font-bold mt-8">Profile Details</h2>
           <div className="mt-4">

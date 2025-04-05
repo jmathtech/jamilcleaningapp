@@ -70,7 +70,7 @@ const LoginForm: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center min-h-screen login-container">
+      <div className="flex justify-center items-center min-h-screen login-container px-4">
         <form
           onSubmit={handleLogin}
           className="bg-white mt-10 p-10 rounded-lg shadow border-[#8ab13c] border w-full max-w-lg"

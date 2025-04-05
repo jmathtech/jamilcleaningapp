@@ -62,7 +62,7 @@ const SignUp = () => {
     <>
 
       <Navbar /> {/* Navbar component */}
-      <div className="flex justify-center items-center min-h-screen signup-container">
+      <div className="flex justify-center items-center min-h-screen signup-container px-4">
         <form
           onSubmit={handleSubmit}
           className="bg-white mt-10 p-10 rounded-lg shadow border-[#8ab13c] border w-full max-w-lg"

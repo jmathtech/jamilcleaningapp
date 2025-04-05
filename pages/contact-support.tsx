@@ -56,7 +56,7 @@ const ContactSupport = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray">
       <Navbar />
-      <div className="flex container justify-center items-center mx-auto px-4">
+      <div className="flex container mx-auto px-4 py-10">
         <div className="bg-white p-6 rounded shadow border-[#8ab13c] border max-w-5xl mx-auto">
           <h1 className="text-2xl text-gray-600 font-bold mb-6 mt-10">Contact Support</h1>
           <h3 className="text-lg text-gray-600 font-semibold mb-4">We are here to help!</h3>

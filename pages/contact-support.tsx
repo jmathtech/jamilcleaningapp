@@ -54,7 +54,7 @@ const ContactSupport = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-gray">
       <Navbar />
       <div className="flex-grow container mx-auto px-8 py-12">
         <div className="bg-white p-6 rounded shadow border-[#8ab13c] border max-w-5xl mx-auto">

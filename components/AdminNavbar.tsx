@@ -90,17 +90,17 @@ const AdminNavbar = () => {
       {/* Navigation Links - Desktop */}
       <div className="flex justify-between items-center">
         <div className="space-x-14 hidden md:flex">
-          <Link href="/" className="text-sm hover:text-[#C5D89D] block">
-            Home
+          <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+            HOME
           </Link>
-          <Link href="/admin/dashboard" className="text-sm hover:text-[#C5D89D] block">
-            Admin Dashboard
+          <Link href="/admin/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+            ADMIN DASHBOARD
           </Link>
-          <Link href="/admin/signup" className="text-sm hover:text-[#C5D89D] block">
-            Sign Up
+          <Link href="/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+            SIGN UP
           </Link>
-          <Link href="/admin/login" className="text-sm hover:text-[#C5D89D] block">
-            Login
+          <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+            LOG IN
           </Link>
         </div>
 
@@ -182,17 +182,17 @@ const AdminNavbar = () => {
         className={`md:hidden absolute left-0 top-20 w-full z-10 bg-gray-600 shadow border-gray-300 border p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           } transition-all ease-in-out duration-500`}
       >
-        <Link href="/" className="text-sm hover:text-[#C5D89D] block">
-          Home
+        <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+          HOME
         </Link>
-        <Link href="/admin/dashboard" className="text-sm hover:text-[#C5D89D] block">
-          Admin Dashboard
+        <Link href="/admin/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+          ADMIN DASHBOARD
         </Link>
-        <Link href="/admin/signup" className="text-sm hover:text-[#C5D89D] block">
-          Sign Up
+        <Link href="/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+          SIGN UP
         </Link>
-        <Link href="/admin/login" className="text-sm hover:text-[#C5D89D] block">
-          Login
+        <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+          LOG IN
         </Link>
       </div>
     </nav>

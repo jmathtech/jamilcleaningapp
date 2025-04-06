@@ -344,7 +344,7 @@ const Dashboard = () => {
                 <i className="fa fa-paw" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {booking.has_pets ? "Has Pets" : "No Pets"} <br></br>
                 <i className="fa fa-tasks" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> Status: {booking.status} <br></br>
                 <i className="fa fa-money" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> Total:  ${booking.total_price} <br></br>
-                <hr/>
+                <hr />
                 <div className="notes-container"><i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px', marginTop: '12px' }}></i> {booking.notes && booking.notes.length > 0 ? (
                   expandedNotes[booking.booking_id] ? (
                     <div>{booking.notes}
@@ -396,13 +396,14 @@ const Dashboard = () => {
                         backgroundColor: "rgba(0, 0, 0, 0.5)", // Optional: Background overlay style
                       },
                       content: {
-                        maxWidth: "550px", // Set the maximum width
-                        width: "auto", // Set the width
-                        height: "350px", // Set the height
-                        margin: "auto", // Center the modal
-                        padding: "30px", // Add some padding
-                        borderRadius: "8px", // Optional: Rounded corners
-                        boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)", // Optional: Add a shadow
+                        top: "50%",
+                        left: "50%",
+                        right: "auto",
+                        bottom: "auto",
+                        marginRight: "-50%",
+                        transform: "translate(-50%, -50%)",
+                        width: "300px",
+                        padding: "20px",
                       },
                     }}
                   >
@@ -483,13 +484,14 @@ const Dashboard = () => {
                         backgroundColor: "rgba(0, 0, 0, 0.5)",
                       },
                       content: {
-                        maxWidth: "550px", // Set the maximum width
-                        width: "auto", // Set the width
-                        height: "300px", // Set the height
-                        margin: "auto", // Center the modal
+                        top: "50%",
+                        left: "50%",
+                        right: "auto",
+                        bottom: "auto",
+                        marginRight: "-50%",
+                        transform: "translate(-50%, -50%)",
+                        width: "550px",
                         padding: "20px",
-                        borderRadius: "8px",
-                        boxShadow: "0 8px 18px rgba(0, 0, 0, 0.1)",
                       },
                     }}
                   >

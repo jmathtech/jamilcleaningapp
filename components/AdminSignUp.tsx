@@ -19,8 +19,7 @@ const AdminSignUp = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [address, setAddress] = useState("");
   const [role, setRole] = useState("manager");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
@@ -40,11 +39,6 @@ const AdminSignUp = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Check if passwords match
-    if (password !== confirmPassword) {
-      setErrorMessage("Passwords do not match");
-      return;
-    }
 
     const response = await fetch("/api/signup-admin", {
       method: "POST",
@@ -53,7 +47,7 @@ const AdminSignUp = () => {
         last_name: lastName,
         email,
         phone,
-        password,
+        address,
         role,
       }),
       headers: {
@@ -141,27 +135,16 @@ const AdminSignUp = () => {
 
           <div className="mb-4">
             <input
-              id="password"
-              type="password"
+              id="address"
+              type="address"
               className="w-full p-3 border border-gray-300 rounded-lg"
-              placeholder="New password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
 
-          <div className="mb-4">
-            <input
-              id="confirmPassword"
-              type="password"
-              className="w-full p-3 border border-gray-300 rounded-lg"
-              placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
 
           <div className="mb-4">
             <select
@@ -171,7 +154,7 @@ const AdminSignUp = () => {
               onChange={(e) => setRole(e.target.value)}
               required
             >
-              <option value="superadmin">Super Admin</option>
+              <option value="admin">Admin</option>
               <option value="manager">Manager</option>
               <option value="support">Support</option>
             </select>

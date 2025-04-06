@@ -13,13 +13,11 @@ import { useRouter } from "next/router";
 import Navbar from "./AdminNavbar"; // Import Navbar component
 import Footer from "./Footer"; // Import Footer component
 import Image from "next/image";
-import Link from "next/link";
 import { useAuth } from "../pages/context/AuthContext"; // Adjust path if needed
 
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { setFirstName, setLastName, setToken } =
     useAuth();
@@ -31,7 +29,7 @@ const AdminLogin = () => {
     const response = await fetch("/api/login-admin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email }),
     });
 
     const data = await response.json();
@@ -97,17 +95,6 @@ const AdminLogin = () => {
               required
             />
           </div>
-          <div className="mb-4">
-            <input
-              type="password"
-              id="password"
-              className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
           <div className="flex justify-center">
             <button
               type="submit"
@@ -115,14 +102,6 @@ const AdminLogin = () => {
             >
               Login
             </button>
-          </div>
-          <div className="mt-4 text-center">
-            <Link
-              href="/forgot-password"
-              className="text-sm text-yellow-600 hover:underline"
-            >
-              Forgot Password?
-            </Link>
           </div>
         </form>
       </div>

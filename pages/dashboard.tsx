@@ -356,7 +356,7 @@ const Dashboard = () => {
                       </span>
                     </div>
                   ) : (
-                    <div>
+                    <div className="text-md mt-4">
                       {booking.notes.substring(0, 50)}...
                       <span
                         className="text-[#b1463c] font-semibold cursor-pointer"

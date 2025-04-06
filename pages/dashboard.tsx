@@ -340,7 +340,7 @@ const Dashboard = () => {
                 <i className="fa fa-calendar" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {new Date(booking.date).toISOString().split('T')[0]} <br></br>
                 <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px'  }}></i> {formatTime(booking.time)} <br></br>
                 <i className="fa fa-hourglass-half" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {booking.hours} hours <br></br>
-                <div className="notes-container">
+                <div className="notes-container text-sm">
                   <i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {booking.notes && booking.notes.length > 0 ? (
                     expandedNotes[booking.booking_id] ? (
                       <div>{booking.notes}

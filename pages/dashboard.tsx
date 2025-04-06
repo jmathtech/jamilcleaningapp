@@ -347,7 +347,7 @@ const Dashboard = () => {
                 <hr />
                 <div className="notes-container"><i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px', marginTop: '12px' }}></i> {booking.notes && booking.notes.length > 0 ? (
                   expandedNotes[booking.booking_id] ? (
-                    <div>{booking.notes}
+                    <div className="text-md mt-4">{booking.notes}
                       <span
                         className="text-[#b1463c] font-semibold cursor-pointer"
                         onClick={() => onReadMoreToggle(booking.booking_id)}

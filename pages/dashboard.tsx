@@ -338,37 +338,37 @@ const Dashboard = () => {
               <td className="border px-4 py-4 text-lg max-w-[75px]">{booking.booking_id}</td>
               <td className="border px-4 py-4 text-sm">
                 <i className="fa fa-calendar" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {new Date(booking.date).toISOString().split('T')[0]} <br></br>
-                <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px'  }}></i> {formatTime(booking.time)} <br></br>
+                <i className="fa fa-clock-o" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {formatTime(booking.time)} <br></br>
                 <i className="fa fa-hourglass-half" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {booking.hours} hours <br></br>
-                <div className="notes-container text-md">
-                  <i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {booking.notes && booking.notes.length > 0 ? (
-                    expandedNotes[booking.booking_id] ? (
-                      <div>{booking.notes}
-                        <span
-                          className="text-[#b1463c] font-semibold cursor-pointer"
-                          onClick={() => onReadMoreToggle(booking.booking_id)}
-                        >
-                          Show Less
-                        </span>
-                      </div>
-                    ) : (
-                      <div>
-                        {booking.notes.substring(0, 50)}...
-                        <span
-                          className="text-[#b1463c] font-semibold cursor-pointer"
-                          onClick={() => onReadMoreToggle(booking.booking_id)}
-                        >
-                          Read More
-                        </span>
-                      </div>
-                    )
-                  ) : (
-                    <p>No notes</p>
-                  )} </div>
                 <i className="fa fa-book" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {booking.service_type} <br></br>
                 <i className="fa fa-paw" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {booking.has_pets ? "Has Pets" : "No Pets"} <br></br>
                 <i className="fa fa-tasks" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> Status: {booking.status} <br></br>
                 <i className="fa fa-money" aria-hidden="true" style={{ marginRight: '8px' }}></i> Total:  ${booking.total_price} <br></br>
+                <hr/>
+                <div className="notes-container text-md"><i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> {booking.notes && booking.notes.length > 0 ? (
+                  expandedNotes[booking.booking_id] ? (
+                    <div>{booking.notes}
+                      <span
+                        className="text-[#b1463c] font-semibold cursor-pointer"
+                        onClick={() => onReadMoreToggle(booking.booking_id)}
+                      >
+                        Show Less
+                      </span>
+                    </div>
+                  ) : (
+                    <div>
+                      {booking.notes.substring(0, 50)}...
+                      <span
+                        className="text-[#b1463c] font-semibold cursor-pointer"
+                        onClick={() => onReadMoreToggle(booking.booking_id)}
+                      >
+                        Read More
+                      </span>
+                    </div>
+                  )
+                ) : (
+                  <p>No notes</p>
+                )} </div>
 
                 <div className="flex flex-wrap gap-2 mt-4">
                   <button
@@ -586,7 +586,7 @@ const Dashboard = () => {
 
             <h3 className="text-lg text-gray-600 font-bold mt-14 mb-5">
 
-              
+
               My Bookings
             </h3>
             {isLoading ? (

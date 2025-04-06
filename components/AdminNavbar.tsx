@@ -83,7 +83,7 @@ const AdminNavbar = () => {
 
   return (
     <nav
-      className="bg-gray-600 shadow border-gray-300 border text-white text-md p-6 relative"
+      className="bg-[#333] shadow text-white text-md p-6 relative"
       ref={navbarRef}
     >
 
@@ -139,7 +139,7 @@ const AdminNavbar = () => {
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
         style={{
-          overlay: { backgroundColor: "rgba(0, 0, 0, 0.6)" },
+          overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
           content: {
             top: "50%",
             left: "50%",
@@ -147,8 +147,8 @@ const AdminNavbar = () => {
             bottom: "auto",
             marginRight: "-50%",
             transform: "translate(-50%, -50%)",
-            padding: "30px",
-            borderRadius: "8px",
+            width: "350px",
+            padding: "20px",
           },
         }}
       >

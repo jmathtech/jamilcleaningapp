@@ -96,10 +96,10 @@ const AdminNavbar = () => {
           <Link href="/admin/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
             ADMIN DASHBOARD
           </Link>
-          <Link href="/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+          <Link href="/admin/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
             SIGN UP
           </Link>
-          <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+          <Link href="/admin/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
             LOG IN
           </Link>
         </div>
@@ -188,10 +188,10 @@ const AdminNavbar = () => {
         <Link href="/admin/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           ADMIN DASHBOARD
         </Link>
-        <Link href="/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+        <Link href="/admin/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           SIGN UP
         </Link>
-        <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+        <Link href="/admin/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           LOG IN
         </Link>
       </div>

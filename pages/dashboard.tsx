@@ -393,7 +393,7 @@ const Dashboard = () => {
                     contentLabel="Reschedule Booking"
                     style={{
                       overlay: {
-                        backgroundColor: "rgba(0, 0, 0, 0.1)", // Optional: Background overlay style
+                        backgroundColor: "rgba(0, 0, 0, 0.5)", // Optional: Background overlay style
                       },
                       content: {
                         maxWidth: "550px", // Set the maximum width
@@ -480,7 +480,7 @@ const Dashboard = () => {
                     contentLabel="Cancel Booking"
                     style={{
                       overlay: {
-                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
                       },
                       content: {
                         maxWidth: "550px", // Set the maximum width

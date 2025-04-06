@@ -345,7 +345,7 @@ const Dashboard = () => {
                 <i className="fa fa-tasks" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> Status: {booking.status} <br></br>
                 <i className="fa fa-money" aria-hidden="true" style={{ marginRight: '8px', marginBottom: '8px' }}></i> Total:  ${booking.total_price} <br></br>
                 <hr/>
-                <div className="notes-container"><i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px', marginTop: '8px' }}></i> {booking.notes && booking.notes.length > 0 ? (
+                <div className="notes-container"><i className="fa fa-sticky-note-o" aria-hidden="true" style={{ marginRight: '8px', marginTop: '12px' }}></i> {booking.notes && booking.notes.length > 0 ? (
                   expandedNotes[booking.booking_id] ? (
                     <div>{booking.notes}
                       <span

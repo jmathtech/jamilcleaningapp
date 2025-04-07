@@ -122,7 +122,10 @@ const AdminNavbar = () => {
           ></div>
         </button>
 
-        <div className="text-sm font-semibold">
+        <div
+          className={`xl:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+            } transition-all ease-in-out duration-500`}
+        >
           {firstName && lastName ? (
             <>
               Welcome, {firstName} {lastName.charAt(0)}.{" "}

@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const result = await query(
       `
       SELECT 
-        customer_id, email, first_name, last_name, phone, address, role FROM customers WHERE email = ?
+        customer_id, first_name, last_name, email, phone, address, role FROM customers WHERE email = ?
       `,
       [email]
     );
@@ -57,8 +57,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           port: 465, // Or 587, depending on your Hostinger configuration
           secure: true, // Use SSL/TLS
           auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
+            user: process.env.EMAIL_USER
           },
         });
     

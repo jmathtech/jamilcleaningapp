@@ -20,7 +20,7 @@ const AdminSignUp = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [role, setRole] = useState("manager");
+  const [role, setRole] = useState("admin");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
@@ -155,7 +155,6 @@ const AdminSignUp = () => {
               required
             >
               <option value="admin">Admin</option>
-              <option value="manager">Manager</option>
               <option value="employee">Employee</option>
             </select>
           </div>

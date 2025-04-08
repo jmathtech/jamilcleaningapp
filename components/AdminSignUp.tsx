@@ -156,7 +156,7 @@ const AdminSignUp = () => {
             >
               <option value="admin">Admin</option>
               <option value="manager">Manager</option>
-              <option value="support">Support</option>
+              <option value="employee">Employee</option>
             </select>
           </div>
 

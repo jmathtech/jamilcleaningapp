@@ -20,7 +20,8 @@ const AdminSignUp = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [role, setRole] = useState("admin");
+  const [role, setRole] = useState("cleaner"); // Default role is "cleaner"
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
@@ -38,6 +39,7 @@ const AdminSignUp = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
 
     const response = await fetch("/api/signup-admin", {
@@ -155,7 +157,7 @@ const AdminSignUp = () => {
               required
             >
               <option value="admin">Admin</option>
-              <option value="employee">Employee</option>
+              <option value="cleaner">Cleaner</option>
             </select>
           </div>
 
@@ -163,12 +165,25 @@ const AdminSignUp = () => {
             <div className="text-red-500 text-sm mb-4">{errorMessage}</div>
           )}
           <div className="flex justify-center">
-            <button
+          <button
               type="submit"
-              className="px-10 py-2 bg-[#8ab13c] text-white rounded-lg hover:bg-[#C5D89D] transition-colors duration-1000 ease-in-out`"
+              aria-label="Submit"
+              className={`px-10 py-2 ${isLoading
+                ? "bg-gray-400 cursor-not-allowed flex items-center justify-center gap-2"
+                : "bg-[#8ab13c] hover:bg-[#C5D89D]"
+                } text-white text-lg font-bold rounded-lg transition-colors duration-1000 ease-in-out`}
+              disabled={isLoading}
             >
-              Sign Up
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  Processing your information ...
+                  <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+                </div>
+              ) : (
+                "Sign Up"
+              )}
             </button>
+          
           </div>
         </form>
       </div>

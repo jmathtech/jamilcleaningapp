@@ -48,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           phone: user.phone,
           address: user.address,
           
-        }, secretKey, { expiresIn: "2h" });
+        }, secretKey, { expiresIn: "1h" });
         const verificationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/api/verify?token=${token}`;
     
         // Send the email

@@ -97,6 +97,9 @@ const Navbar = () => {
           <Link href="/login" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             LOG IN
           </Link>
+          <Link href="/pricing" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+            PRICING
+          </Link>
           {isLoggedIn && (
             <>
               <Link href="/booking" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
@@ -205,6 +208,9 @@ const Navbar = () => {
         </Link>
         <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           LOG IN
+        </Link>
+        <Link href="/pricing" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+          PRICING
         </Link>
         {isLoggedIn && (
           <>

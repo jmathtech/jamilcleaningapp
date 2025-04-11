@@ -80,6 +80,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     },
     heading: {
         textAlign: 'center',
+        color: '#545454',
         fontSize: '2rem',
         fontWeight: 'bold',
         marginBottom: '2rem',

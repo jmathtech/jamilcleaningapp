@@ -99,6 +99,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     },
     serviceName: {
         fontSize: '1.2rem',
+        color: '#545454',
         fontWeight: 'bold',
         marginBottom: '0.5rem',
     },

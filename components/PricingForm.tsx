@@ -55,7 +55,7 @@ const PricingForm = () => {
                         }}
                     />
                 </div>
-                <h1 style={styles.heading}>Cleaning Service Pricing</h1>
+                <h1 style={styles.heading}>Pricing</h1>
                 <div style={styles.cardContainer}>
                     {services.map((service, idx) => (
                         <div key={idx} style={styles.card}>

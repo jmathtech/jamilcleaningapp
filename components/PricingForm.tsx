@@ -1,5 +1,6 @@
 // /pages/pricing-form.tsx
 import React from 'react';
+import Image from 'next/image';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
@@ -41,6 +42,19 @@ const PricingForm = () => {
         <>
             <Navbar />
             <main className="min-h-screen" style={styles.container}>
+                <div className="flex justify-center items-center mt-10 p-10">
+                    <Image
+                        src="/img/majestik_magik_cleaning_01.png"
+                        alt="Majestik Magik Cleaning"
+                        width={250}
+                        height={150}
+                        priority={true}
+                        style={{
+                            minWidth: "150px",
+                            maxWidth: "250px",
+                        }}
+                    />
+                </div>
                 <h1 style={styles.heading}>Cleaning Service Pricing</h1>
                 <div style={styles.cardContainer}>
                     {services.map((service, idx) => (

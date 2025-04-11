@@ -91,15 +91,16 @@ const Navbar = () => {
           <Link href="/" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             HOME
           </Link>
+          <Link href="/pricing" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+            PRICING
+          </Link>
           <Link href="/signup" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             SIGN UP
           </Link>
           <Link href="/login" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
             LOG IN
           </Link>
-          <Link href="/pricing" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
-            PRICING
-          </Link>
+          
           {isLoggedIn && (
             <>
               <Link href="/booking" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
@@ -203,15 +204,16 @@ const Navbar = () => {
         <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           HOME
         </Link>
+        <Link href="/pricing" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+          PRICING
+        </Link>
         <Link href="/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           SIGN UP
         </Link>
         <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
           LOG IN
         </Link>
-        <Link href="/pricing" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
-          PRICING
-        </Link>
+        
         {isLoggedIn && (
           <>
             <hr />

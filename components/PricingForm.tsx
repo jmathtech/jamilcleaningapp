@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import Link from 'next/link';
 
 const services = [
     {
@@ -64,7 +65,26 @@ const PricingForm = () => {
                             <p style={styles.description}>{service.description}</p>
                         </div>
                     ))}
-                </div>
+                </div> 
+                <p className="text-lg p-8">
+            <Link
+              href="/signup"
+              className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
+
+            >
+              <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
+                Sign Up Today!
+              </button>
+            </Link>
+            <Link
+              href="/login"
+              className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
+            >
+              <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-10 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
+                Log In
+              </button>
+            </Link>
+          </p>
             </main>
             <Footer />
         </>

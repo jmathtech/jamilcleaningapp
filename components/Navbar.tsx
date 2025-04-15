@@ -14,7 +14,30 @@ const Navbar = () => {
   const navbarRef = useRef<HTMLElement | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Add isLoggedIn state
+  
   const router = useRouter();
+  
+
+  // -- START: Scroll Effect --
+  const [isScrolled, setIsScrolled] = useState(false); // State to manage scroll position
+
+  useEffect(() => {
+    // Function to handle scroll event
+    const handleScroll = () => {
+      // Set isScrolled to true if the page is scrolled down more than 50px
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    // Add event listener for scroll event
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up event listener when component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+
+    };
+  }, []); // Empty dependency array to run only on mount and unmount
+  // -- END: Scroll Effect --
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -83,36 +106,45 @@ const Navbar = () => {
 
   return (
     <nav
-      className="bg-[#333] shadow text-white text-md p-6 relative"
+      className={`bg-[#333] shadow text-white text-md p-6 sticky top-0 z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'py-2 px-4' : 'p-4' // Shrink padding when scrolled
+        }`}
       ref={navbarRef}
     >
       <div className="flex justify-between items-center">
         <div className="space-x-14 hidden xl:flex">
-          <Link href="/" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+          <Link href="/" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
             HOME
           </Link>
-          <Link href="/pricing" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+          <Link href="/pricing" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
             PRICING
           </Link>
-          <Link href="/signup" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+          <Link href="/signup" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
             SIGN UP
           </Link>
-          <Link href="/login" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+          <Link href="/login" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
             LOG IN
           </Link>
           
           {isLoggedIn && (
             <>
-              <Link href="/booking" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+              <Link href="/booking" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
                 BOOK A CLEANING
               </Link>
-              <Link href="/dashboard" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+              <Link href="/dashboard" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
                 DASHBOARD
               </Link>
-              <Link href="/profile" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+              <Link href="/profile" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
                 PROFILE
               </Link>
-              <Link href="/contact-support" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+              <Link href="/contact-support" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
                 CONTACT SUPPORT
               </Link>
             </>
@@ -199,34 +231,42 @@ const Navbar = () => {
 
       <div
         className={`xl:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          } transition-all ease-in-out duration-500`}
+          } transition-all ease-in-out duration-500 `} 
       >
-        <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+        <Link href="/" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
           HOME
         </Link>
-        <Link href="/pricing" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+        <Link href="/pricing" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
           PRICING
         </Link>
-        <Link href="/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+        <Link href="/signup" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
           SIGN UP
         </Link>
-        <Link href="/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+        <Link href="/login" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
           LOG IN
         </Link>
         
         {isLoggedIn && (
           <>
             <hr />
-            <Link href="/booking" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+            <Link href="/booking" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
               BOOK A CLEANING
             </Link>
-            <Link href="/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+            <Link href="/dashboard" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
               DASHBOARD
             </Link>
-            <Link href="/profile" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+            <Link href="/profile" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
               PROFILE
             </Link>
-            <Link href="/contact-support" className="text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] block">
+            <Link href="/contact-support" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
               CONTACT SUPPORT
             </Link>
 

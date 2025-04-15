@@ -28,7 +28,7 @@ const Home = () => {
       <Navbar />
 
       <div className="flex justify-center items-center min-h-screen px-4">
-        <div className="bg-white mt-10 p-8 rounded-lg shadow w-full border-[#8ab13c] border max-w-xl text-center"
+        <div className="bg-white mt-10 p-10 rounded-lg shadow w-full border-[#8ab13c] border max-w-xl text-center"
           >
           <h1 className="flex justify-center items-center p-6">
             <Image

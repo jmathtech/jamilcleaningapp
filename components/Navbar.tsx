@@ -14,7 +14,7 @@ const Navbar = () => {
   const navbarRef = useRef<HTMLElement | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Add isLoggedIn state
-  
+
   const router = useRouter();
   
 
@@ -106,7 +106,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-[#333] shadow text-white text-md p-6 sticky top-0 z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'py-2 px-4' : 'p-2' // Shrink padding when scrolled
+      className={`bg-[#333] shadow text-white text-md p-4 sticky top-0 z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'py-2 px-4' : 'p-2' // Shrink padding when scrolled
         }`}
       ref={navbarRef}
     >
@@ -154,7 +154,7 @@ const Navbar = () => {
         <button
           aria-label="Open Menu"
           onClick={handleMenuToggle}
-          className="xl:hidden flex flex-col items-center justify-center space-y-1 w-8 h-8"
+          className="lg:hidden flex flex-col items-center justify-center space-y-1 w-8 h-8"
         >
           <div
             className={`w-6 h-0.5 bg-white transition-all duration-500 transform ${menuOpen ? "rotate-45 translate-y-2" : ""

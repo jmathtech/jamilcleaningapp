@@ -17,7 +17,7 @@ const Home = () => {
     <>
       <Navbar />
 
-      <div className="bg-gray index-container relative min-h-screen">
+      <div className="bg-gray index-container relative">
         <video
           autoPlay
           loop

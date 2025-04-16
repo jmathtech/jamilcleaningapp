@@ -106,7 +106,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-[#333] shadow text-white text-md p-6 sticky top-0 z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'py-2' : 'p-2' // Shrink padding when scrolled
+      className={`bg-[#333] shadow text-white text-md p-6 sticky top-0 z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'py-2 px-4' : 'p-2' // Shrink padding when scrolled
         }`}
       ref={navbarRef}
     >
@@ -230,7 +230,7 @@ const Navbar = () => {
       </Modal>
 
       <div
-        className={`xl:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`lg:hidden absolute left-0 top-full w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           } transition-all ease-in-out duration-500 `} 
       >
         <Link href="/" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out

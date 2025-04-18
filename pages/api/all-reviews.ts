@@ -16,7 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 b.review_rating, 
                 b.review_comment, 
                 b.customer_id, 
-                c.name AS customer_name, 
+                c.first_name AS customer_first_name,
+                c.last_name AS customer_last_name, 
                 b.created_at
              FROM bookings b
              JOIN customers c ON b.customer_id = c.customer_id

@@ -592,7 +592,7 @@ const Dashboard = () => {
               My Bookings
             </h3>
             {isLoading ? (
-              <p className="text-gray-400 font-semibold text-2xl"><div className="spinner"></div> Loading...</p>
+              <p className="min-h-screen flex items-center justify-center text-gray-400 font-semibold text-2xl"><div className="spinner"></div> Loading...</p>
             ) : error ? (
               <p>Error: {error}</p>
             ) : bookings.length > 0 ? (
@@ -650,7 +650,7 @@ const Dashboard = () => {
             <div className="text-xs text-gray-200 flex justify-end">
               <Link href="https://www.majestikmagik.com">
                 &copy; Powered by MajestikMagik.com <br /> Design by Jamil
-                Matheny
+                Matheny <br /> Version 1.0.0
               </Link>
             </div>
           </div>

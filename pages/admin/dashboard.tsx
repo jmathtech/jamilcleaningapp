@@ -12,6 +12,11 @@ import AdminNavbar from '../../components/AdminNavbar';
 import Footer from '../../components/Footer';
 // import authGuard from "utils/admin/authGuard";
 
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+
+
+
 
 interface Review {
   booking_id: string;
@@ -42,7 +47,7 @@ interface Booking {
   total_price: string;
 }
 
-const STATUS_OPTIONS: string[] = ['Pending', 'In-progress', 'Confirmed', 'Completed'];
+const STATUS_OPTIONS: string[] = ['Pending', 'Inprogress', 'Confirmed', 'Completed'];
 
 const AdminDashboard = () => {
 
@@ -87,6 +92,15 @@ const AdminDashboard = () => {
       return 'Invalid Date';
     }
   };
+
+
+  // Calendar event handler
+  const events = [
+    {
+      title: "Meeting",
+      start: new Date().toISOString(),
+    },
+  ];
 
 
   const onReadMoreToggle = (id: string) => {
@@ -390,9 +404,9 @@ const AdminDashboard = () => {
                               disabled={updatingStatusId === booking.booking_id}
                               className={`w-full p-1 border rounded text-xs leading-5 font-semibold ${booking.status === 'Completed' ? 'bg-green-100 text-green-800 border-green-300' :
                                 booking.status === 'Pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
-                                booking.status === 'In-progress' ? 'bg-orange-100 text-orange-800 border-orange-300' :
-                                  booking.status === 'Confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
-                                    'bg-gray-100 text-gray-800 border-gray-300'
+                                  booking.status === 'Inprogress' ? 'bg-orange-100 text-orange-800 border-orange-300' :
+                                    booking.status === 'Confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
+                                      'bg-gray-100 text-gray-800 border-gray-300'
                                 } ${updatingStatusId === booking.booking_id ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                             >
                               {STATUS_OPTIONS.map(statusOption => (
@@ -411,43 +425,43 @@ const AdminDashboard = () => {
                     </tbody>
                   </table>
                   <div className="flex justify-center items-center">
-                  <div className="flex justify-between mt-8 mb-8 space-x-2">
-                    <button
-                      onClick={() => paginate(Math.max(currentPage - 1, 1))}
-                      className={`px-4 py-2 rounded-full ${currentPage === 1
-                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                        : "bg-gray-300 hover:bg-gray-200 transition-opacity duration-2000 hover:opacity-80 text-black"
-                        }`}
-                      disabled={currentPage === 1}
-                    >
-                      <i className="fa fa-angle-double-left" aria-hidden="true"></i> {"Prev"}
-                    </button>
-                    {Array.from({ length: totalPages }, (_, index) => (
+                    <div className="flex justify-between mt-8 mb-8 space-x-2">
                       <button
-                        key={index + 1}
-                        onClick={() => paginate(index + 1)}
-                        className={`px-4 py-2 rounded-full ${currentPage === index + 1
-                          ? "bg-gray-400 text-white"
-                          : "bg-gray-200 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-100"
+                        onClick={() => paginate(Math.max(currentPage - 1, 1))}
+                        className={`px-4 py-2 rounded-full ${currentPage === 1
+                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                          : "bg-gray-300 hover:bg-gray-200 transition-opacity duration-2000 hover:opacity-80 text-black"
                           }`}
+                        disabled={currentPage === 1}
                       >
-                        {index + 1}
+                        <i className="fa fa-angle-double-left" aria-hidden="true"></i> {"Prev"}
                       </button>
-                    ))}
-                    <button
-                      onClick={() =>
-                        paginate(Math.min(currentPage + 1, totalPages))
-                      }
-                      className={`px-4 py-2 rounded-full ${currentPage === totalPages
-                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                        : "bg-gray-300 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-200 text-black"
-                        }`}
-                      disabled={currentPage === totalPages}
-                    >
-                      {"Next"} <i className="fa fa-angle-double-right" aria-hidden="true"></i>
-                    </button>
+                      {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                          key={index + 1}
+                          onClick={() => paginate(index + 1)}
+                          className={`px-4 py-2 rounded-full ${currentPage === index + 1
+                            ? "bg-gray-400 text-white"
+                            : "bg-gray-200 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-100"
+                            }`}
+                        >
+                          {index + 1}
+                        </button>
+                      ))}
+                      <button
+                        onClick={() =>
+                          paginate(Math.min(currentPage + 1, totalPages))
+                        }
+                        className={`px-4 py-2 rounded-full ${currentPage === totalPages
+                          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                          : "bg-gray-300 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-200 text-black"
+                          }`}
+                        disabled={currentPage === totalPages}
+                      >
+                        {"Next"} <i className="fa fa-angle-double-right" aria-hidden="true"></i>
+                      </button>
+                    </div>
                   </div>
-                </div>
                 </>
               ) : (
                 <p className="text-gray-500">No bookings found.</p>
@@ -457,44 +471,49 @@ const AdminDashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        {/* Feedback Reviews Section */}
-        <div className="bg-white p-6 rounded-lg shadow-md mt-6"> {/* Added rounded-lg and shadow-md */}
-          <h3 className="text-xl text-gray-700 font-bold mb-4">Feedback Reviews</h3> {/* Adjusted size/color/margin */}
-          {isLoadingReviews && <p className="text-gray-500">Loading reviews...</p>} {/* Adjusted text color */}
-          {errorReviews && <p className="text-red-600 font-medium">Error loading reviews: {errorReviews}</p>} {/* Adjusted text color/weight */}
-          {!isLoadingReviews && !errorReviews && (
-            <ul className="space-y-4"> {/* Removed list-disc, added spacing */}
-              {feedbackReviews.length > 0 ? (
-                feedbackReviews.map((review) => ( // Use booking_id from review as key
-                  <li key={review.booking_id} className="border-b border-gray-200 pb-3 last:border-b-0"> {/* Added border */}
-                    <p className="font-semibold text-gray-800">{`${review.customer_first_name} ${review.customer_last_name}`}</p> {/* Adjusted text color */}
-                    {/* Display Rating */}
-                    {typeof review.review_rating === 'number' && review.review_rating > 0 && (
-                      <p className="text-yellow-500 my-1">{'⭐'.repeat(review.review_rating)} <span className="text-gray-500 text-sm">({review.review_rating}/5)</span></p>
-                    )}
-                    {/* Display Comment */}
-                    <p className="text-gray-600 italic">&quot;{review.review_comment}&quot;</p> {/* Adjusted text color */}
-                    {/* Display Date */}
-                    <p className="text-xs text-gray-400 mt-1">Reviewed on: {formatDate(review.created_at)}</p> {/* Use formatDate */}
-                  </li>
-                ))
-              ) : (
-                <p className="text-gray-500">No feedback reviews available.</p>
-              )}
-            </ul>)}
-        </div>
-        {/* End Feedback Reviews Section */}
+          {/* Feedback Reviews Section */}
+          <div className="bg-white p-6 rounded-lg shadow-md mt-6"> {/* Added rounded-lg and shadow-md */}
+            <h3 className="text-xl text-gray-700 font-bold mb-4">Feedback Reviews</h3> {/* Adjusted size/color/margin */}
+            {isLoadingReviews && <p className="text-gray-500">Loading reviews...</p>} {/* Adjusted text color */}
+            {errorReviews && <p className="text-red-600 font-medium">Error loading reviews: {errorReviews}</p>} {/* Adjusted text color/weight */}
+            {!isLoadingReviews && !errorReviews && (
+              <ul className="space-y-4"> {/* Removed list-disc, added spacing */}
+                {feedbackReviews.length > 0 ? (
+                  feedbackReviews.map((review) => ( // Use booking_id from review as key
+                    <li key={review.booking_id} className="border-b border-gray-200 pb-3 last:border-b-0"> {/* Added border */}
+                      <p className="font-semibold text-gray-800">{`${review.customer_first_name} ${review.customer_last_name}`}</p> {/* Adjusted text color */}
+                      {/* Display Rating */}
+                      {typeof review.review_rating === 'number' && review.review_rating > 0 && (
+                        <p className="text-yellow-500 my-1">{'⭐'.repeat(review.review_rating)} <span className="text-gray-500 text-sm">({review.review_rating}/5)</span></p>
+                      )}
+                      {/* Display Comment */}
+                      <p className="text-gray-600 italic">&quot;{review.review_comment}&quot;</p> {/* Adjusted text color */}
+                      {/* Display Date */}
+                      <p className="text-xs text-gray-400 mt-1">Reviewed on: {formatDate(review.created_at)}</p> {/* Use formatDate */}
+                    </li>
+                  ))
+                ) : (
+                  <p className="text-gray-500">No feedback reviews available.</p>
+                )}
+              </ul>)}
+          </div>
+          {/* End Feedback Reviews Section */}
 
-        {/* -- Calendar Section -- */}
-        <div className="bg-white p-6 rounded-lg shadow-md mt-6">
-          <h3 className="text-xl text-gray-700 font-bold mb-4">Calendar</h3>
-          <p className="text-gray-500">Calendar functionality is not yet implemented.</p>
-          {/* Placeholder for calendar */}
-          <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center">
-            <p className="text-gray-500">Calendar will be here.</p>
+          {/* -- Calendar Section -- */}
+          <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+            <h3 className="text-xl text-gray-700 font-bold mb-4">Calendar</h3>
+        
+            {/* Placeholder for calendar */}
+            
+              <FullCalendar
+                plugins={[dayGridPlugin]}
+                initialView="dayGridMonth"
+                events={events}                
+                height={500}
+              />
+            
           </div>
         </div>
-      </div>
       </div>
       <Footer />
     </div>

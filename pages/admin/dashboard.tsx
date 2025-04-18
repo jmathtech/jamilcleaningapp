@@ -203,27 +203,6 @@ const AdminDashboard = () => {
     setUpdatingStatusId(bookingId); // Set loading state for this specific row
     setUpdateStatusError(null); // Clear previous errors
 
-    // --- Optimistic UI Update ---
-    // Find the index of the booking to update
-    const bookingIndex = bookings.findIndex(b => b.booking_id === bookingId);
-    if (bookingIndex === -1) {
-      console.error("Booking not found in local state:", bookingId);
-      setUpdateStatusError("Booking not found locally.");
-      setUpdatingStatusId(null);
-      return;
-    }
-
-    // Create a temporary copy of the original booking in case we need to revert
-    const originalBooking = { ...bookings[bookingIndex] };
-
-    // Create a new array with the updated booking status
-    const updatedBookings = [
-      ...bookings.slice(0, bookingIndex),
-      { ...originalBooking, status: newStatus }, // Update the status
-      ...bookings.slice(bookingIndex + 1),
-    ];
-    setBookings(updatedBookings); // Update the state immediately
-
     // --- API Call ---
     try {
       const response = await fetch('../../api/update-booking-status', {
@@ -251,6 +230,28 @@ const AdminDashboard = () => {
         });
         throw new Error(result.message || 'Failed to update booking status.');
       }
+
+      // --- Optimistic UI Update ---
+      // Find the index of the booking to update
+      const bookingIndex = bookings.findIndex(b => b.booking_id === bookingId);
+      if (bookingIndex === -1) {
+        console.error("Booking not found in local state:", bookingId);
+        setUpdateStatusError("Booking not found locally.");
+        setUpdatingStatusId(null);
+        return;
+      }
+
+      // Create a temporary copy of the original booking in case we need to revert
+      const originalBooking = { ...bookings[bookingIndex] };
+
+      // Create a new array with the updated booking status
+      const updatedBookings = [
+        ...bookings.slice(0, bookingIndex),
+        { ...originalBooking, status: newStatus }, // Update the status
+        ...bookings.slice(bookingIndex + 1),
+      ];
+      setBookings(updatedBookings); // Update the state immediately
+
 
       // Success: No need to do anything extra, UI is already updated optimistically
       console.log(`Booking ${bookingId} status updated to ${newStatus}`);
@@ -337,39 +338,39 @@ const AdminDashboard = () => {
                   <table className="max-w-full divide-y divide-gray-200" key={currentBookings.length}>
                     <thead className="bg-gray-50">
                       <tr>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hours</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pets</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Cost</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hours</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pets</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Cost</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {bookings.map((booking) => (
                         <tr key={booking.booking_id} className={`hover:bg-gray-50 ${updatingStatusId === booking.booking_id ? 'opacity-50' : ''}`}>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">{booking.booking_id}</td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{`${booking.customer_first_name} ${booking.customer_last_name}`}</td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{booking.service_type}</td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{booking.hours}</td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{booking.customer_email}</td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{formatDate(booking.date)}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-900">{booking.booking_id}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{`${booking.customer_first_name} ${booking.customer_last_name}`}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.service_type}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.hours}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.customer_email}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{formatDate(booking.date)}</td>
 
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{formatTime(booking.time)}</td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{booking.customer_phone}</td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{booking.customer_address}</td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{booking.has_pets ? 'Yes' : 'No'}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{formatTime(booking.time)}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.customer_phone}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.customer_address}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.has_pets ? 'Yes' : 'No'}</td>
 
                           {/* Notes Section */}
-                          <div className="notes-container px-4 py-3 text-sm text-gray-600">{booking.notes && booking.notes.length > 0 ? (
+                          <div className="notes-container px-3 py-3 text-sm text-gray-600">{booking.notes && booking.notes.length > 0 ? (
                             expandedNotes[booking.booking_id] ? (
                               <div className="py-3 text-sm text-gray-600">{booking.notes}
                                 <span
@@ -394,9 +395,9 @@ const AdminDashboard = () => {
                             <p>No notes</p>
                           )} </div>
 
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{booking.total_price}</td>
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.total_price}</td>
                           {/* --- STATUS CELL with Dropdown - RE-INTEGRATED --- */}
-                          <td className="px-4 py-3 whitespace-nowrap text-sm">
+                          <td className="px-3 py-3 whitespace-nowrap text-sm">
                             <select
                               value={booking.status}
                               // Ensure booking_id is number if handleStatusChange expects number
@@ -419,7 +420,7 @@ const AdminDashboard = () => {
                           {/* --- END STATUS CELL --- */}
 
 
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-600">{formatDate(booking.created_at)}</td> {/* Use formatDate for consistency */}
+                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{formatDate(booking.created_at)}</td> {/* Use formatDate for consistency */}
                         </tr>
                       ))}
                     </tbody>
@@ -428,7 +429,7 @@ const AdminDashboard = () => {
                     <div className="flex justify-between mt-8 mb-8 space-x-2">
                       <button
                         onClick={() => paginate(Math.max(currentPage - 1, 1))}
-                        className={`px-4 py-2 rounded-full ${currentPage === 1
+                        className={`px-3 py-2 rounded-full ${currentPage === 1
                           ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                           : "bg-gray-300 hover:bg-gray-200 transition-opacity duration-2000 hover:opacity-80 text-black"
                           }`}
@@ -440,7 +441,7 @@ const AdminDashboard = () => {
                         <button
                           key={index + 1}
                           onClick={() => paginate(index + 1)}
-                          className={`px-4 py-2 rounded-full ${currentPage === index + 1
+                          className={`px-3 py-2 rounded-full ${currentPage === index + 1
                             ? "bg-gray-400 text-white"
                             : "bg-gray-200 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-100"
                             }`}
@@ -452,7 +453,7 @@ const AdminDashboard = () => {
                         onClick={() =>
                           paginate(Math.min(currentPage + 1, totalPages))
                         }
-                        className={`px-4 py-2 rounded-full ${currentPage === totalPages
+                        className={`px-3 py-2 rounded-full ${currentPage === totalPages
                           ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                           : "bg-gray-300 transition-opacity duration-2000 hover:opacity-80 hover:bg-gray-200 text-black"
                           }`}
@@ -502,16 +503,16 @@ const AdminDashboard = () => {
           {/* -- Calendar Section -- */}
           <div className="bg-white p-6 rounded-lg shadow-md mt-6">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Calendar</h3>
-        
+
             {/* Placeholder for calendar */}
-            
-              <FullCalendar
-                plugins={[dayGridPlugin]}
-                initialView="dayGridMonth"
-                events={events}                
-                height={500}
-              />
-            
+
+            <FullCalendar
+              plugins={[dayGridPlugin]}
+              initialView="dayGridMonth"
+              events={events}
+              height={500}
+            />
+
           </div>
         </div>
       </div>

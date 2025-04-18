@@ -252,9 +252,6 @@ const AdminDashboard = () => {
     }
   };
 
-
-
-
   // --- Fetch All Bookings ---
   useEffect(() => {
     const fetchAllBookings = async () => {
@@ -459,6 +456,7 @@ const AdminDashboard = () => {
           )}
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         {/* Feedback Reviews Section */}
         <div className="bg-white p-6 rounded-lg shadow-md mt-6"> {/* Added rounded-lg and shadow-md */}
           <h3 className="text-xl text-gray-700 font-bold mb-4">Feedback Reviews</h3> {/* Adjusted size/color/margin */}
@@ -496,6 +494,7 @@ const AdminDashboard = () => {
             <p className="text-gray-500">Calendar will be here.</p>
           </div>
         </div>
+      </div>
       </div>
       <Footer />
     </div>

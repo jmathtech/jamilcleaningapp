@@ -14,6 +14,8 @@ import Footer from '../../components/Footer';
 
 import { EventClickArg } from '@fullcalendar/core';
 import FullCalendar from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
 
@@ -386,18 +388,35 @@ const AdminDashboard = () => {
     return bookings
       .map((booking) => {
         try {
+          if (!booking.date || !booking.time) {
+            console.warn(`Booking ${booking.booking_id} has missing date or time.`);
+            return null;
+          }
+
           const startDateTimeString = `${booking.date}T${booking.time}`;
           const startDate = new Date(startDateTimeString);
+          
+          if (isNaN(startDate.getTime())) {
+            console.warn(`Booking ${booking.booking_id} has invalid date or time: ${startDateTimeString}`);
+            return null;
+          }
+          
           const durationHours = parseFloat(booking.hours);
-          if (isNaN(durationHours) || durationHours <= 0) return null;
+          if (isNaN(durationHours) || durationHours <= 0) {
+            console.warn(`Booking ${booking.booking_id} has invalid hours: ${booking.hours}`);
+            return null;
+          }
+
           const endDate = new Date(startDate.getTime() + durationHours * 60 * 60 * 1000);
-          if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) return null;
+          
           return {
+            id: booking.booking_id,
             title: `ID: ${booking.booking_id} - ${booking.customer_first_name} (${booking.service_type})`,
             start: startDate,
             end: endDate,
-            resource: booking,
-            extendedProps: { resource: booking }
+            extendedProps: { 
+              booking: booking 
+            },            
           };
         } catch (error) { console.error(`Error processing booking ${booking.booking_id} for calendar:`, error); return null; }
       })
@@ -505,30 +524,21 @@ const AdminDashboard = () => {
                           <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.has_pets ? 'Yes' : 'No'}</td>
 
                           {/* Notes Section */}
-                          <div className="notes-container px-3 py-3 text-sm text-gray-600">{booking.notes && booking.notes.length > 0 ? (
-                            expandedNotes[booking.booking_id] ? (
-                              <div className="py-3 text-sm text-gray-600">{booking.notes}
-                                <span
-                                  className="text-[#b1463c] text-sm font-semibold cursor-pointer"
+                          <td className="px-3 py-3 text-sm text-gray-600 max-w-xs"> {/* Added max-w-xs for notes */}
+                            {booking.notes && booking.notes.length > 50 ? (
+                              <>
+                                {expandedNotes[booking.booking_id] ? booking.notes : `${booking.notes.substring(0, 50)}...`}
+                                <button
                                   onClick={() => onReadMoreToggle(booking.booking_id)}
+                                  className="text-blue-500 hover:text-blue-700 text-xs ml-1 whitespace-nowrap"
                                 >
-                                  Show Less
-                                </span>
-                              </div>
+                                  {expandedNotes[booking.booking_id] ? 'Show Less' : 'Read More'}
+                                </button>
+                              </>
                             ) : (
-                              <div className="text-md mt-4">
-                                {booking.notes.substring(0, 50)}...
-                                <span
-                                  className="text-[#b1463c] text-sm font-semibold cursor-pointer"
-                                  onClick={() => onReadMoreToggle(booking.booking_id)}
-                                >
-                                  Read More
-                                </span>
-                              </div>
-                            )
-                          ) : (
-                            <p>No notes</p>
-                          )} </div>
+                              booking.notes || <span className="text-gray-400">No notes</span>
+                            )}
+                          </td>
 
                           <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.total_price}</td>
                           {/* --- STATUS CELL with Dropdown - RE-INTEGRATED --- */}
@@ -640,11 +650,19 @@ const AdminDashboard = () => {
             <h3 className="text-xl text-gray-700 font-bold mb-4">Calendar</h3>
 
             {/* Placeholder for calendar */}
-
             <FullCalendar
-              plugins={[dayGridPlugin]}
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"
+              headerToolbar={{
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay",
+              }}              
               events={calendarEvents}
+              editable={true}
+              selectable={true}
+              selectMirror={true}
+              dayMaxEvents={true}
               height="500px"
               eventClick={handleEventClick}
             />

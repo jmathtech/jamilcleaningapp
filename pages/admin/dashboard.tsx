@@ -34,7 +34,6 @@ type SortableBookingKeys = keyof Booking | 'customer_name';
 
 interface Booking {
   booking_id: string;
-  created_at: string;
   updated_at: string;
   customer_id: number;
   customer_first_name: string;
@@ -194,7 +193,6 @@ const AdminDashboard = () => {
           break;
 
         case 'date':
-        case 'created_at':
         case 'updated_at':
           const dateA = new Date(String(aValue)).getTime(); // Convert to timestamp
           const dateB = new Date(String(bValue)).getTime();
@@ -504,7 +502,6 @@ const AdminDashboard = () => {
                         {renderSortableHeader('Notes', 'notes')}
                         {renderSortableHeader('Total Cost', 'total_price')}
                         {renderSortableHeader('Status', 'status')}
-                        {renderSortableHeader('Created', 'created_at')}
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
@@ -563,8 +560,6 @@ const AdminDashboard = () => {
                           </td>
                           {/* --- END STATUS CELL --- */}
 
-
-                          <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{formatDate(booking.created_at)}</td> {/* Use formatDate for consistency */}
                         </tr>
                       ))}
                     </tbody>

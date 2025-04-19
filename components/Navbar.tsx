@@ -111,41 +111,41 @@ const Navbar = () => {
       ref={navbarRef}
     >
       <div className="flex justify-between items-center">
-        <div className="space-x-14 hidden xl:flex">
+        <div className="space-x-10 hidden xl:flex">
           <Link href="/" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-            HOME
+            Home
           </Link>
           <Link href="/pricing" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-            PRICING
+            Pricing
           </Link>
           <Link href="/signup" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-            SIGN UP
+            Sign Up
           </Link>
           <Link href="/login" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-            LOG IN
+            Log In
           </Link>
           
           {isLoggedIn && (
             <>
               <Link href="/booking" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-                BOOK A CLEANING
+                Book A Cleaning
               </Link>
               <Link href="/dashboard" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-                DASHBOARD
+                Dashboard
               </Link>
               <Link href="/profile" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-                PROFILE
+                Profile
               </Link>
               <Link href="/contact-support" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-                CONTACT SUPPORT
+                Contact Support
               </Link>
             </>
           )}
@@ -230,24 +230,24 @@ const Navbar = () => {
       </Modal>
 
       <div
-        className={`lg:hidden absolute left-0 top-full w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`lg:hidden absolute left-0 top-full w-full z-10 bg-[#333] shadow p-10 space-y-10 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           } transition-all ease-in-out duration-500 `} 
       >
         <Link href="/" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-          HOME
+          Home
         </Link>
         <Link href="/pricing" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-          PRICING
+          Pricing
         </Link>
         <Link href="/signup" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-          SIGN UP
+          Sign Up
         </Link>
         <Link href="/login" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-          LOG IN
+          Log In
         </Link>
         
         {isLoggedIn && (
@@ -255,19 +255,19 @@ const Navbar = () => {
             <hr />
             <Link href="/booking" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-              BOOK A CLEANING
+              Book A Cleaning
             </Link>
             <Link href="/dashboard" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-              DASHBOARD
+              Dashboard
             </Link>
             <Link href="/profile" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-              PROFILE
+              Profile
             </Link>
             <Link href="/contact-support" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
-              CONTACT SUPPORT
+              Contact Support
             </Link>
 
           </>

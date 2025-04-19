@@ -7,14 +7,14 @@ deleting bookings. The component is protected by authentication and authorizatio
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import AdminNavbar from '../../components/AdminNavbar';
 import Footer from '../../components/Footer';
 // import authGuard from "utils/admin/authGuard";
 
+import { EventClickArg } from '@fullcalendar/core';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-
 
 
 
@@ -26,6 +26,9 @@ interface Review {
   review_comment: string;
   created_at: string;
 }
+
+// Define Booking type and SortableBookingKeys
+type SortableBookingKeys = keyof Booking | 'customer_name';
 
 interface Booking {
   booking_id: string;
@@ -73,6 +76,11 @@ const AdminDashboard = () => {
   const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
   const [updateStatusError, setUpdateStatusError] = useState<string | null>(null); // Error state for status updates
 
+  // --- State for Sorting ---
+  const [sortColumn, setSortColumn] = useState<SortableBookingKeys>('booking_id'); // Default sort by created_at
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+
+
   // Date formatting function
   const formatDate = (dateString: string | null | undefined): string => {
     if (!dateString) return 'N/A';
@@ -92,16 +100,6 @@ const AdminDashboard = () => {
       return 'Invalid Date';
     }
   };
-
-
-  // Calendar event handler
-  const events = [
-    {
-      title: "Meeting",
-      start: new Date().toISOString(),
-    },
-  ];
-
 
   const onReadMoreToggle = (id: string) => {
     setExpandedNotes((prev) => ({
@@ -152,23 +150,99 @@ const AdminDashboard = () => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  // --- Memoized Sorted Bookings ---
+  const sortedBookings = useMemo(() => {
+    const sortableBookings = [...bookings];
+
+    sortableBookings.sort((a, b) => {
+      let aValue: string | number | boolean;
+      let bValue: string | number | boolean;
+
+      // Handle combined customer name sort
+      if (sortColumn === 'customer_name') {
+        aValue = `${a.customer_first_name} ${a.customer_last_name}`;
+        bValue = `${b.customer_first_name} ${b.customer_last_name}`;
+      } else {
+        aValue = a[sortColumn as keyof Booking] ?? "";
+        bValue = b[sortColumn as keyof Booking] ?? "";
+      }
+
+      // Determining the type and compare
+      let comparison = 0;
+      switch (sortColumn) {
+        case 'booking_id': // Assuming numeric string
+        case 'customer_id':
+          const numA_id = parseInt(String(aValue), 10);
+          const numB_id = parseInt(String(bValue), 10);
+          if (isNaN(numA_id) && isNaN(numB_id)) comparison = 0;
+          else if (isNaN(numA_id)) comparison = -1; // Treat NaN as smaller
+          else if (isNaN(numB_id)) comparison = 1;  // Treat NaN as smaller
+          else comparison = numA_id - numB_id;
+          break;
+
+        case 'hours':
+        case 'total_price': // Assuming numeric string, potentially with currency
+          // Attempt to parse, removing non-numeric characters except decimal point
+          const numA_price = parseFloat(String(aValue).replace(/[^0-9.-]+/g, ""));
+          const numB_price = parseFloat(String(bValue).replace(/[^0-9.-]+/g, ""));
+          if (isNaN(numA_price) && isNaN(numB_price)) comparison = 0;
+          else if (isNaN(numA_price)) comparison = -1; // Treat NaN as smaller
+          else if (isNaN(numB_price)) comparison = 1;  // Treat NaN as smaller
+          else comparison = numA_price - numB_price;
+          break;
+
+        case 'date':
+        case 'created_at':
+        case 'updated_at':
+          const dateA = new Date(String(aValue)).getTime(); // Convert to timestamp
+          const dateB = new Date(String(bValue)).getTime();
+          if (isNaN(dateA) && isNaN(dateB)) comparison = 0;
+          else if (isNaN(dateA)) comparison = -1; // Treat invalid dates as smaller
+          else if (isNaN(dateB)) comparison = 1;  // Treat invalid dates as smaller
+          else comparison = dateA - dateB;
+          break;
+
+        case 'has_pets': // Boolean
+          const boolA = aValue ? 1 : 0;
+          const boolB = bValue ? 1 : 0;
+          comparison = boolA - boolB;
+          break;
+
+        case 'customer_first_name':
+        case 'customer_last_name':
+        case 'customer_email':
+        case 'customer_phone':
+        case 'customer_address':
+        case 'service_type':
+        case 'status':
+        case 'notes':
+        case 'time':
+        default:
+          comparison = String(aValue).toLowerCase().localeCompare(String(bValue).toLowerCase());
+          break;
+      }
+      return sortDirection === 'asc' ? comparison : -comparison;
+    });
+    return sortableBookings;
+  }, [bookings, sortColumn, sortDirection]);
+
 
   // Pagination logic
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
-  const currentBookings = bookings.slice(
+  const currentBookings = sortedBookings.slice(
     indexOfFirstBooking,
     indexOfLastBooking
   );
 
-  const totalPages = Math.ceil(bookings.length / bookingsPerPage);
+  const totalPages = Math.ceil(sortedBookings.length / bookingsPerPage);
 
   useEffect(() => {
     const fetchFeedbackReviews = async () => {
       setIsLoadingReviews(true); // Set loading state
       setErrorReviews(null); // Reset error state before fetching
       try {
-        const response = await fetch('../../api/all-reviews'); // Fetch feedback reviews from the API
+        const response = await fetch('/api/all-reviews'); // Fetch feedback reviews from the API
         if (!response.ok) {
           // Handle error response
           const errorData = await response.json().catch(() => ({})); // Try to get error message
@@ -205,7 +279,7 @@ const AdminDashboard = () => {
 
     // --- API Call ---
     try {
-      const response = await fetch('../../api/update-booking-status', {
+      const response = await fetch('/api/update-booking-status', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -267,6 +341,15 @@ const AdminDashboard = () => {
     }
   };
 
+  // --- Sorting Handler ---
+  const handleSort = (column: SortableBookingKeys) => {
+    const direction = (sortColumn === column && sortDirection === 'asc') ? 'desc' : 'asc';
+    setSortColumn(column);  // Set the column to sort by
+    setSortDirection(direction); // Set the direction of sorting
+    setCurrentPage(1); // Reset to the first page sorting
+  };
+
+
   // --- Fetch All Bookings ---
   useEffect(() => {
     const fetchAllBookings = async () => {
@@ -274,7 +357,7 @@ const AdminDashboard = () => {
       setErrorBookings(null);
       try {
         // Use absolute path for API routes
-        const response = await fetch('../../api/all-bookings');
+        const response = await fetch('/api/all-bookings');
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({})); // Try to get error message
           throw new Error(errorData.message || 'Failed to fetch bookings');
@@ -296,17 +379,68 @@ const AdminDashboard = () => {
     fetchAllBookings();
   }, []); // Empty dependency array to run only once on component mount
 
+
+  // --- Calendar Event Transformation (using sortedBookings if needed, but usually not necessary) ---
+  const calendarEvents = useMemo(() => {
+    // (Keep existing calendarEvents logic, it operates on the original 'bookings' is fine)
+    return bookings
+      .map((booking) => {
+        try {
+          const startDateTimeString = `${booking.date}T${booking.time}`;
+          const startDate = new Date(startDateTimeString);
+          const durationHours = parseFloat(booking.hours);
+          if (isNaN(durationHours) || durationHours <= 0) return null;
+          const endDate = new Date(startDate.getTime() + durationHours * 60 * 60 * 1000);
+          if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) return null;
+          return {
+            title: `ID: ${booking.booking_id} - ${booking.customer_first_name} (${booking.service_type})`,
+            start: startDate,
+            end: endDate,
+            resource: booking,
+            extendedProps: { resource: booking }
+          };
+        } catch (error) { console.error(`Error processing booking ${booking.booking_id} for calendar:`, error); return null; }
+      })
+      .filter(event => event !== null);
+  }, [bookings]);
+
   const isLoading = isLoadingReviews || isLoadingBookings;
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center font-semibold text-sm"><div className="spinner"></div> Loading dashboard data...</div>;
   }
 
+  // --- Calendar Event Handler ---
+  const handleEventClick = (clickInfo: EventClickArg) => {
+    // (Keep existing handleEventClick logic)
+    const booking = clickInfo.event.extendedProps.resource as Booking;
+
+    if (booking) { alert(`Clicked Booking:\nID: ${booking.booking_id}\nCustomer: ${booking.customer_first_name}\nService: ${booking.service_type}\nStatus: ${booking.status}`); }
+    else { alert(`Clicked: ${clickInfo.event.title}`); }
+    console.warn("Clicked event missing 'resource' in extendedProps:", clickInfo.event);
+  };
+
+  // ---  Render helper for Sortable Headers ---
+  const renderSortableHeader = (label: string, columnKey: SortableBookingKeys) => {
+    const isSorted = sortColumn === columnKey;
+    const icon = isSorted ? (sortDirection === 'asc' ? '▲' : '▼') : '';
+
+    return (
+      <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onClick={() => handleSort(columnKey)}>
+        <div className="flex items-center">
+          <span>{label}</span>
+          {/* --- Sort Icon --- */}
+          {isSorted && <span className="ml-1 text-gray-700">{icon}</span>}
+        </div>
+      </th>
+    );
+  };
+
   // --- Render the Admin Dashboard ---
   return (
-    <div className="min-h-screen flex flex-col bg-gray">
+    <div className="min-h-screen flex flex-col bg-gray-100">
       <AdminNavbar />
       <div className="flex-grow max-w-full mx-auto p-6">
-        <h1 className="text-4xl text-gray-600 font-bold mb-6 mt-10">Admin Dashboard</h1>
+        <h1 className="text-4xl text-gray-700 font-bold mb-6 mt-10">Admin Dashboard</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded shadow">
@@ -333,29 +467,30 @@ const AdminDashboard = () => {
           {errorBookings && <p className="text-red-600 font-medium">Error loading bookings: {errorBookings}</p>}
           {!isLoadingBookings && !errorBookings && (
             <div className="overflow-x-auto"> {/* Make table horizontally scrollable on small screens */}
-              {bookings.length > 0 ? (
+              {sortedBookings.length > 0 ? (
                 <>
                   <table className="max-w-full divide-y divide-gray-200" key={currentBookings.length}>
                     <thead className="bg-gray-50">
                       <tr>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hours</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pets</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Cost</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th scope="col" className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                        {/* --- Use renderSortableHeader --- */}
+                        {renderSortableHeader('ID', 'booking_id')}
+                        {renderSortableHeader('Customer', 'customer_name')} {/* Use virtual key */}
+                        {renderSortableHeader('Service', 'service_type')}
+                        {renderSortableHeader('Hours', 'hours')}
+                        {renderSortableHeader('Email', 'customer_email')}
+                        {renderSortableHeader('Date', 'date')}
+                        {renderSortableHeader('Time', 'time')}
+                        {renderSortableHeader('Phone', 'customer_phone')}
+                        {renderSortableHeader('Address', 'customer_address')}
+                        {renderSortableHeader('Pets', 'has_pets')}
+                        {renderSortableHeader('Notes', 'notes')}
+                        {renderSortableHeader('Total Cost', 'total_price')}
+                        {renderSortableHeader('Status', 'status')}
+                        {renderSortableHeader('Created', 'created_at')}
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {bookings.map((booking) => (
+                      {currentBookings.map((booking) => (
                         <tr key={booking.booking_id} className={`hover:bg-gray-50 ${updatingStatusId === booking.booking_id ? 'opacity-50' : ''}`}>
                           <td className="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-900">{booking.booking_id}</td>
                           <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{`${booking.customer_first_name} ${booking.customer_last_name}`}</td>
@@ -509,10 +644,10 @@ const AdminDashboard = () => {
             <FullCalendar
               plugins={[dayGridPlugin]}
               initialView="dayGridMonth"
-              events={events}
-              height={500}
+              events={calendarEvents}
+              height="500px"
+              eventClick={handleEventClick}
             />
-
           </div>
         </div>
       </div>

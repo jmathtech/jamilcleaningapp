@@ -592,7 +592,7 @@ const Dashboard = () => {
               My Bookings
             </h3>
             {isLoading ? (
-              <p className="min-h-screen flex items-center justify-center text-gray-400 font-semibold text-2xl"><div className="spinner"></div> Loading...</p>
+              <div className="min-h-screen flex items-center justify-center font-semibold text-sm"><div className="spinner"></div> Loading dashboard data...</div>
             ) : error ? (
               <p>Error: {error}</p>
             ) : bookings.length > 0 ? (

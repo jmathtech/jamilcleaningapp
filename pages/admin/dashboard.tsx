@@ -8,6 +8,7 @@ deleting bookings. The component is protected by authentication and authorizatio
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import AdminNavbar from '../../components/AdminNavbar';
 import Footer from '../../components/Footer';
 // import authGuard from "utils/admin/authGuard";
@@ -17,7 +18,6 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
-
 
 
 interface Review {
@@ -279,6 +279,28 @@ const AdminDashboard = () => {
     setUpdatingStatusId(bookingId); // Set loading state for this specific row
     setUpdateStatusError(null); // Clear previous errors
 
+    // --- Optimistic UI Update ---
+    // Find the index of the booking to update
+    const bookingIndex = bookings.findIndex(b => b.booking_id === bookingId);
+    if (bookingIndex === -1) {
+      console.error("Booking not found in local state:", bookingId);
+      setUpdateStatusError("Booking not found locally.");
+      setUpdatingStatusId(null);
+      return;
+    }
+
+    // Create a temporary copy of the original booking in case we need to revert
+    const originalBooking = { ...bookings[bookingIndex] };
+
+    // Create a new array with the updated booking status
+    const updatedBookings = [
+      ...bookings.slice(0, bookingIndex),
+      { ...originalBooking, status: newStatus }, // Update the status
+      ...bookings.slice(bookingIndex + 1),
+    ];
+    setBookings(updatedBookings); // Update the state immediately
+
+
     // --- API Call ---
     try {
       const response = await fetch('/api/update-booking-status', {
@@ -298,36 +320,13 @@ const AdminDashboard = () => {
         setBookings(prevBookings => {
           const revertIndex = prevBookings.findIndex(b => b.booking_id === bookingId);
           if (revertIndex === -1) return prevBookings; // Should not happen
-          return [
-            ...prevBookings.slice(0, revertIndex),
-            originalBooking, // Put the original booking back
-            ...prevBookings.slice(revertIndex + 1),
-          ];
+          
+          const revertedBookings = [...prevBookings];
+          revertedBookings[revertIndex] = originalBooking; // Put the original booking back
+          return revertedBookings;
         });
         throw new Error(result.message || 'Failed to update booking status.');
       }
-
-      // --- Optimistic UI Update ---
-      // Find the index of the booking to update
-      const bookingIndex = bookings.findIndex(b => b.booking_id === bookingId);
-      if (bookingIndex === -1) {
-        console.error("Booking not found in local state:", bookingId);
-        setUpdateStatusError("Booking not found locally.");
-        setUpdatingStatusId(null);
-        return;
-      }
-
-      // Create a temporary copy of the original booking in case we need to revert
-      const originalBooking = { ...bookings[bookingIndex] };
-
-      // Create a new array with the updated booking status
-      const updatedBookings = [
-        ...bookings.slice(0, bookingIndex),
-        { ...originalBooking, status: newStatus }, // Update the status
-        ...bookings.slice(bookingIndex + 1),
-      ];
-      setBookings(updatedBookings); // Update the state immediately
-
 
       // Success: No need to do anything extra, UI is already updated optimistically
       console.log(`Booking ${bookingId} status updated to ${newStatus}`);
@@ -395,12 +394,12 @@ const AdminDashboard = () => {
 
           const startDateTimeString = `${booking.date}T${booking.time}`;
           const startDate = new Date(startDateTimeString);
-          
+
           if (isNaN(startDate.getTime())) {
             console.warn(`Booking ${booking.booking_id} has invalid date or time: ${startDateTimeString}`);
             return null;
           }
-          
+
           const durationHours = parseFloat(booking.hours);
           if (isNaN(durationHours) || durationHours <= 0) {
             console.warn(`Booking ${booking.booking_id} has invalid hours: ${booking.hours}`);
@@ -408,15 +407,15 @@ const AdminDashboard = () => {
           }
 
           const endDate = new Date(startDate.getTime() + durationHours * 60 * 60 * 1000);
-          
+
           return {
             id: booking.booking_id,
             title: `ID: ${booking.booking_id} - ${booking.customer_first_name} (${booking.service_type})`,
             start: startDate,
             end: endDate,
-            extendedProps: { 
-              booking: booking 
-            },            
+            extendedProps: {
+              booking: booking
+            },
           };
         } catch (error) { console.error(`Error processing booking ${booking.booking_id} for calendar:`, error); return null; }
       })
@@ -464,12 +463,12 @@ const AdminDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded shadow">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Total # of Customers</h3>
-            <p className="text-xl font-bold">{totalCustomers}</p>
+            <p className="text-lg font-semibold text-gray-500">{totalCustomers}</p>
           </div>
 
           <div className="bg-white p-6 rounded shadow">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Total # of Bookings</h3>
-            <p className="text-xl font-bold">{bookings.length}</p>
+            <p className="text-lg font-semibold text-gray-500">{bookings.length}</p>
           </div>
         </div>
 
@@ -530,7 +529,7 @@ const AdminDashboard = () => {
                                 {expandedNotes[booking.booking_id] ? booking.notes : `${booking.notes.substring(0, 50)}...`}
                                 <button
                                   onClick={() => onReadMoreToggle(booking.booking_id)}
-                                  className="text-blue-500 hover:text-blue-700 text-xs ml-1 whitespace-nowrap"
+                                  className="text-green-600 hover:text-green-800 text-xs ml-1 whitespace-nowrap"
                                 >
                                   {expandedNotes[booking.booking_id] ? 'Show Less' : 'Read More'}
                                 </button>
@@ -614,6 +613,12 @@ const AdminDashboard = () => {
               )}
             </div>
           )}
+          <div className="text-xs text-gray-200 flex justify-end">
+              <Link href="https://www.majestikmagik.com">
+                &copy; Powered by MajestikMagik.com <br /> Design by Jamil
+                Matheny <br /> Version 1.0.0
+              </Link>
+            </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -657,7 +662,7 @@ const AdminDashboard = () => {
                 left: "prev,next today",
                 center: "title",
                 right: "dayGridMonth,timeGridWeek,timeGridDay",
-              }}              
+              }}
               events={calendarEvents}
               editable={true}
               selectable={true}

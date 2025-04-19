@@ -541,7 +541,7 @@ const AdminDashboard = () => {
 
                           <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.total_price}</td>
                           {/* --- STATUS CELL with Dropdown - RE-INTEGRATED --- */}
-                          <td className="px-3 py-3 whitespace-nowrap text-sm">
+                          <td className="px-5 py-3 whitespace-nowrap text-sm">
                             <select
                               value={booking.status}
                               // Ensure booking_id is number if handleStatusChange expects number

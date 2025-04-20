@@ -6,7 +6,7 @@ import { RowDataPacket } from "mysql2"; // Import OkPacket for type checking upd
 
 // Define allowed statuses server-side for validation
 // Ensure this matches the STATUS_OPTIONS in your frontend
-const ALLOWED_STATUSES: string[] = ['Pending', 'Confirmed', 'Inprogress', 'Completed']; // Add/remove as needed
+const ALLOWED_STATUSES: string[] = ['pending', 'confirmed', 'in progress', 'completed']; // Add/remove as needed
 
 // Define the expected request body structure for type safety
 interface UpdateStatusRequestBody {

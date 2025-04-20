@@ -1,19 +1,44 @@
-// components/AdminNavbar.tsx
+
+// Modified by: Jamil Matheny, Majestik Magik LLC
+
 import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../pages/context/AuthContext";
 import Modal from "react-modal";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
-
-
-const AdminNavbar = () => {
-  const { firstName, lastName, setFirstName, setLastName } = useAuth(); // Access context
-  const navbarRef = useRef<HTMLElement | null>(null);
+const Navbar = () => {
+  const { firstName, lastName, setFirstName, setLastName } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navbarRef = useRef<HTMLElement | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add isLoggedIn state
 
-  // Use useEffect to access sessionStorage only after the component is mounted
+  const router = useRouter();
+
+
+  // -- START: Scroll Effect --
+  const [isScrolled, setIsScrolled] = useState(false); // State to manage scroll position
+
+  useEffect(() => {
+    // Function to handle scroll event
+    const handleScroll = () => {
+      // Set isScrolled to true if the page is scrolled down more than 50px
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    // Add event listener for scroll event
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up event listener when component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+
+    };
+  }, []); // Empty dependency array to run only on mount and unmount
+  // -- END: Scroll Effect --
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedFirstName = sessionStorage.getItem("first_name");
@@ -28,54 +53,52 @@ const AdminNavbar = () => {
         setLastName(storedLastName);
       }
     }
-  }, [setFirstName, setLastName]); // Empty dependency array means this will only run on mount
+  }, [setFirstName, setLastName]);
+
+  // Check for token in sessionStorage after component mounts
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsLoggedIn(sessionStorage.getItem("token") !== null);
+    }
+  }, []);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("token"); // Remove token cookie
-    sessionStorage.removeItem("first_name"); // Remove first name cookie
-    sessionStorage.removeItem("last_name"); // Remove last name cookie
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("first_name");
+    sessionStorage.removeItem("last_name");
     sessionStorage.removeItem("email");
     sessionStorage.removeItem("phone");
     sessionStorage.removeItem("address");
-    setFirstName(null); // Clear context
+    setFirstName(null);
     setLastName(null);
-    window.location.href = "/admin/login"; // Redirect to login page after logout
+    router.replace("/login");
   };
-  // Open the modal
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
-
   };
 
-  // Close the modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
-  }
+  };
 
-  // Confirm logout and close modal
   const handleConfirmLogout = () => {
     handleLogout();
     handleCloseModal();
-  }
-
-  // Toggle the menu open state
-  const handleMenuToggle = () => {
-    setMenuOpen((prevState) => !prevState); // Toggle menu state
   };
 
-  // Close the menu when clicking outside
+  const handleMenuToggle = () => {
+    setMenuOpen((prevState) => !prevState);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        navbarRef.current &&
-        !navbarRef.current.contains(event.target as Node)
-      ) {
+      if (navbarRef.current && !navbarRef.current.contains(event.target as Node)) {
         setMenuOpen(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -83,66 +106,77 @@ const AdminNavbar = () => {
 
   return (
     <nav
-      className="bg-[#333] shadow text-white text-md p-6 relative"
+      className={`bg-[#333] shadow text-white text-md p-4 sticky top-0 z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'py-2 px-4' : 'p-2' // Shrink padding when scrolled
+        }`}
       ref={navbarRef}
     >
-
-      {/* Navigation Links - Desktop */}
       <div className="flex justify-between items-center">
-        <div className="space-x-10 hidden md:flex">
-          <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+        <div className="space-x-10 hidden xl:flex">
+          <Link href="/" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
             Home
           </Link>
-          <Link href="/admin/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
-            Admin Dashboard
-          </Link>
-          <Link href="/admin/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+          <Link href="/admin/signup" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
             Sign Up
           </Link>
-          <Link href="/admin/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+          <Link href="/admin/login" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
             Log In
           </Link>
+
+          {isLoggedIn && (
+            <>
+              <Link href="/admin/dashboard" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
+                Admin Dashboard
+              </Link>
+            </>
+          )}
         </div>
 
         <button
+          aria-label="Open Menu"
           onClick={handleMenuToggle}
-          className="md:hidden flex flex-col items-center justify-center space-y-1 w-8 h-8"
+          className="lg:hidden flex flex-col items-center justify-center space-y-1 w-8 h-8"
         >
           <div
-            className={`w-6 h-0.5 bg-white transition-all duration-300 transform ${menuOpen ? "rotate-45 translate-y-2" : ""
+            className={`w-6 h-0.5 bg-white transition-all duration-500 transform ${menuOpen ? "rotate-45 translate-y-2" : ""
               }`}
           ></div>
           <div
-            className={`w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "opacity-0" : ""
+            className={`w-6 h-0.5 bg-white transition-all duration-500 ${menuOpen ? "opacity-0" : ""
               }`}
           ></div>
           <div
-            className={`w-6 h-0.5 bg-white transition-all duration-300 transform ${menuOpen ? "-rotate-45 -translate-y-1" : ""
+            className={`w-6 h-0.5 bg-white transition-all duration-500 transform ${menuOpen ? "-rotate-45 -translate-y-1" : ""
               }`}
           ></div>
         </button>
 
-        <div
-          className={`xl:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow p-10 space-y-12 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-            } transition-all ease-in-out duration-500`}
-        >
+        <div className="text-sm font-semibold">
           {firstName && lastName ? (
             <>
-              Welcome, {firstName} {lastName.charAt(0)}.{" "}
-              <button onClick={handleOpenModal} className="ml-4 hover:underline">Log Out</button>
+              Hi, {firstName} {lastName.charAt(0)}.{" "}
+              <button onClick={handleOpenModal} className="ml-4 hover:underline">
+                Log Out
+              </button>
             </>
           ) : (
-            'Welcome, Admin'
+            <>
+              Welcome, Guest
+            </>
           )}
         </div>
       </div>
 
-      {/* Logout Modal */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
         style={{
-          overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
           content: {
             top: "50%",
             left: "50%",
@@ -155,7 +189,6 @@ const AdminNavbar = () => {
           },
         }}
       >
-        {/* Logout Modal Content */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -174,32 +207,44 @@ const AdminNavbar = () => {
               onClick={handleConfirmLogout}
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             >
-              Logout
+              Log Out
             </button>
           </div>
         </motion.div>
       </Modal>
 
-      {/* Mobile Menu */}
       <div
-        className={`md:hidden absolute left-0 top-20 w-full z-10 bg-[#333] shadow border-gray-300 border p-10 space-y-10 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          } transition-all ease-in-out duration-500`}
+        className={`lg:hidden absolute left-0 top-full w-full z-10 bg-[#333] shadow p-10 space-y-10 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          } transition-all ease-in-out duration-500 `}
       >
-        <Link href="/" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+        <Link href="/" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
           Home
         </Link>
-        <Link href="/admin/dashboard" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
-          Admin Dashboard
-        </Link>
-        <Link href="/admin/signup" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+        <Link href="/admin/signup" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
           Sign Up
         </Link>
-        <Link href="/admin/login" className="hover:duration-500 text-sm font-semibold hover:text-[#C5D89D] block">
+        <Link href="/admin/login" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
           Log In
         </Link>
+
+        {isLoggedIn && (
+          <>
+            <hr />
+            <Link href="/admin/dashboard" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
+              ${isScrolled ? 'text-md' : 'text-lg'}`}>
+              Admin Dashboard
+            </Link>
+
+          </>
+        )}
       </div>
     </nav>
   );
 };
 
-export default AdminNavbar;
+export default Navbar;
+
+

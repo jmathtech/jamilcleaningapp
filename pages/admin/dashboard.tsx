@@ -51,7 +51,7 @@ interface Booking {
   total_price: string;
 }
 
-const STATUS_OPTIONS: string[] = ['Pending', 'Inprogress', 'Confirmed', 'Completed'];
+const STATUS_OPTIONS: string[] = ['pending', 'confirmed', 'in progress', 'completed'];
 
 const AdminDashboard = () => {
 
@@ -291,12 +291,12 @@ const AdminDashboard = () => {
     const originalBooking = { ...bookings[bookingIndex] };
 
     // Create a new array with the updated booking status
-    const updatedBookings = [
+    const updatedBookingsOptimistic = [
       ...bookings.slice(0, bookingIndex),
       { ...originalBooking, status: newStatus }, // Update the status
       ...bookings.slice(bookingIndex + 1),
     ];
-    setBookings(updatedBookings); // Update the state immediately
+    setBookings(updatedBookingsOptimistic); // Update the state immediately
 
 
     // --- API Call ---
@@ -331,6 +331,16 @@ const AdminDashboard = () => {
 
     } catch (error) {
       console.error('Error updating booking status:', error);
+      // --- Revert UI on Failure ---
+      setBookings(prevBookings => {
+        const revertIndex = prevBookings.findIndex(b => b.booking_id === bookingId);
+        if (revertIndex === -1) return prevBookings; 
+
+        const revertedBookings = [...prevBookings];
+        revertedBookings[revertIndex] = originalBooking; // Put the original booking back
+        return revertedBookings;
+      });
+
       // Revert UI state already handled in the !response.ok block
       setUpdateStatusError(error instanceof Error ? error.message : 'An unknown error occurred during update.');
       // Optionally, display a more persistent error message to the user
@@ -544,10 +554,10 @@ const AdminDashboard = () => {
                               // Ensure booking_id is number if handleStatusChange expects number
                               onChange={(e) => handleStatusChange((booking.booking_id), e.target.value)}
                               disabled={updatingStatusId === booking.booking_id}
-                              className={`w-full p-1 border rounded text-xs leading-5 font-semibold ${booking.status === 'Completed' ? 'bg-green-100 text-green-800 border-green-300' :
-                                booking.status === 'Pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
-                                  booking.status === 'Inprogress' ? 'bg-orange-100 text-orange-800 border-orange-300' :
-                                    booking.status === 'Confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
+                              className={`w-full p-1 border rounded text-xs leading-5 font-semibold ${booking.status === 'completed' ? 'bg-green-100 text-green-800 border-green-300' :
+                                booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :   
+                                    booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
+                                    booking.status === 'in progress' ? 'bg-orange-100 text-orange-800 border-orange-300' :
                                       'bg-gray-100 text-gray-800 border-gray-300'
                                 } ${updatingStatusId === booking.booking_id ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                             >

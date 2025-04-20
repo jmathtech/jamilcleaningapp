@@ -432,7 +432,7 @@ const AdminDashboard = () => {
 
   const isLoading = isLoadingReviews || isLoadingBookings;
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center font-semibold text-sm"><div className="spinner"></div> Loading dashboard data...</div>;
+    return <div className="min-h-screen flex items-center justify-center font-semibold text-gray-500 text-sm"><div className="spinner"></div> Loading dashboard data...</div>;
   }
 
   // --- Calendar Event Handler ---

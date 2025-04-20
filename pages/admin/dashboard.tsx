@@ -466,7 +466,7 @@ const AdminDashboard = () => {
     <div className="min-h-screen flex flex-col bg-gray-100">
       <AdminNavbar />
       <div className="flex-grow max-w-full mx-auto p-6">
-        <h1 className="text-4xl text-gray-700 font-bold mb-6 mt-10">Admin Dashboard</h1>
+        <h1 className="text-4xl text-gray-400 font-bold mb-6 mt-6">Admin Dashboard</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded shadow">

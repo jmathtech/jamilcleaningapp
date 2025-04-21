@@ -506,7 +506,7 @@ const AdminDashboard = () => {
         {errorCustomers && <p className="text-red-600 font-medium">{errorCustomers}</p>}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-          <div className="bg-white p-6 border border-gray-400 rounded shadow">
+          <div className="bg-white p-6 border border-gray-300 rounded shadow">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Total # of Customers</h3>
             {isLoadingCustomers ? (<span className="text-gray-500">Loading customers...</span>
             ) : (
@@ -514,7 +514,7 @@ const AdminDashboard = () => {
             )}
           </div>
 
-          <div className="bg-white p-6 border border-gray-400 rounded shadow">
+          <div className="bg-white p-6 border border-gray-300 rounded shadow">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Total # of Bookings</h3>
             {isLoadingBookings ? (<span className="text-gray-500">Loading bookings...</span>
             ) : (
@@ -530,7 +530,7 @@ const AdminDashboard = () => {
         {updateStatusError && <p className="text-red-600 font-medium mt-4">{updateStatusError}</p>}
 
         {/* Bookings Section */}
-        <div className="bg-white p-6 border border-gray-400 rounded shadow mt-6 mb-8">
+        <div className="bg-white p-6 border border-gray-300 rounded shadow mt-6 mb-8">
           <h3 className="text-xl text-gray-700 font-bold mb-4">All Bookings</h3> {/* Adjusted size/color/margin */}
           {isLoadingBookings && <p className="text-gray-500">Loading bookings...</p>}
           {errorBookings && <p className="text-red-600 font-medium">Error loading bookings: {errorBookings}</p>}
@@ -671,7 +671,7 @@ const AdminDashboard = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {/* Feedback Reviews Section */}
-          <div className="bg-white p-6 border border-gray-400 rounded shadow-md mt-6"> {/* Added rounded-lg and shadow-md */}
+          <div className="bg-white p-6 border border-gray-300 rounded shadow-md mt-6"> {/* Added rounded-lg and shadow-md */}
             <h3 className="text-xl text-gray-700 font-bold mb-4">Feedback Reviews</h3> {/* Adjusted size/color/margin */}
             {isLoadingReviews && <p className="text-gray-500">Loading reviews...</p>} {/* Adjusted text color */}
             {errorReviews && <p className="text-red-600 font-medium">Error loading reviews: {errorReviews}</p>} {/* Adjusted text color/weight */}
@@ -699,7 +699,7 @@ const AdminDashboard = () => {
           {/* End Feedback Reviews Section */}
 
           {/* -- Calendar Section -- */}
-          <div className="bg-white p-6 border border-gray-400 rounded shadow-md mt-6">
+          <div className="bg-white p-6 border border-gray-300 rounded shadow-md mt-6">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Calendar</h3>
 
             {/* Placeholder for calendar */}

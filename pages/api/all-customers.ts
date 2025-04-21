@@ -2,6 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { query } from "../../lib/db";
 import { RowDataPacket } from "mysql2";
 
+interface CountResult extends RowDataPacket {
+    count: number;
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // 1. Check Request Method
@@ -11,16 +14,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
+        // 2. Fetch customer count from the database
         const results = await query(
-            `SELECT 
-                c*
-                FROM customers c
-                ORDER BY c.customer_id DESC`
-        ) as RowDataPacket[];
+            `SELECT COUNT(*) AS count FROM customers`
+        ) as CountResult[];
 
-        res.status(200).json({ customers: results });
+        // 3. Checks to see if results are valid
+        if (!results || results.length === 0 || typeof results[0].count !== 'number') {
+            console.error('Unexpected result format:', results);
+            
+        }
+        // 4. Extract the count from the results
+        const customerCount = results[0].count;
+
+        // 5. Send the response - Matched frontend structure
+        // Ensure the response structure matches what the frontend expects
+        res.status(200).json({ success: true, customerCount });
+
     } catch (error) {
-        console.error('Error fetching customers:', error);
-        res.status(500).json({ message: 'Failed to fetch customers.' });
+        
+        // 6. Handle potential database errors
+        console.error('API Error fetching customers count:', error);
+        const message = error instanceof Error ? error.message : 'Failed to fetch customers count.';
+        res.status(500).json({ success: false, message: message});
     }
 };

@@ -20,6 +20,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
 
+
 interface Review {
   booking_id: string;
   customer_first_name: string;
@@ -57,6 +58,8 @@ const AdminDashboard = () => {
 
   // State for total customers
   const [totalCustomers, setTotalCustomers] = useState(0);
+  const [isLoadingCustomers, setIsLoadingCustomers] = useState(true);
+  const [errorCustomers, setErrorCustomers] = useState<string | null>(null); // Error state for customers
 
   // State for feedback reviews
   const [feedbackReviews, setFeedbackReviews] = useState<Review[]>([]);
@@ -143,10 +146,42 @@ const AdminDashboard = () => {
 
 
   useEffect(() => {
-    const mockTotalCustomers = 150;
-    setTotalCustomers(mockTotalCustomers);
+    const fetchTotalCustomers = async () => {
+      setIsLoadingCustomers(true);
+      setErrorCustomers(null);
+      try {
+        const response = await fetch('/api/all-customers');
+        const responseData = await response.json().catch(() => ({ message: 'Failed to fetch total customers' }));
 
+        if (!response.ok) {
+          throw new Error(responseData?.message || 'Failed to fetch total customers');
+        }
 
+        if (responseData?.success) {
+          // Check for the correct property name: customerCount
+          if (typeof responseData.customerCount === 'number') {
+            console.log('Customer Count:', responseData.customerCount); // Log the correct value
+            setTotalCustomers(responseData.customerCount); // Use the correct property
+          } else if (Array.isArray(responseData.customers)) {
+            console.log('Customer Count (customers array length):', responseData.customers.length);
+            setTotalCustomers(responseData.customers.length);
+          } else {
+            console.error('Unexpected response format for total customers:', responseData);
+            throw new Error('Invalid response format for total customers');
+          }
+        } else {
+          console.error('Unsuccessful response for total customers:', responseData);
+          throw new Error(responseData?.message || 'Response was unsuccessful');
+        }
+      } catch (error) {
+        console.error('Error fetching total customers:', error);
+        setErrorCustomers(error instanceof Error ? error.message : 'An unknown error occurred');
+      } finally {
+        setIsLoadingCustomers(false);
+      }
+    };
+
+    fetchTotalCustomers();
   }, []);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -318,7 +353,7 @@ const AdminDashboard = () => {
         setBookings(prevBookings => {
           const revertIndex = prevBookings.findIndex(b => b.booking_id === bookingId);
           if (revertIndex === -1) return prevBookings; // Should not happen
-          
+
           const revertedBookings = [...prevBookings];
           revertedBookings[revertIndex] = originalBooking; // Put the original booking back
           return revertedBookings;
@@ -334,7 +369,7 @@ const AdminDashboard = () => {
       // --- Revert UI on Failure ---
       setBookings(prevBookings => {
         const revertIndex = prevBookings.findIndex(b => b.booking_id === bookingId);
-        if (revertIndex === -1) return prevBookings; 
+        if (revertIndex === -1) return prevBookings;
 
         const revertedBookings = [...prevBookings];
         revertedBookings[revertIndex] = originalBooking; // Put the original booking back
@@ -430,7 +465,7 @@ const AdminDashboard = () => {
       .filter(event => event !== null);
   }, [bookings]);
 
-  const isLoading = isLoadingReviews || isLoadingBookings;
+  const isLoading = isLoadingCustomers || isLoadingReviews || isLoadingBookings;
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center font-semibold text-gray-500 text-sm"><div className="spinner"></div> Loading dashboard data...</div>;
   }
@@ -438,7 +473,7 @@ const AdminDashboard = () => {
   // --- Calendar Event Handler ---
   const handleEventClick = (clickInfo: EventClickArg) => {
     // (Keep existing handleEventClick logic)
-    const booking = clickInfo.event.extendedProps.resource as Booking;
+    const booking = clickInfo.event.extendedProps.booking as Booking;
 
     if (booking) { alert(`Clicked Booking:\nID: ${booking.booking_id}\nCustomer: ${booking.customer_first_name}\nService: ${booking.service_type}\nStatus: ${booking.status}`); }
     else { alert(`Clicked: ${clickInfo.event.title}`); }
@@ -466,17 +501,25 @@ const AdminDashboard = () => {
     <div className="min-h-screen flex flex-col bg-gray-300">
       <AdminNavbar />
       <div className="flex-grow max-w-full mx-auto p-6">
-        <h1 className="text-4xl text-gray-400 font-bold mb-6 mt-6">Admin Dashboard</h1>
+        <h1 className="text-4xl text-gray-100 font-bold mb-6 mt-6">Admin Dashboard</h1>
+
+        {errorCustomers && <p className="text-red-600 font-medium">{errorCustomers}</p>}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded shadow">
+          <div className="bg-white p-6 border border-gray-400 rounded shadow">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Total # of Customers</h3>
-            <p className="text-lg font-semibold text-gray-500">{totalCustomers}</p>
+            {isLoadingCustomers ? (<span className="text-gray-500">Loading customers...</span>
+            ) : (
+              <p className="text-lg font-semibold text-gray-500">{totalCustomers}</p>
+            )}
           </div>
 
-          <div className="bg-white p-6 rounded shadow">
+          <div className="bg-white p-6 border border-gray-400 rounded shadow">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Total # of Bookings</h3>
-            <p className="text-lg font-semibold text-gray-500">{bookings.length}</p>
+            {isLoadingBookings ? (<span className="text-gray-500">Loading bookings...</span>
+            ) : (
+              <p className="text-lg font-semibold text-gray-500">{bookings.length}</p>
+            )}
           </div>
         </div>
 
@@ -487,7 +530,7 @@ const AdminDashboard = () => {
         {updateStatusError && <p className="text-red-600 font-medium mt-4">{updateStatusError}</p>}
 
         {/* Bookings Section */}
-        <div className="bg-white p-6 rounded-lg shadow mt-6 mb-8">
+        <div className="bg-white p-6 border border-gray-400 rounded shadow mt-6 mb-8">
           <h3 className="text-xl text-gray-700 font-bold mb-4">All Bookings</h3> {/* Adjusted size/color/margin */}
           {isLoadingBookings && <p className="text-gray-500">Loading bookings...</p>}
           {errorBookings && <p className="text-red-600 font-medium">Error loading bookings: {errorBookings}</p>}
@@ -555,8 +598,8 @@ const AdminDashboard = () => {
                               onChange={(e) => handleStatusChange((booking.booking_id), e.target.value)}
                               disabled={updatingStatusId === booking.booking_id}
                               className={`w-full p-1 border rounded text-xs leading-5 font-semibold ${booking.status === 'completed' ? 'bg-green-100 text-green-800 border-green-300' :
-                                booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :   
-                                    booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
+                                booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
+                                  booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
                                     booking.status === 'in progress' ? 'bg-orange-100 text-orange-800 border-orange-300' :
                                       'bg-gray-100 text-gray-800 border-gray-300'
                                 } ${updatingStatusId === booking.booking_id ? 'cursor-not-allowed' : 'cursor-pointer'}`}
@@ -619,16 +662,16 @@ const AdminDashboard = () => {
             </div>
           )}
           <div className="text-xs text-gray-200 flex justify-end">
-              <Link href="https://www.majestikmagik.com">
-                &copy; Powered by MajestikMagik.com <br /> Design by Jamil
-                Matheny <br /> Version 1.0.0
-              </Link>
-            </div>
+            <Link href="https://www.majestikmagik.com">
+              &copy; Powered by MajestikMagik.com <br /> Design by Jamil
+              Matheny <br /> Version 1.0.0
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {/* Feedback Reviews Section */}
-          <div className="bg-white p-6 rounded-lg shadow-md mt-6"> {/* Added rounded-lg and shadow-md */}
+          <div className="bg-white p-6 border border-gray-400 rounded shadow-md mt-6"> {/* Added rounded-lg and shadow-md */}
             <h3 className="text-xl text-gray-700 font-bold mb-4">Feedback Reviews</h3> {/* Adjusted size/color/margin */}
             {isLoadingReviews && <p className="text-gray-500">Loading reviews...</p>} {/* Adjusted text color */}
             {errorReviews && <p className="text-red-600 font-medium">Error loading reviews: {errorReviews}</p>} {/* Adjusted text color/weight */}
@@ -656,7 +699,7 @@ const AdminDashboard = () => {
           {/* End Feedback Reviews Section */}
 
           {/* -- Calendar Section -- */}
-          <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+          <div className="bg-white p-6 border border-gray-400 rounded shadow-md mt-6">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Calendar</h3>
 
             {/* Placeholder for calendar */}

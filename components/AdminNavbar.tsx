@@ -106,7 +106,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`bg-[#333] shadow text-white text-md p-4 sticky top-0 z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'py-2 px-4' : 'p-2' // Shrink padding when scrolled
+      className={`bg-[#333] border-b border-gray-100 shadow-lg text-white text-md p-4 sticky top-0 z-20 transition-all duration-300 ease-in-out ${isScrolled ? 'py-2 px-4' : 'p-2' // Shrink padding when scrolled
         }`}
       ref={navbarRef}
     >

@@ -242,7 +242,7 @@ const AdminDashboard = () => {
           const numB_id = parseInt(String(bValue), 10);
           if (isNaN(numA_id) && isNaN(numB_id)) comparison = 0;
           else if (isNaN(numA_id)) comparison = -1; // Treat NaN as smaller
-          else if (isNaN(numB_id)) comparison = 1; 
+          else if (isNaN(numB_id)) comparison = 1;
           else comparison = numA_id - numB_id; // Numeric comparison
           break;
 
@@ -253,7 +253,7 @@ const AdminDashboard = () => {
           const numB_price = parseFloat(String(bValue).replace(/[^0-9.-]+/g, ""));
           if (isNaN(numA_price) && isNaN(numB_price)) comparison = 0;
           else if (isNaN(numA_price)) comparison = -1; // Treat NaN as smaller
-          else if (isNaN(numB_price)) comparison = 1; 
+          else if (isNaN(numB_price)) comparison = 1;
           else comparison = numA_price - numB_price;
           break;
 
@@ -263,7 +263,7 @@ const AdminDashboard = () => {
           const dateB = new Date(String(bValue)).getTime();
           if (isNaN(dateA) && isNaN(dateB)) comparison = 0;
           else if (isNaN(dateA)) comparison = -1; // Treat invalid dates as smaller
-          else if (isNaN(dateB)) comparison = 1;  
+          else if (isNaN(dateB)) comparison = 1;
           else comparison = dateA - dateB;
           break;
 
@@ -537,12 +537,12 @@ const AdminDashboard = () => {
     <div className="min-h-screen flex flex-col bg-gray-300">
       <AdminNavbar />
       <div className="flex-grow max-w-full mx-auto p-6">
-        <h1 className="text-4xl text-gray-100 font-bold mb-6 mt-6">Admin Dashboard</h1>
+        <h1 className="text-4xl text-gray-700 font-bold mb-6 mt-6">Dashboard</h1>
 
         {/* Displays total customers fetch error */}
         {errorCustomers && <p className="text-red-600 font-medium">{errorCustomers}</p>}
 
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           <div className="bg-white p-6 border border-gray-400 rounded shadow">
 
@@ -632,7 +632,7 @@ const AdminDashboard = () => {
                           </td>
 
                           <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.total_price}</td>
-                          
+
                           {/* --- STATUS CELL with Dropdown --- */}
                           <td className="px-1 py-3 whitespace-nowrap text-sm">
                             <select
@@ -640,11 +640,12 @@ const AdminDashboard = () => {
                               // Ensure booking_id is number if { handleStatusChange } expects number
                               onChange={(e) => handleStatusChange((booking.booking_id), e.target.value)}
                               disabled={updatingStatusId === booking.booking_id}
-                              className={`w-full p-2 border rounded text-xs leading-5 font-semibold ${booking.status === 'completed' ? 'bg-green-100 text-green-800 border-green-300' :
-                                booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
-                                  booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
-                                    booking.status === 'in progress' ? 'bg-orange-100 text-orange-800 border-orange-300' :
-                                      'bg-gray-100 text-gray-800 border-gray-300'
+                              className={`w-full p-2 border rounded text-xs leading-5 font-semibold appearance-none  ${
+                                booking.status === 'completed' ? 'bg-green-100 text-green-800 border-green-300' :
+                                  booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
+                                    booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
+                                      booking.status === 'in progress' ? 'bg-orange-100 text-orange-800 border-orange-300' :
+                                        'bg-gray-100 text-gray-800 border-gray-300'
                                 } ${updatingStatusId === booking.booking_id ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                             >
                               {STATUS_OPTIONS.map(statusOption => (
@@ -704,7 +705,7 @@ const AdminDashboard = () => {
 
                 </>
               ) : (
-                <p className="text-gray-500">No bookings found.</p> 
+                <p className="text-gray-500">No bookings found.</p>
               )}
             </div>
           )}
@@ -717,17 +718,17 @@ const AdminDashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-          
+
           {/* Customer Feedback Reviews Section */}
-          <div className="bg-white p-6 border border-gray-400 rounded shadow-md mt-6"> 
-            <h3 className="text-xl text-gray-700 font-bold mb-4">Feedback Reviews</h3> 
-            {isLoadingReviews && <p className="text-gray-500">Loading reviews...</p>} 
+          <div className="bg-white p-6 border border-gray-400 rounded shadow-md mt-6">
+            <h3 className="text-xl text-gray-700 font-bold mb-4">Feedback Reviews</h3>
+            {isLoadingReviews && <p className="text-gray-500">Loading reviews...</p>}
             {errorReviews && <p className="text-red-600 font-medium">Error loading reviews: {errorReviews}</p>}
             {!isLoadingReviews && !errorReviews && (
-              <ul className="space-y-4"> 
+              <ul className="space-y-4">
                 {feedbackReviews.length > 0 ? (
                   feedbackReviews.map((review) => ( // Use booking_id from review as key
-                    <li key={review.booking_id} className="border-b border-gray-200 pb-3 last:border-b-0"> 
+                    <li key={review.booking_id} className="border-b border-gray-200 pb-3 last:border-b-0">
                       <p className="font-semibold text-gray-800">{`${review.customer_first_name} ${review.customer_last_name}`}</p>
                       {/* Display Rating */}
                       {typeof review.review_rating === 'number' && review.review_rating > 0 && (
@@ -750,7 +751,7 @@ const AdminDashboard = () => {
           <div className="bg-white p-6 border border-gray-400 rounded shadow-md mt-6">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Calendar</h3>
 
-            
+
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"

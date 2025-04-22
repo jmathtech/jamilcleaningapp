@@ -640,7 +640,7 @@ const AdminDashboard = () => {
                               // Ensure booking_id is number if { handleStatusChange } expects number
                               onChange={(e) => handleStatusChange((booking.booking_id), e.target.value)}
                               disabled={updatingStatusId === booking.booking_id}
-                              className={`w-full p-1 border rounded text-xs leading-5 font-semibold ${booking.status === 'completed' ? 'bg-green-100 text-green-800 border-green-300' :
+                              className={`w-full p-2 border rounded text-xs leading-5 font-semibold ${booking.status === 'completed' ? 'bg-green-100 text-green-800 border-green-300' :
                                 booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
                                   booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
                                     booking.status === 'in progress' ? 'bg-orange-100 text-orange-800 border-orange-300' :

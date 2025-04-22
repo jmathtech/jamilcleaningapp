@@ -12,7 +12,7 @@ import Link from 'next/link';
 import AdminNavbar from '../../components/AdminNavbar';
 import Footer from '../../components/Footer';
 // import authGuard from "utils/admin/authGuard";
-
+// import { useAuth } from "utils/admin/authContext";
 import { EventClickArg } from '@fullcalendar/core';
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -20,7 +20,8 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
 
-
+// Defines Review type
+// This type represents a review object with properties for booking ID, customer name, rating, comment, and creation date.
 interface Review {
   booking_id: string;
   customer_first_name: string;
@@ -30,9 +31,10 @@ interface Review {
   created_at: string;
 }
 
-// Define Booking type and SortableBookingKeys
+// Defines Booking type and SortableBookingKeys
 type SortableBookingKeys = keyof Booking | 'customer_name';
 
+// Defines Booking type
 interface Booking {
   booking_id: string;
   updated_at: string;
@@ -86,6 +88,9 @@ const AdminDashboard = () => {
 
 
   // Date formatting function
+  /* This function takes a date string in the format "YYYY-MM-DD" and returns it in a more readable format.
+   It handles invalid date formats and returns 'Invalid Date' if the input is not valid.
+  */
   const formatDate = (dateString: string | null | undefined): string => {
     if (!dateString) return 'N/A';
     try {
@@ -105,6 +110,8 @@ const AdminDashboard = () => {
     }
   };
 
+  // --- Read More / Show Less Toggle ---
+  // This function toggles the expanded state of notes for a specific booking.
   const onReadMoreToggle = (id: string) => {
     setExpandedNotes((prev) => ({
       ...prev,
@@ -114,6 +121,12 @@ const AdminDashboard = () => {
 
 
   // Time formatting function
+  /* This function takes a time string in the format "HH:MM" and returns it in a more readable format.
+    It handles invalid time formats and returns 'Invalid Time' if the input is not valid.
+    It also handles null or undefined values by returning 'N/A'.
+    The function uses a dummy date object to format the time correctly without being affected by the local timezone.
+    The function also ensures that seconds are set to zero to avoid timezone issues.
+  */
   const formatTime = (timeString: string | null | undefined): string => {
     if (!timeString) return 'N/A';
     try {
@@ -127,7 +140,11 @@ const AdminDashboard = () => {
         throw new Error("Invalid time value");
       }
 
-      // Create a dummy date object to use toLocaleTimeString
+      /* Create a dummy date object to use toLocaleTimeString
+       This is necessary to ensure the time is formatted correctly
+       without being affected by the local timezone
+       Set seconds to 0 to avoid timezone issues.
+       */
       const date = new Date();
       date.setHours(hours);
       date.setMinutes(minutes);
@@ -144,7 +161,15 @@ const AdminDashboard = () => {
     }
   };
 
-
+  // --- Fetch Total Customers ---
+  /* Fetch total customers from the API
+   This effect runs only once when the component mounts
+   and sets the total customers state.
+   It also handles loading and error states.
+   The API endpoint is assumed to be '/api/all-customers'.
+   The response is expected to be in the format:
+   { success: true, customerCount: number } or { success: false, message: string } 
+  */
   useEffect(() => {
     const fetchTotalCustomers = async () => {
       setIsLoadingCustomers(true);
@@ -184,12 +209,17 @@ const AdminDashboard = () => {
     fetchTotalCustomers();
   }, []);
 
+  // --- Pagination Handler ---
+  // This function handles pagination by setting the current page.
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   // --- Memoized Sorted Bookings ---
+  // This memoized value sorts the bookings based on the selected column and direction.
   const sortedBookings = useMemo(() => {
     const sortableBookings = [...bookings];
 
+    // Sort the bookings based on the selected column and direction.
+    // It handles different data types (string, number, date, boolean) for sorting.
     sortableBookings.sort((a, b) => {
       let aValue: string | number | boolean;
       let bValue: string | number | boolean;
@@ -208,12 +238,12 @@ const AdminDashboard = () => {
       switch (sortColumn) {
         case 'booking_id': // Assuming numeric string
         case 'customer_id':
-          const numA_id = parseInt(String(aValue), 10);
+          const numA_id = parseInt(String(aValue), 10); // Convert to number
           const numB_id = parseInt(String(bValue), 10);
           if (isNaN(numA_id) && isNaN(numB_id)) comparison = 0;
           else if (isNaN(numA_id)) comparison = -1; // Treat NaN as smaller
-          else if (isNaN(numB_id)) comparison = 1;  // Treat NaN as smaller
-          else comparison = numA_id - numB_id;
+          else if (isNaN(numB_id)) comparison = 1; 
+          else comparison = numA_id - numB_id; // Numeric comparison
           break;
 
         case 'hours':
@@ -223,7 +253,7 @@ const AdminDashboard = () => {
           const numB_price = parseFloat(String(bValue).replace(/[^0-9.-]+/g, ""));
           if (isNaN(numA_price) && isNaN(numB_price)) comparison = 0;
           else if (isNaN(numA_price)) comparison = -1; // Treat NaN as smaller
-          else if (isNaN(numB_price)) comparison = 1;  // Treat NaN as smaller
+          else if (isNaN(numB_price)) comparison = 1; 
           else comparison = numA_price - numB_price;
           break;
 
@@ -233,7 +263,7 @@ const AdminDashboard = () => {
           const dateB = new Date(String(bValue)).getTime();
           if (isNaN(dateA) && isNaN(dateB)) comparison = 0;
           else if (isNaN(dateA)) comparison = -1; // Treat invalid dates as smaller
-          else if (isNaN(dateB)) comparison = 1;  // Treat invalid dates as smaller
+          else if (isNaN(dateB)) comparison = 1;  
           else comparison = dateA - dateB;
           break;
 
@@ -243,6 +273,7 @@ const AdminDashboard = () => {
           comparison = boolA - boolB;
           break;
 
+        // String comparison
         case 'customer_first_name':
         case 'customer_last_name':
         case 'customer_email':
@@ -270,8 +301,13 @@ const AdminDashboard = () => {
     indexOfLastBooking
   );
 
+  // Calculate total pages based on the number of bookings and bookings per page.
   const totalPages = Math.ceil(sortedBookings.length / bookingsPerPage);
 
+
+  // --- Fetch Feedback Reviews ---
+  /* This effect fetches feedback reviews from the API when the component mounts.
+   It handles loading and error states. */
   useEffect(() => {
     const fetchFeedbackReviews = async () => {
       setIsLoadingReviews(true); // Set loading state
@@ -496,17 +532,21 @@ const AdminDashboard = () => {
     );
   };
 
-  // --- Render the Admin Dashboard ---
+  // --- Rendering the Admin Dashboard ---
   return (
     <div className="min-h-screen flex flex-col bg-gray-300">
       <AdminNavbar />
       <div className="flex-grow max-w-full mx-auto p-6">
         <h1 className="text-4xl text-gray-100 font-bold mb-6 mt-6">Admin Dashboard</h1>
 
+        {/* Displays total customers fetch error */}
         {errorCustomers && <p className="text-red-600 font-medium">{errorCustomers}</p>}
 
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           <div className="bg-white p-6 border border-gray-400 rounded shadow">
+
+            {/* Displays Total # of Customers */}
             <h3 className="text-xl text-gray-700 font-bold mb-4">Total # of Customers</h3>
             {isLoadingCustomers ? (<span className="text-gray-500">Loading customers...</span>
             ) : (
@@ -515,6 +555,8 @@ const AdminDashboard = () => {
           </div>
 
           <div className="bg-white p-6 border border-gray-400 rounded shadow">
+
+            {/* Display Total # of Bookings */}
             <h3 className="text-xl text-gray-700 font-bold mb-4">Total # of Bookings</h3>
             {isLoadingBookings ? (<span className="text-gray-500">Loading bookings...</span>
             ) : (
@@ -523,10 +565,10 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Display general booking fetch error */}
+        {/* Displays total booking fetch error */}
         {errorBookings && <p className="text-red-600 font-medium mt-4">{errorBookings}</p>}
 
-        {/* Display status update errors */}
+        {/* Displays status update errors */}
         {updateStatusError && <p className="text-red-600 font-medium mt-4">{updateStatusError}</p>}
 
         {/* Bookings Section */}
@@ -590,11 +632,12 @@ const AdminDashboard = () => {
                           </td>
 
                           <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-600">{booking.total_price}</td>
-                          {/* --- STATUS CELL with Dropdown - RE-INTEGRATED --- */}
+                          
+                          {/* --- STATUS CELL with Dropdown --- */}
                           <td className="px-1 py-3 whitespace-nowrap text-sm">
                             <select
                               value={booking.status}
-                              // Ensure booking_id is number if handleStatusChange expects number
+                              // Ensure booking_id is number if { handleStatusChange } expects number
                               onChange={(e) => handleStatusChange((booking.booking_id), e.target.value)}
                               disabled={updatingStatusId === booking.booking_id}
                               className={`w-full p-1 border rounded text-xs leading-5 font-semibold ${booking.status === 'completed' ? 'bg-green-100 text-green-800 border-green-300' :
@@ -617,6 +660,8 @@ const AdminDashboard = () => {
                       ))}
                     </tbody>
                   </table>
+
+                  {/* --- Pagination Controls --- */}
                   <div className="flex justify-center items-center">
                     <div className="flex justify-between mt-8 mb-8 space-x-2">
                       <button
@@ -655,9 +700,11 @@ const AdminDashboard = () => {
                       </button>
                     </div>
                   </div>
+                  {/* --- END Pagination Controls --- */}
+
                 </>
               ) : (
-                <p className="text-gray-500">No bookings found.</p>
+                <p className="text-gray-500">No bookings found.</p> 
               )}
             </div>
           )}
@@ -670,17 +717,18 @@ const AdminDashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-          {/* Feedback Reviews Section */}
-          <div className="bg-white p-6 border border-gray-400 rounded shadow-md mt-6"> {/* Added rounded-lg and shadow-md */}
-            <h3 className="text-xl text-gray-700 font-bold mb-4">Feedback Reviews</h3> {/* Adjusted size/color/margin */}
-            {isLoadingReviews && <p className="text-gray-500">Loading reviews...</p>} {/* Adjusted text color */}
-            {errorReviews && <p className="text-red-600 font-medium">Error loading reviews: {errorReviews}</p>} {/* Adjusted text color/weight */}
+          
+          {/* Customer Feedback Reviews Section */}
+          <div className="bg-white p-6 border border-gray-400 rounded shadow-md mt-6"> 
+            <h3 className="text-xl text-gray-700 font-bold mb-4">Feedback Reviews</h3> 
+            {isLoadingReviews && <p className="text-gray-500">Loading reviews...</p>} 
+            {errorReviews && <p className="text-red-600 font-medium">Error loading reviews: {errorReviews}</p>}
             {!isLoadingReviews && !errorReviews && (
-              <ul className="space-y-4"> {/* Removed list-disc, added spacing */}
+              <ul className="space-y-4"> 
                 {feedbackReviews.length > 0 ? (
                   feedbackReviews.map((review) => ( // Use booking_id from review as key
-                    <li key={review.booking_id} className="border-b border-gray-200 pb-3 last:border-b-0"> {/* Added border */}
-                      <p className="font-semibold text-gray-800">{`${review.customer_first_name} ${review.customer_last_name}`}</p> {/* Adjusted text color */}
+                    <li key={review.booking_id} className="border-b border-gray-200 pb-3 last:border-b-0"> 
+                      <p className="font-semibold text-gray-800">{`${review.customer_first_name} ${review.customer_last_name}`}</p>
                       {/* Display Rating */}
                       {typeof review.review_rating === 'number' && review.review_rating > 0 && (
                         <p className="text-yellow-500 my-1">{'⭐'.repeat(review.review_rating)} <span className="text-gray-500 text-sm">({review.review_rating}/5)</span></p>
@@ -696,13 +744,13 @@ const AdminDashboard = () => {
                 )}
               </ul>)}
           </div>
-          {/* End Feedback Reviews Section */}
+          {/* End Customer Feedback Reviews Section */}
 
-          {/* -- Calendar Section -- */}
+          {/* -- Calendar Section Begins -- */}
           <div className="bg-white p-6 border border-gray-400 rounded shadow-md mt-6">
             <h3 className="text-xl text-gray-700 font-bold mb-4">Calendar</h3>
 
-            {/* Placeholder for calendar */}
+            
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"
@@ -720,6 +768,8 @@ const AdminDashboard = () => {
               eventClick={handleEventClick}
             />
           </div>
+          {/* -- Calendar Section Ends -- */}
+
         </div>
       </div>
       <Footer />

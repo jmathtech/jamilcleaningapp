@@ -480,6 +480,9 @@ const AdminDashboard = () => {
     }
   };
 
+  useEffect(() => {
+    fetchAllBookings();
+  }, []);
   // Empty dependency array to run only once on component mount
 
 
@@ -527,7 +530,7 @@ const AdminDashboard = () => {
   const isLoading = isLoadingCustomers || isLoadingReviews || isLoadingBookings;
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center font-semibold text-gray-500 text-sm"><div className="spinner"></div> Loading dashboard data...</div>;
-  }
+  } 
 
   // --- Calendar Event Handler ---
   const handleEventClick = (clickInfo: EventClickArg) => {
@@ -668,6 +671,7 @@ const AdminDashboard = () => {
       alert(error instanceof Error ? error.message : 'An unknown error occurred while deleting the booking.');
     }
   }
+
 
   // ---  Render helper for Sortable Headers ---
   const renderSortableHeader = (label: string, columnKey: SortableBookingKeys) => {

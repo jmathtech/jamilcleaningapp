@@ -14,10 +14,24 @@ import Footer from '../../components/Footer';
 // import authGuard from "utils/admin/authGuard";
 // import { useAuth } from "utils/admin/authContext";
 import { EventClickArg } from '@fullcalendar/core';
+import { DateSelectArg } from '@fullcalendar/core';
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import BookingModal from '../../components/BookingModal';
+
+
+// Defines Customer type
+interface Customer {
+  customer_id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  address: string;
+  created_at: string;
+}
 
 
 // Defines Review type
@@ -37,28 +51,31 @@ type SortableBookingKeys = keyof Booking | 'customer_name';
 // Defines Booking type
 interface Booking {
   booking_id: string;
-  updated_at: string;
-  customer_id: number;
-  customer_first_name: string;
-  customer_last_name: string;
-  customer_email: string;
-  customer_phone: string;
-  customer_address: string;
-  hours: string;
+  updated_at?: string; // Optional as it might not be needed for create/edit form directly
+  customer_id: number | null; // Allow null for new bookings before customer selection
+  customer_first_name?: string; // Useful for display, but customer_id is key
+  customer_last_name?: string;
+  customer_email?: string;
+  customer_phone?: string;
+  customer_address?: string;
+  hours: string; // Keep as string to match input type, convert on save if needed
   notes?: string | null;
   service_type: string;
   has_pets: boolean;
-  date: string;
-  time: string;
+  date: string; // YYYY-MM-DD format
+  time: string; // HH:MM format (24-hour)
   status: string;
-  total_price: string;
+  total_price?: string; // Calculated, likely display-only in modal
 }
 
 const STATUS_OPTIONS: string[] = ['pending', 'confirmed', 'in progress', 'completed'];
+const SERVICE_TYPES: string[] = ['Standard/ Allergy Cleaning', 'Organizer', 'Deep Cleaning', 'Rental Cleaning', 'Move In/Out Cleaning'];
+
 
 const AdminDashboard = () => {
 
   // State for total customers
+  const [customers, setCustomers] = useState<Customer[]>([]);
   const [totalCustomers, setTotalCustomers] = useState(0);
   const [isLoadingCustomers, setIsLoadingCustomers] = useState(true);
   const [errorCustomers, setErrorCustomers] = useState<string | null>(null); // Error state for customers
@@ -81,6 +98,10 @@ const AdminDashboard = () => {
   // State for booking status
   const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
   const [updateStatusError, setUpdateStatusError] = useState<string | null>(null); // Error state for status updates
+
+  // State for calendar modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEventData, setSelectedEventData] = useState<DateSelectArg | Booking | null>(null);
 
   // --- State for Sorting ---
   const [sortColumn, setSortColumn] = useState<SortableBookingKeys>('booking_id'); // Default sort by created_at
@@ -174,6 +195,7 @@ const AdminDashboard = () => {
     const fetchTotalCustomers = async () => {
       setIsLoadingCustomers(true);
       setErrorCustomers(null);
+      setCustomers([]);
       try {
         const response = await fetch('/api/all-customers');
         const responseData = await response.json().catch(() => ({ message: 'Failed to fetch total customers' }));
@@ -208,6 +230,8 @@ const AdminDashboard = () => {
 
     fetchTotalCustomers();
   }, []);
+
+  
 
   // --- Pagination Handler ---
   // This function handles pagination by setting the current page.
@@ -431,33 +455,32 @@ const AdminDashboard = () => {
 
 
   // --- Fetch All Bookings ---
-  useEffect(() => {
-    const fetchAllBookings = async () => {
-      setIsLoadingBookings(true);
-      setErrorBookings(null);
-      try {
-        // Use absolute path for API routes
-        const response = await fetch('/api/all-bookings');
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({})); // Try to get error message
-          throw new Error(errorData.message || 'Failed to fetch bookings');
-        }
-        const data = await response.json();
-        if (data.success && Array.isArray(data.bookings)) {
-          setBookings(data.bookings); // Update total bookings count
-        } else {
-          throw new Error(data.message || 'Invalid data format for bookings');
-        }
-      } catch (error) {
-        console.error('Error fetching all bookings:', error);
-        setErrorBookings(error instanceof Error ? error.message : 'An unknown error occurred');
-      } finally {
-        setIsLoadingBookings(false);
-      }
-    };
 
-    fetchAllBookings();
-  }, []); // Empty dependency array to run only once on component mount
+  const fetchAllBookings = async () => {
+    setIsLoadingBookings(true);
+    setErrorBookings(null);
+    try {
+      // Use absolute path for API routes
+      const response = await fetch('/api/all-bookings');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({})); // Try to get error message
+        throw new Error(errorData.message || 'Failed to fetch bookings');
+      }
+      const BookingData = await response.json();
+      if (BookingData.success && Array.isArray(BookingData.bookings)) {
+        setBookings(BookingData.bookings); // Update total bookings count
+      } else {
+        throw new Error(BookingData.message || 'Invalid data format for bookings');
+      }
+    } catch (error) {
+      console.error('Error fetching all bookings:', error);
+      setErrorBookings(error instanceof Error ? error.message : 'An unknown error occurred');
+    } finally {
+      setIsLoadingBookings(false);
+    }
+  };
+
+  // Empty dependency array to run only once on component mount
 
 
   // --- Calendar Event Transformation (using sortedBookings if needed, but usually not necessary) ---
@@ -511,10 +534,140 @@ const AdminDashboard = () => {
     // (Keep existing handleEventClick logic)
     const booking = clickInfo.event.extendedProps.booking as Booking;
 
-    if (booking) { alert(`Clicked Booking:\nID: ${booking.booking_id}\nCustomer: ${booking.customer_first_name}\nService: ${booking.service_type}\nStatus: ${booking.status}`); }
-    else { alert(`Clicked: ${clickInfo.event.title}`); }
-    console.warn("Clicked event missing 'resource' in extendedProps:", clickInfo.event);
+    if (booking) {
+      console.log('Event clicked:', booking);
+      setSelectedEventData(booking); // Set the selected booking data
+      setIsModalOpen(true); // Open the modal
+    } else {
+      console.warn('Clicked event missing "booking" in extendedProps:', clickInfo.event);
+      // Optionally show a generic alert or do nothing
+      alert(`Clicked event: ${clickInfo.event.title}\n(Could not load details)`);
+    }
   };
+
+  // --- Calendar Date/Time Select Handler --- 
+  const handleDateSelect = (selectInfo: DateSelectArg) => {
+
+    console.log("Date selected:", selectInfo);
+    setSelectedEventData(selectInfo);
+    setIsModalOpen(true);
+    selectInfo.view.calendar.unselect();
+  };
+
+  // --- Close Modal Handler ---
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedEventData(null);
+  }
+
+
+  const handleModalSave = async (bookingData: Booking) => {
+    console.log("Modal Save triggered with data:", bookingData);
+
+    // TODO: Implement save logic here
+    // 1. Determine if this is an update, if data has booking_id) or create
+    // 2. Call the API to save the data (PUT for update, POST for create)
+    // 3. Handle the response
+    // 4. Update the local state if successful
+    // 5. Close the modal
+    // 6. Show a success message
+
+    // --- Determine if this is an update or create ---
+
+    if (!bookingData.customer_first_name === undefined) {
+      alert("Please select a customer.");
+      return;
+    }
+    if (!bookingData.date || !bookingData.time) {
+      alert("Please select a valid date and time.");
+      return;
+    }
+    if (parseInt(bookingData.hours, 10) <= 0) {
+      alert("Hours must be greater than zero.");
+      return;
+    }
+    try {
+      let response;
+      if (bookingData.booking_id) {
+        // Update existing booking
+        console.log("Updating booking:", bookingData.booking_id);
+        response = await fetch('/api/update-booking', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(bookingData),
+        });
+      } else {
+        // Create new booking
+        console.log("Creating new booking:", bookingData);
+        response = await fetch('/api/create-booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(bookingData),
+        });
+      }
+
+      // --- Handle the response ---
+      const responseData = await response.json();
+      if (!response.ok || !responseData.success) throw new Error(responseData.message || 'Failed to save booking.');
+
+      alert("Save successful!");
+      handleModalClose();
+      await fetchAllBookings(); // Refresh bookings after save
+    } catch (error) {
+      console.error('Error saving booking:', error);
+      alert(error instanceof Error ? error.message : 'An unknown error occurred while saving the booking.');
+    }
+  };
+
+  // --- Modal Delete/Cancel Handler ---
+  const handleModalDelete = async (bookingId: string) => {
+    console.log("Modal Delete triggered for booking ID:", bookingId);
+    if (window.confirm("Are you sure you want to delete this booking?")) {
+      try {
+        const response = await fetch('/api/cancel-booking', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bookingId }),
+        });
+
+        const result = await response.json();
+        if (!response.ok || !result.success) throw new Error(result.message || 'Failed to delete booking.');
+
+        alert("Booking deleted successfully!");
+        handleModalClose();
+        await fetchAllBookings(); // Refresh bookings after deletion
+      } catch (error) {
+        console.error('Error deleting booking:', error);
+        alert(error instanceof Error ? error.message : 'An unknown error occurred while deleting the booking.');
+      }
+    }
+
+    // --- Confirm Deletion ---
+    const confirmDelete = window.confirm("Are you sure you want to delete this booking?");
+    if (!confirmDelete) {
+      console.log("Deletion cancelled by user.");
+      return;
+    }
+
+    // --- API Call ---
+    try {
+      const response = await fetch('/api/delete-booking', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bookingId }),
+      });
+
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || 'Failed to delete booking.');
+
+      alert("Booking deleted successfully!");
+      handleModalClose();
+      await fetchAllBookings(); // Refresh bookings after deletion
+    } catch (error) {
+      console.error('Error deleting booking:', error);
+      alert(error instanceof Error ? error.message : 'An unknown error occurred while deleting the booking.');
+    }
+  }
 
   // ---  Render helper for Sortable Headers ---
   const renderSortableHeader = (label: string, columnKey: SortableBookingKeys) => {
@@ -640,12 +793,11 @@ const AdminDashboard = () => {
                               // Ensure booking_id is number if { handleStatusChange } expects number
                               onChange={(e) => handleStatusChange((booking.booking_id), e.target.value)}
                               disabled={updatingStatusId === booking.booking_id}
-                              className={`w-full p-2 border rounded text-xs leading-5 font-semibold appearance-none  ${
-                                booking.status === 'completed' ? 'bg-green-100 text-green-800 border-green-300' :
-                                  booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
-                                    booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
-                                      booking.status === 'in progress' ? 'bg-orange-100 text-orange-800 border-orange-300' :
-                                        'bg-gray-100 text-gray-800 border-gray-300'
+                              className={`w-full p-2 border rounded text-xs leading-5 font-semibold appearance-none  ${booking.status === 'completed' ? 'bg-green-100 text-green-800 border-green-300' :
+                                booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800 border-yellow-300' :
+                                  booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800 border-blue-300' :
+                                    booking.status === 'in progress' ? 'bg-orange-100 text-orange-800 border-orange-300' :
+                                      'bg-gray-100 text-gray-800 border-gray-300'
                                 } ${updatingStatusId === booking.booking_id ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                             >
                               {STATUS_OPTIONS.map(statusOption => (
@@ -767,9 +919,24 @@ const AdminDashboard = () => {
               dayMaxEvents={true}
               height="500px"
               eventClick={handleEventClick}
+              select={handleDateSelect}
             />
           </div>
           {/* -- Calendar Section Ends -- */}
+
+          {/* Modal for Booking Details */}
+          {isModalOpen && (
+            <BookingModal
+              isOpen={isModalOpen}
+              onClose={handleModalClose}
+              eventData={selectedEventData}
+              onSave={handleModalSave}              
+              onDelete={handleModalDelete}
+              customers={customers}
+              serviceTypes={SERVICE_TYPES}
+              statusOptions={STATUS_OPTIONS} // Pass status options to the modal
+            />
+          )}
 
         </div>
       </div>

@@ -73,14 +73,16 @@ const AdminLogin = () => {
           style={{ transform: "translateY(-60px)" }}
         >
           <div className="flex justify-center items-center p-10">
-            <Image // Image component from next/image
+            <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              width={250}
-              height={150}
+              width={100}
+              height={100}
               priority={true} // Load image immediately
-              style={{ minWidth: "150px", maxWidth: "250px" }}
+              style={{ minWidth: "100px", maxWidth: "100px" }}
             />
+            <p className="text-4xl font-bold font-montserrat text-gray-600">Majestik Magik</p>
+            <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4">CLEANING</p>
           </div>
           <h2 className="text-2xl text-[#545454] font-semibold mb-4">
             Admin Login
@@ -98,7 +100,7 @@ const AdminLogin = () => {
             />
           </div>
           <div className="flex justify-center">
-          <button
+            <button
               type="submit"
               aria-label="Submit"
               className={`px-10 py-2 ${isLoading

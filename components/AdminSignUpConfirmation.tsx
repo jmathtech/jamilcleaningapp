@@ -36,11 +36,13 @@ const AdminSignUpConfirmation = () => {
           <Image
             src="/img/majestik_magik_cleaning_01.png"
             alt="Majestik Magik Cleaning"
-            width={250}
-            height={150}
+            width={100}
+            height={100}
             priority={true} // Load image immediately
-            style={{ minWidth: "150px", maxWidth: "250px" }}
+            style={{ minWidth: "100px", maxWidth: "100px" }}
           />
+          <p className="text-4xl font-bold font-montserrat text-gray-600">Majestik Magik</p>
+          <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4">CLEANING</p>
           <h1 className="text-2xl font-bold text-[#545454] mb-4">
             Welcome to Majestik Magik Cleaning Admin Dashboard!
           </h1>

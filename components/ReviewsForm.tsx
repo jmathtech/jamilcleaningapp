@@ -58,7 +58,7 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
           }
 
           const bookingIdNumber = parseInt(bookingId);
-          if(isNaN(bookingIdNumber) || bookingIdNumber <= 0) {
+          if (isNaN(bookingIdNumber) || bookingIdNumber <= 0) {
             console.error("Invalid bookingId:", bookingId);
             return; // throw new Error("Invalid bookingId");
           }
@@ -143,14 +143,16 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
       <main className="min-h-screen flex items-center justify-center reviews-container">
         <div className="w-full max-w-2xl px-4 py-12 bg-white rounded-lg shadow">
           <div className="flex justify-center items-center p-4">
-            <Image // Image component from next/image
+            <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"
-              width={250}
-              height={150}
+              width={100}
+              height={100}
               priority={true} // Load image immediately
-              style={{ minWidth: "150px", maxWidth: "250px" }}
+              style={{ minWidth: "100px", maxWidth: "100px" }}
             />
+            <p className="text-4xl font-bold font-montserrat text-gray-600">Majestik Magik</p>
+            <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4">CLEANING</p>
           </div>
           <h1 className="text-3xl font-bold text-[#545454] px-4 mb-4">
             Client Review

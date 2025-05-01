@@ -33,16 +33,18 @@ const Home = () => {
         <div className="flex justify-center items-center min-h-screen px-4 relative z-10">
           <div className="bg-white mt-10 p-10 rounded-lg shadow w-full border-[#8ab13c] border max-w-lg text-center"
           >
-            <h1 className="flex justify-center items-center p-6">
+            <h1 className="flex justify-center items-center p-2">
               <Image
                 src="/img/majestik_magik_cleaning_01.png"
                 alt="Majestik Magik Cleaning"
-                width={250}
-                height={200}
+                width={100}
+                height={100}
                 priority={true} // Load image immediately
-                style={{ minWidth: "150px", maxWidth: "250px" }}
+                style={{ minWidth: "100px", maxWidth: "100px" }}
               />
             </h1>
+            <p className="text-4xl font-bold font-montserrat text-gray-600">Majestik Magik</p>
+            <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4">CLEANING</p>
             <p className="font-semibold text-2xl text-[#8ab13c] mt-2">
               HOUSE CLEANING SERVICES</p>
             <p className="font-semibold text-xl text-gray-600 mt-2">

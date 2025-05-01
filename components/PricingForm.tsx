@@ -47,14 +47,13 @@ const PricingForm = () => {
                     <Image
                         src="/img/majestik_magik_cleaning_01.png"
                         alt="Majestik Magik Cleaning"
-                        width={250}
-                        height={150}
-                        priority={true}
-                        style={{
-                            minWidth: "150px",
-                            maxWidth: "250px",
-                        }}
+                        width={100}
+                        height={100}
+                        priority={true} // Load image immediately
+                        style={{ minWidth: "100px", maxWidth: "100px" }}
                     />
+                    <p className="text-4xl font-bold font-montserrat text-gray-600">Majestik Magik</p>
+                    <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4">CLEANING</p>
                 </div>
                 <h1 style={styles.heading}>Pricing</h1>
                 <div style={styles.cardContainer}>
@@ -65,26 +64,26 @@ const PricingForm = () => {
                             <p style={styles.description}>{service.description}</p>
                         </div>
                     ))}
-                </div> 
+                </div>
                 <p className="text-lg p-8">
-            <Link
-              href="/signup"
-              className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
+                    <Link
+                        href="/signup"
+                        className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
 
-            >
-              <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
-                Sign Up Today!
-              </button>
-            </Link>
-            <Link
-              href="/login"
-              className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
-            >
-              <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-10 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
-                Log In
-              </button>
-            </Link>
-          </p>
+                    >
+                        <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
+                            Sign Up Today!
+                        </button>
+                    </Link>
+                    <Link
+                        href="/login"
+                        className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
+                    >
+                        <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-10 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
+                            Log In
+                        </button>
+                    </Link>
+                </p>
             </main>
             <Footer />
         </>

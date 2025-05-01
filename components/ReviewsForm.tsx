@@ -151,9 +151,10 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
               priority={true} // Load image immediately
               style={{ minWidth: "100px", maxWidth: "100px" }}
             />
-            <p className="text-4xl font-bold font-montserrat text-gray-600">Majestik Magik</p>
-            <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4">CLEANING</p>
           </div>
+          <p className="text-4xl font-bold font-montserrat text-gray-600">Majestik Magik</p>
+          <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4">CLEANING</p>
+
           <h1 className="text-3xl font-bold text-[#545454] px-4 mb-4">
             Client Review
           </h1>

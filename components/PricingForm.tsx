@@ -52,9 +52,9 @@ const PricingForm = () => {
                         priority={true} // Load image immediately
                         style={{ minWidth: "100px", maxWidth: "100px" }}
                     />
-                    <p className="text-4xl font-bold font-montserrat text-gray-600">Majestik Magik</p>
-                    <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4">CLEANING</p>
                 </div>
+                <p className="text-4xl font-bold font-montserrat text-gray-600 items-center">Majestik Magik</p>
+                    <p className="text-xl font-semibold font-montserrat text-[#8ab13c] items-center pb-4">CLEANING</p>
                 <h1 style={styles.heading}>Pricing</h1>
                 <div style={styles.cardContainer}>
                     {services.map((service, idx) => (

@@ -76,7 +76,7 @@ const LoginForm: React.FC = () => {
           className="bg-white mt-10 p-10 rounded-lg shadow border-[#8ab13c] border w-full max-w-lg"
           style={{ transform: "translateY(-60px)" }}
         >
-          <div className="flex justify-center items-center p-10">
+          <div className="flex justify-center items-center p-2">
             <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"

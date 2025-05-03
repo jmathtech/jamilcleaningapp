@@ -142,7 +142,7 @@ const ReviewsForm: React.FC<ReviewsFormProps> = ({
       <Navbar />
       <main className="min-h-screen flex items-center justify-center reviews-container">
         <div className="w-full max-w-2xl px-4 py-12 bg-white rounded-lg shadow">
-          <div className="flex justify-center items-center p-4">
+          <div className="flex justify-center items-center p-2">
             <Image
               src="/img/majestik_magik_cleaning_01.png"
               alt="Majestik Magik Cleaning"

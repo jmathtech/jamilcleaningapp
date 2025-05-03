@@ -42,8 +42,8 @@ const PricingForm = () => {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen" style={styles.container}>
-                <div className="flex justify-center items-center mt-10 p-10">
+            <main className="min-h-screen mt-10" style={styles.container}>
+                <div className="flex justify-center items-center p-2">
                     <Image
                         src="/img/majestik_magik_cleaning_01.png"
                         alt="Majestik Magik Cleaning"
@@ -54,7 +54,7 @@ const PricingForm = () => {
                     />
                 </div>
                 <p className="text-4xl font-bold font-montserrat text-gray-600 text-center">Majestik Magik</p>
-                    <p className="text-xl font-semibold font-montserrat text-[#8ab13c] text-center pb-4">CLEANING</p>
+                    <p className="text-xl font-semibold font-montserrat text-[#8ab13c] text-center pb-8">CLEANING</p>
                 <h1 style={styles.heading}>Pricing</h1>
                 <div style={styles.cardContainer}>
                     {services.map((service, idx) => (

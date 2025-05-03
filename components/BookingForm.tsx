@@ -122,8 +122,8 @@ const BookingForm = () => {
               style={{ minWidth: "100px", maxWidth: "100px" }}
             />
           </div>
-          <p className="text-4xl font-bold font-montserrat text-gray-600">Majestik Magik</p>
-          <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4">CLEANING</p>
+          <p className="text-4xl font-bold font-montserrat text-gray-600 text-center">Majestik Magik</p>
+          <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4 text-center">CLEANING</p>
 
           <h2 className="flex justify-center text-3xl text-[#545454] font-bold p-6">
             Book a Cleaning

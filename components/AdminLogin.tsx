@@ -81,9 +81,9 @@ const AdminLogin = () => {
               priority={true} // Load image immediately
               style={{ minWidth: "100px", maxWidth: "100px" }}
             />
-            <p className="text-4xl font-bold font-montserrat text-gray-600 text-center">Majestik Magik</p>
-            <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4 text-center">CLEANING</p>
           </div>
+          <p className="text-4xl font-bold font-montserrat text-gray-600 text-center">Majestik Magik</p>
+            <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4 text-center">CLEANING</p>
           <h2 className="text-2xl text-[#545454] font-semibold mb-4">
             Admin Login
           </h2>

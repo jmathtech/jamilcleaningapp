@@ -111,7 +111,7 @@ const BookingForm = () => {
     <>
       <Navbar />
       <div className="flex justify-center items-center min-h-screen px-2 py-12 booking-container">
-        <div className="bg-white p-2 rounded-lg shadow border-[#8ab13c] border w-full max-w-5xl">
+        <div className="bg-white mt-10 p-10 rounded-lg shadow border-[#8ab13c] border w-full max-w-4xl">
           <div className="flex justify-center items-center p-2">
             <Image
               src="/img/majestik_magik_cleaning_01.png"

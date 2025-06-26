@@ -77,7 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     await transporter.sendMail({
-      from: `"Majestik Magik Cleaning" <${process.env.EMAIL_USER}>`,
+      from: `"Jamil's Cleaning Services" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Email Verification",
       text: `Please click the following link to verify your email: ${verificationLink}`,
@@ -132,7 +132,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         </p>
         <p>If you did not request this verification, please ignore this email.</p>
         <p>Thank you,</p>
-        <p>The Majestik Magik Cleaning Team</p>
+        <p>The Jamil Cleaning Services Team</p>
     </div>
 </body>
 </html>`,

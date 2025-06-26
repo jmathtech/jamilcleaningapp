@@ -111,7 +111,7 @@ const Navbar = () => {
       ref={navbarRef}
     >
       <div className="flex justify-between items-center">
-        <div className="space-x-10 hidden xl:flex">
+        <div className="space-x-6 hidden xl:flex">
           <Link href="/" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out
               ${isScrolled ? 'text-md' : 'text-lg'}`}>
             Home
@@ -230,7 +230,7 @@ const Navbar = () => {
       </Modal>
 
       <div
-        className={`lg:hidden absolute left-0 top-full w-full z-10 bg-[#333] shadow p-10 space-y-10 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`lg:hidden absolute left-0 top-full w-full z-10 bg-[#333] shadow p-10 space-y-6 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           } transition-all ease-in-out duration-500 `} 
       >
         <Link href="/" className={`px-4 py-2 rounded text-sm font-semibold hover:duration-500 hover:text-[#C5D89D] hover:bg-gray-400 block transition-all duration-300 ease-in-out

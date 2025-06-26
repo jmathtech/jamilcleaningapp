@@ -46,15 +46,15 @@ const PricingForm = () => {
                 <div className="flex justify-center items-center p-2">
                     <Image
                         src="/img/majestik_magik_cleaning_01.png"
-                        alt="Majestik Magik Cleaning"
+                        alt="Jamil&apos;s Cleaning Services"
                         width={100}
                         height={100}
                         priority={true} // Load image immediately
                         style={{ minWidth: "100px", maxWidth: "100px" }}
                     />
                 </div>
-                <p className="text-4xl font-bold font-montserrat text-gray-600 text-center">Majestik Magik</p>
-                    <p className="text-xl font-semibold font-montserrat text-[#8ab13c] text-center pb-8">CLEANING</p>
+                <p className="text-2xl font-bold font-montserrat text-gray-600 text-center mb-4">Jamil&apos;s Cleaning Services</p>
+
                 <h1 style={styles.heading}>Pricing</h1>
                 <div style={styles.cardContainer}>
                     {services.map((service, idx) => (

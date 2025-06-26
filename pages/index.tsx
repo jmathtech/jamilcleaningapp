@@ -36,20 +36,20 @@ const Home = () => {
             <h1 className="flex justify-center items-center p-2">
               <Image
                 src="/img/majestik_magik_cleaning_01.png"
-                alt="Majestik Magik Cleaning"
+                alt="Jamil&apos;s Cleaning Services"
                 width={100}
                 height={100}
                 priority={true} // Load image immediately
                 style={{ minWidth: "100px", maxWidth: "100px" }}
               />
             </h1>
-            <p className="text-4xl font-bold font-montserrat text-gray-600">Majestik Magik</p>
-            <p className="text-xl font-semibold font-montserrat text-[#8ab13c] pb-4">CLEANING</p>
+            <p className="text-2xl font-bold font-montserrat text-gray-600 text-center mb-4">Jamil&apos;s Cleaning Services</p>
+           
             <p className="font-semibold text-2xl text-[#8ab13c] mt-2">
               HOUSE CLEANING SERVICES</p>
             <p className="font-semibold text-xl text-gray-600 mt-2">
               Prices start at $30 for a quality cleaning.</p>
-            <p className="text-gray-600 mt-2">Let&apos;s bring cleanliness & comfort to your space.</p>
+            <p className="text-gray-600 mt-2">Let us bring cleanliness & comfort to your space.</p>
             <p className="text-lg p-8">
               <Link
                 href="/signup"

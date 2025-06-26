@@ -95,7 +95,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount }) => {
             spacedAccordionItems: false,
         },
         business: {
-            name: 'Majestik Magik Cleaning',
+            name: 'Jamil Cleaning Services',
         },
         terms: {
             card: 'always',

@@ -9,9 +9,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Majestik Magik | Cleaning Services</title>
+        <title>Jamil&apos;s Cleaning Services</title>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="title" content="Majestik Magik | Cleaning Services" />
+        <meta name="title" content="Jamil&apos;s Cleaning Services" />
         <meta name="keywords" content="cleaning, cleaning service, janitorial, janitorial service, residential cleaning, commercial cleaning" />
         <meta name="author" content="Jamil Matheny, Majestik Magik" />
         <meta property="og:type" content="website" />
@@ -19,10 +19,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta property="og:locale" content="en_US" />
         <meta property="og:image:type" content="image/png" />
         <meta name="description" content="Get quality cleaning service with us. Let us bring cleanliness and comfort to your space!" />
-        <meta property="og:title" content="Majestik Magik | Cleaning Services" />
+        <meta property="og:title" content="Jamil&apos;s Cleaning Services" />
         <meta property="og:description" content="Get quality cleaning service with us. Let us bring cleanliness and comfort to your space!" />
         <meta property="og:image" content="/img/majestik_magik_cleaning_01.png" />
-        <meta property="og:url" content="https://majestikmagik.com" />
+        <meta property="og:url" content="https://jamilcleaningapp.vercel.app" />
         
       </Head>
       <AuthProvider>

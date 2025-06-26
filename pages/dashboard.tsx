@@ -247,10 +247,7 @@ const Dashboard = () => {
 
   const totalPages = Math.ceil(bookings.length / bookingsPerPage);
 
-  // Get the booking information 
-  const handlePrint = () => {
-    router.push('/print');
-  };
+
 
   // Function to open the reschedule modal
   const openRescheduleModal = (bookingId: string) => {
@@ -393,7 +390,7 @@ const Dashboard = () => {
                     contentLabel="Reschedule Booking"
                     style={{
                       overlay: {
-                        backgroundColor: "rgba(0, 0, 0, 0.5)", // Optional: Background overlay style
+                        backgroundColor: "rgba(0, 0, 0, 0.25)", // Optional: Background overlay style
                       },
                       content: {
                         top: "50%",
@@ -481,7 +478,7 @@ const Dashboard = () => {
                     contentLabel="Cancel Booking"
                     style={{
                       overlay: {
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        backgroundColor: "rgba(0, 0, 0, 0.25)",
                       },
                       content: {
                         top: "50%",
@@ -524,13 +521,7 @@ const Dashboard = () => {
                     </motion.div>
                   </Modal>
 
-                  <button
-                    onClick={handlePrint}
-                    className="bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-opacity duration-500 text-xs hover:opacity-80 font-bold py-1 px-3 flex items-center justify-center md:justify-normal md:space-x-2"
-                  >
-                    <i className="fa fa-print md:mr" aria-hidden="true"></i>
-                    <span className="hidden md:inline">Print</span>
-                  </button>
+                 
                 </div>
               </td>
             </tr>

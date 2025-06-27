@@ -1,5 +1,6 @@
 /* Created by Jamil Matheny, Majestik Magik
-  Website: cleaning.majestikmagik.com
+  Website: jamilcleaningapp.vercel.app
+  Description: Contact Support page for Jamil's Cleaning Services.
 
   This page now features a Gemini-powered chatbot for instant user support.
 */

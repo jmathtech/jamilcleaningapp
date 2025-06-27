@@ -36,7 +36,7 @@ const ContactSupport = () => {
     setMessages([
       {
         role: 'model',
-        content: "Hello! I'm your virtual assistant from Majestik Magik. How can I help you with our cleaning services today?"
+        content: "Hello! I'm your virtual assistant powered by MajestikMagik.com for Jamil's Cleaning Services. How can I help you with our cleaning services today?"
       }
     ]);
   }, []);
@@ -87,7 +87,7 @@ const ContactSupport = () => {
       <main className="flex-grow container mx-auto px-4 py-8 flex justify-center items-center">
         <div className="w-full max-w-2xl h-[70vh] flex flex-col bg-white p-4 rounded-lg shadow-xl border-[#8ab13c] border">
           <h1 className="text-xl text-gray-700 font-bold mb-4 text-center border-b pb-3">
-            Support Chat
+            Support AI Chat
           </h1>
           
           {/* Chat Messages Area */}

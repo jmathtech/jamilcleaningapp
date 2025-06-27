@@ -1,131 +1,138 @@
-// pages/contact-support.tsx
-/* 
-  Created by Jamil Matheny, Majestik Magik
+/* Created by Jamil Matheny, Majestik Magik
   Website: cleaning.majestikmagik.com
 
-  It is called when the user clicks the contact support button on the navbar.
-  It is called from the client side.
+  This page now features a Gemini-powered chatbot for instant user support.
 */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import authGuard from '../utils/authGuard';
 
-const ContactSupport = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState<'success' | 'error' | null>(null);
+// Define the structure of a chat message
+interface Message {
+  role: 'user' | 'model';
+  content: string;
+}
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+const ContactSupport = () => {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to the latest message
+  useEffect(() => {
+    chatContainerRef.current?.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+      behavior: 'smooth',
+    });
+  }, [messages]);
+  
+  // Set initial welcome message from the bot
+  useEffect(() => {
+    setMessages([
+      {
+        role: 'model',
+        content: "Hello! I'm your virtual assistant from Majestik Magik. How can I help you with our cleaning services today?"
+      }
+    ]);
+  }, []);
+
+  const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmissionStatus(null); // Reset submission status
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: Message = { role: 'user', content: input };
+    const newMessages = [...messages, userMessage];
+    
+    setMessages(newMessages);
+    setInput('');
+    setIsLoading(true);
+    setError(null);
 
     try {
-
-      // Send message to API
-      const response = await fetch('/api/contact-support', {
+      // Send message history to the backend API
+      const response = await fetch('/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, message }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          message: input, 
+          // We only send the last few messages to keep the context relevant and payload small
+          history: messages.slice(-6) 
+        }),
       });
-      // Handle response
-      if (response.ok) {
-        setSubmissionStatus('success');
-        setName('');
-        setEmail('');
-        setMessage('');
-      } else {
-        setSubmissionStatus('error');
+
+      if (!response.ok) {
+        throw new Error('Failed to get a response from the server.');
       }
-    } catch (error) {
-      
-      // Handle errors
-      console.error('Error sending message:', error);
-      setSubmissionStatus('error');
+
+      const data = await response.json();
+      const botMessage: Message = { role: 'model', content: data.reply };
+      setMessages(prev => [...prev, botMessage]);
+
+    } catch (err) {
+      console.error('Chat API error:', err);
+      setError('Sorry, I seem to be having trouble connecting. Please try again in a moment.');
     } finally {
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
-      <div className="flex container mx-auto px-4 py-10">
-        <div className="bg-white p-6 rounded shadow border-[#8ab13c] border max-w-5xl mx-auto">
-          <h1 className="text-2xl text-gray-600 font-bold mb-6 mt-10">Contact Support</h1>
-          <h3 className="text-lg text-gray-600 font-semibold mb-4">We are here to help!</h3>
-          <p className="text-sm text-gray-500 mb-6">
-            If you have any questions or need assistance, please fill out the form below, and we’ll get back to you as soon as possible.
-          </p>
+      <main className="flex-grow container mx-auto px-4 py-8 flex justify-center items-center">
+        <div className="w-full max-w-2xl h-[70vh] flex flex-col bg-white p-4 rounded-lg shadow-xl border-[#8ab13c] border">
+          <h1 className="text-xl text-gray-700 font-bold mb-4 text-center border-b pb-3">
+            Support Chat
+          </h1>
+          
+          {/* Chat Messages Area */}
+          <div ref={chatContainerRef} className="flex-grow overflow-y-auto mb-4 p-2 space-y-4">
+            {messages.map((msg, index) => (
+              <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-xs md:max-w-md lg:max-w-lg px-4 py-2 rounded-xl ${
+                  msg.role === 'user' 
+                    ? 'bg-[#8ab13c] text-white rounded-br-none' 
+                    : 'bg-gray-200 text-gray-800 rounded-bl-none'
+                }`}>
+                  <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                </div>
+              </div>
+            ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-gray-200 text-gray-800 rounded-xl rounded-bl-none px-4 py-2">
+                  <span className="animate-pulse">Typing...</span>
+                </div>
+              </div>
+            )}
+            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          </div>
 
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                className="w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required  
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
-                Message
-              </label>
-              <textarea
-                id="message"
-                rows={4 as number}
-                className="w-full px-3 py-2 rounded shadow"
-                placeholder="Your Message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                required
-              ></textarea>
-            </div>
-
+          {/* Input Form */}
+          <form onSubmit={handleSendMessage} className="flex items-center border-t pt-4">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your message..."
+              className="flex-grow px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#8ab13c]"
+              disabled={isLoading}
+            />
             <button
               type="submit"
-              className="bg-[#8ab13c] text-white px-4 py-2 rounded shadow hover:bg-[#b7d190] focus:outline-none focus:ring ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}"
-              disabled={isSubmitting}
+              disabled={isLoading || !input.trim()}
+              className="ml-3 bg-[#8ab13c] text-white px-5 py-2 rounded-full shadow hover:bg-[#b7d190] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#8ab13c] disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? 'Submitting...' : 'Submit'}
+              Send
             </button>
-            {submissionStatus === 'success' && (
-              <p className="text-green-500 mt-4">Your message is sent successfully!</p>
-            )}
-            {submissionStatus === 'error' && (
-              <p className="text-red-500 mt-4">Error sending message. Please try again later.</p>
-            )}
           </form>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );

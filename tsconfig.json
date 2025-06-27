@@ -32,16 +32,16 @@
         "./*"
       ],
       "@/pages/*": [
-        "src/pages/*"
+        "pages/*"
       ],
       "@/components/*": [
-        "src/components/*"
+        "components/*"
       ],
       "@/lib/*": [
-        "src/lib/*"
+        "lib/*"
       ],
       "@/api/*": [
-        "src/api/*"
+        "pages/api/*"
       ]
     },
     "noEmit": true
@@ -57,10 +57,7 @@
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "src/types/**/*.d.ts",
-    "next.config.ts",
-    "next.config.cjs"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

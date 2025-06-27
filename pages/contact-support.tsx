@@ -7,7 +7,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import authGuard from '../utils/authGuard';
+//import authGuard from '../utils/authGuard';
 
 // Define the structure of a chat message
 interface Message {
@@ -20,7 +20,7 @@ const ContactSupport = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to the latest message
@@ -30,13 +30,14 @@ const ContactSupport = () => {
       behavior: 'smooth',
     });
   }, [messages]);
-  
+
   // Set initial welcome message from the bot
   useEffect(() => {
     setMessages([
       {
         role: 'model',
         content: "Hello! I'm your virtual assistant powered by MajestikMagik.com for Jamil's Cleaning Services. How can I help you with our cleaning services today?"
+        
       }
     ]);
   }, []);
@@ -47,7 +48,7 @@ const ContactSupport = () => {
 
     const userMessage: Message = { role: 'user', content: input };
     const newMessages = [...messages, userMessage];
-    
+
     setMessages(newMessages);
     setInput('');
     setIsLoading(true);
@@ -58,10 +59,10 @@ const ContactSupport = () => {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          message: input, 
-          // We only send the last few messages to keep the context relevant and payload small
-          history: messages.slice(-6) 
+        body: JSON.stringify({
+          message: input,
+          // Only send history if there's more than just the initial welcome message
+          history: messages.length > 1 ? messages.slice(-6) : []
         }),
       });
 
@@ -89,16 +90,15 @@ const ContactSupport = () => {
           <h1 className="text-xl text-gray-700 font-bold mb-4 text-center border-b pb-3">
             Support AI Chat
           </h1>
-          
+
           {/* Chat Messages Area */}
           <div ref={chatContainerRef} className="flex-grow overflow-y-auto mb-4 p-2 space-y-4">
             {messages.map((msg, index) => (
               <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-xs md:max-w-md lg:max-w-lg px-4 py-2 rounded-xl ${
-                  msg.role === 'user' 
-                    ? 'bg-[#8ab13c] text-white rounded-br-none' 
+                <div className={`max-w-xs md:max-w-md lg:max-w-lg px-4 py-2 rounded-xl ${msg.role === 'user'
+                    ? 'bg-[#8ab13c] text-white rounded-br-none'
                     : 'bg-gray-200 text-gray-800 rounded-bl-none'
-                }`}>
+                  }`}>
                   <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                 </div>
               </div>
@@ -138,4 +138,4 @@ const ContactSupport = () => {
   );
 };
 
-export default authGuard(ContactSupport);
+export default ContactSupport;

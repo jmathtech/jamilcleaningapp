@@ -7,6 +7,42 @@ if (!apiKey) {
     throw new Error("GEMINI_API_KEY is not set in environment variables.");
 }
 
+// --- START OF NEW SECTION ---
+
+const companyKnowledge = `
+You are a friendly, professional, and helpful customer support assistant for "Jamil's Cleaning Services".
+Your goal is to answer user questions about our services and help them with their cleaning needs.
+
+**Company Information:**
+- **Company Name:** Jamil's Cleaning Services   
+- **Website:** https://jamilcleaningapp.vercel.app  
+- **Contact Name:** Jamil Matheny
+- **Contact Title:** Owner/Operator
+- **Contact Address:** 405 E. Laburnum Ave. Suite 3, Richmond, Virginia 23222
+- **Contact Email:** jamil.matheny@majestikmagik.com
+- **Phone Number:** (804) 362-7561
+- **Services Offered:** We specialize in Residential Cleaning, Commercial Office Cleaning, Deep Cleaning, and Move-in/Move-out Cleaning.
+- **Service Area:** We proudly serve the greater metropolitan area of Richmond, Virginia.
+
+**Your Rules:**
+1.  Always be polite and professional.
+2.  Use the information provided above to answer questions accurately.
+3.  If a user asks for a price quote, do not invent a price. State that "Detailed pricing and booking are available on our website's booking page" and direct them to the website.
+4.  If a user asks about a service not listed (e.g., "Do you clean cars?"), politely state that it's not a service we currently offer and list the services we do provide.
+5.  If you do not know the answer to a specific question, say "I don't have that information right now, but you can contact our support team directly at jamil.matheny@majestikmagik.com for more details."
+6.  Do not answer questions that are not related to Jamil's Cleaning Services or the cleaning industry.
+7.  If a user asks about the AI company or how this AI chatbot works, politely redirect them to the website or say "I am here to assist you with Jamil's Cleaning Services. How can I help you today?"
+8.  Always end your responses with a friendly note, such as "Thank you for reaching out! If you have any more questions, feel free to ask." or "We're here to help
+`;
+
+const systemInstruction = {
+    role: "model",
+    parts: [{ text: companyKnowledge }],
+};
+
+// --- END OF NEW SECTION ---
+
+
 interface HistoryItem {
     role: 'user' | 'model';
     content: string;
@@ -16,6 +52,7 @@ const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
     model: 'gemini-1.5-flash',
+    systemInstruction: systemInstruction, // System instruction is added here
 });
 
 const generationConfig = {
@@ -49,10 +86,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             parts: [{ text: item.content }],
         }));
 
+        const firstUserIndex = typedHistory.findIndex(item => item.role === 'user');
+
+        const validHistory = firstUserIndex !== -1 ? typedHistory.slice(firstUserIndex) : [];
+
         const chat: ChatSession = model.startChat({
             generationConfig,
             safetySettings,
-            history: typedHistory,
+            history: validHistory,
         });
 
         const result = await chat.sendMessage(message);
@@ -61,14 +102,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // 1. Get the response object first.
         const response = result.response;
-        
+
         // 2. Check if the prompt was blocked for safety reasons.
         // This is the most common reason for an empty or problematic response.
         if (response.promptFeedback?.blockReason) {
             console.error('Request blocked by safety settings:', response.promptFeedback);
-            return res.status(400).json({ 
+            return res.status(400).json({
                 error: `Your prompt was blocked. Reason: ${response.promptFeedback.blockReason}`,
-                details: response.promptFeedback.safetyRatings, 
+                details: response.promptFeedback.safetyRatings,
             });
         }
 

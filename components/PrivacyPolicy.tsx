@@ -6,20 +6,14 @@
   /components/PrivacyPolicy.tsx
 */
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const PrivacyPolicy = () => {
-  const [userFeedback, setUserFeedback] = useState<string>(''); // Example state
-  const router = useRouter();
 
-  const handleFeedbackSubmit = () => {
-    // Placeholder for a feature using state and router
-    alert(`Feedback submitted: ${userFeedback}`);
-    router.push('/thank-you'); // Example of redirecting to another page
-  };
+
+
 
   return (
     <>
@@ -91,20 +85,7 @@ const PrivacyPolicy = () => {
         </p>
         <p className="font-semibold">Email: jamil.matheny@majestikmagik.com</p>
         <p className="font-semibold">Phone: (804) 362-7561</p>
-
-        <h2 className="text-2xl font-semibold mt-8">Submit Your Feedback</h2>
-        <textarea
-          className="w-full border rounded-md p-2 mt-4"
-          placeholder="Leave your feedback here..."
-          value={userFeedback}
-          onChange={(e) => setUserFeedback(e.target.value)}
-        />
-        <button
-          className="mt-4 bg-[#8ab13c] text-white px-4 py-2 rounded-md hover:bg-[#C5D89D]"
-          onClick={handleFeedbackSubmit}
-        >
-          Submit Feedback
-        </button>
+        <p className="font-semibold">Address: 405 E. Laburnum Ave. Ste 3, Richmond, VA 23222</p>
       </div>
     </div>
       <Footer />

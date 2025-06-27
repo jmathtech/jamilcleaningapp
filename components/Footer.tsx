@@ -30,6 +30,7 @@ const Footer = () => {
         <div className="mt-2">
           <Link href="/privacy-policy" className="text-white font-semibold hover:text-[#C5D89D] px-2">Privacy Policy</Link>
           <Link href="/terms" className="text-white font-semibold hover:text-[#C5D89D] px-2">Terms of Service</Link>
+          <Link href="/contract" className="text-white font-semibold hover:text-[#C5D89D] px-2">House Cleaning Services Agreement</Link>
         </div>
       </div>
     </footer>

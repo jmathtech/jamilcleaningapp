@@ -7,7 +7,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-//import authGuard from '../utils/authGuard';
+import authGuard from '../utils/authGuard';
 
 // Define the structure of a chat message
 interface Message {
@@ -138,4 +138,4 @@ const ContactSupport = () => {
   );
 };
 
-export default ContactSupport;
+export default authGuard(ContactSupport);

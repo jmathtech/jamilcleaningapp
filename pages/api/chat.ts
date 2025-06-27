@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold, ChatSession } from '@google/generative-ai';
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold, ChatSession, Content } from '@google/generative-ai';
               
 // Ensure the API key is available
 const apiKey = process.env.GEMINI_API_KEY;
@@ -7,10 +7,15 @@ if (!apiKey) {
   throw new Error("GEMINI_API_KEY is not set in environment variables.");
 }
 
+interface HistoryItem {
+    role: 'user' | 'model';
+    content: string;
+}
+
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-  model: 'gemini-1.5-flash', // Use a modern, fast model
+  model: 'gemini-1.5-flash-latest', // Use a modern, fast model
 });
 
 // Configuration for content safety
@@ -40,18 +45,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'Message is required.' });
     }
 
+    // Validate history format
+    const typedHistory: Content[] = (history || []).map((item: HistoryItem) => ({
+        role: item.role,
+        parts: [{ text: item.content }],
+    }));
+
     // Start a chat session with the provided history
     const chat: ChatSession = model.startChat({
       generationConfig,
       safetySettings,
-      history: (history || []).map((item: { role: string; content: string }) => ({
-        role: item.role,
-        parts: [{ text: item.content }],
-      })),
+      history: typedHistory,
+      
     });
 
     const result = await chat.sendMessage(message);
     const response = result.response;
+
+    if (response.promptFeedback?.blockReason) {
+      return res.status(400).json({ 
+        error: `Request was blocked. Reason ${response.promptFeedback.blockReason}`,
+        details: response.promptFeedback?.safetyRatings, });
+    }
+
     const text = response.text();
 
     res.status(200).json({ reply: text });

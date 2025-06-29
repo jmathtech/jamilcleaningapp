@@ -101,6 +101,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         color: '#545454',
         fontSize: '2rem',
         fontWeight: 'bold',
+        fontFamily: 'Montserrat, sans-serif',
         marginBottom: '2rem',
     },
     cardContainer: {

@@ -65,13 +65,12 @@ const PricingForm = () => {
                         </div>
                     ))}
                 </div>
-                <p className="text-lg p-8">
+                <div className="flex flex-row justify-center items-center mt-6 gap-4">
                     <Link
                         href="/signup"
                         className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
-
                     >
-                        <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
+                        <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded" style={{ width: "auto", height: "auto" }}>
                             Sign Up Today!
                         </button>
                     </Link>
@@ -79,11 +78,11 @@ const PricingForm = () => {
                         href="/login"
                         className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
                     >
-                        <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-10 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
+                        <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-10 rounded" style={{ width: "auto", height: "auto" }}>
                             Log In
                         </button>
                     </Link>
-                </p>
+                </div>
             </main>
             <Footer />
         </>

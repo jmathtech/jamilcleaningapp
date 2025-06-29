@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import Image from "next/image"; // Import Image component
 import Navbar from "./Navbar"; // Import Navbar component
 import Footer from "./Footer"; // Import Footer component
+import Link from "next/link"; // Import Link component for navigation
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -78,7 +79,7 @@ const SignUp = () => {
             />
           </div>
           <p className="text-2xl font-bold font-montserrat text-gray-600 text-center mb-4">Jamil&apos;s Cleaning Services</p>
-        
+
           <h2 className="text-2xl text-[#545454] font-semibold mb-4">Sign Up</h2>
 
           <div className="mb-4">
@@ -144,13 +145,23 @@ const SignUp = () => {
           {errorMessage && (
             <div className="text-red-500 text-sm mb-4">{errorMessage}</div>
           )}
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className="px-10 py-2 bg-[#8ab13c] text-white text-lg font-bold rounded hover:bg-[#C5D89D]  transition-colors duration-1000 ease-in-out`"
+          <div className="flex flex-row justify-center items-center mt-6 gap-4">
+            <Link
+              href="/signup"
+              className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
             >
-              Sign Up
-            </button>
+              <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded" style={{ width: "auto", height: "auto" }}>
+                Sign Up
+              </button>
+            </Link>
+            <Link
+              href="/login"
+              className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
+            >
+              <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-10 rounded" style={{ width: "auto", height: "auto" }}>
+                Log In
+              </button>
+            </Link>
           </div>
         </form>
       </div>

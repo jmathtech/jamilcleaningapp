@@ -30,7 +30,7 @@ const Home = () => {
         </video>
 
 
-        <div className="flex justify-center items-center min-h-screen px-4 relative z-10">
+        <div className="flex flex-row justify-center items-center min-h-screen px-4 relative z-10">
           <div className="bg-white mt-10 p-10 rounded-lg shadow w-full border-[#8ab13c] border max-w-lg text-center"
           >
             <h1 className="flex justify-center items-center p-2">
@@ -44,19 +44,18 @@ const Home = () => {
               />
             </h1>
             <p className="text-2xl font-bold font-montserrat text-gray-600 text-center mb-4">Jamil&apos;s Cleaning Services</p>
-           
+
             <p className="font-semibold text-2xl text-[#8ab13c] mt-2">
               HOUSE CLEANING SERVICES</p>
             <p className="font-semibold text-xl text-gray-600 mt-2">
               Prices start at $30 for a quality cleaning.</p>
             <p className="text-gray-600 mt-2">Let us bring cleanliness & comfort to your space.</p>
-            <p className="text-lg p-8">
+            <div className="flex flex-row justify-center items-center mt-6 gap-4">
               <Link
                 href="/signup"
                 className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
-
               >
-                <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
+                <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded" style={{ width: "auto", height: "auto" }}>
                   Sign Up Today!
                 </button>
               </Link>
@@ -64,11 +63,11 @@ const Home = () => {
                 href="/login"
                 className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
               >
-                <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-10 rounded mx-4 mb-2" style={{ width: "auto", height: "auto" }}>
+                <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-10 rounded" style={{ width: "auto", height: "auto" }}>
                   Log In
                 </button>
               </Link>
-            </p>
+            </div>
           </div>
         </div>
 

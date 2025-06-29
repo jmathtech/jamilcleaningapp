@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import Image from "next/image";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Link from "next/link";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -107,7 +108,15 @@ const LoginForm: React.FC = () => {
               required
             />
           </div>
-          <div className="flex justify-center">
+          <div className="flex flex-row justify-center items-center mt-6 gap-4">
+            <Link
+              href="/signup"
+              className="text-[#8ab13c] font-bold hover:text-[#C5D89D]"
+            >
+              <button className="bg-[#8ab13c] transition-opacity duration-1000 text-md hover:opacity-80 hover:bg-[#9bbe56] text-white font-bold py-2 px-8 rounded" style={{ width: "auto", height: "auto" }}>
+                Sign Up Today!
+              </button>
+            </Link>
             <button
               type="submit"
               aria-label="Submit"
@@ -127,6 +136,8 @@ const LoginForm: React.FC = () => {
               )}
             </button>
           </div>
+
+
 
           {/* Divider with "or" text */}
           <div className="flex items-center my-6">

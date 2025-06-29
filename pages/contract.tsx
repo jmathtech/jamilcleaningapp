@@ -26,7 +26,7 @@ const ContractAgreement = () => {
 
     const weWillNotClean = [
         "Laundry", "Mold removal (requires specialists)", "Pest control/removal",
-        "Rodent control/removal", "Outside / indoor animal feces",
+        "Rodent control/removal", "Bodily fluids", "Outside / indoor animal feces",
         "Hoarder's house (requires specialists)", "Tree bark / scraps removal"
     ];
 

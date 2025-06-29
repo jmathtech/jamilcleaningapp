@@ -59,9 +59,9 @@ const PaymentForm = () => {
         console.log("Data from fetch", data);
 
         if (data.bookingData) {
-          // Ensure keys from bookingData match formData
-          setFormData({
-            ...formData,
+          // Check if bookingData exists in the response
+          setFormData((prevData) => ({ // Update prevData with bookingData
+            ...prevData,
             booking_id: data.bookingData.booking_id || "",
             service_type: data.bookingData.service_type || "",
             date: data.bookingData.date || "",
@@ -84,7 +84,7 @@ const PaymentForm = () => {
               }
               return parsedPrice;
             })(),
-          });
+          }));
         } else {
           console.error("bookingData is missing from the response", data);
         }

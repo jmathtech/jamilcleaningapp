@@ -63,7 +63,7 @@ const Dashboard = () => {
       opacity: 1,
       transition: {
         duration: 0.6,
-        ease: [0.68, -0.55, 0.27, 1.55], // Custom ease for bounce
+        ease: [0.68, -0.55, 0.27, 1.55] as const, // Custom ease for bounce
       },
     },
   };
